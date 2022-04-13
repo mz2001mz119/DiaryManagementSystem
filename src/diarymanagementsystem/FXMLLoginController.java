@@ -34,6 +34,8 @@ import javafx.util.Duration;
  *
  * @author HI-TECH
  */
+//----
+//-------
 public class FXMLLoginController implements Initializable {
 
     @FXML
