@@ -28,6 +28,7 @@ public class DiaryManagementSystem extends Application {
         stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
+       //hello
     }
     
     
