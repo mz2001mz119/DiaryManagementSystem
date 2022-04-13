@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane id="backgroundPane" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" stylesheets="@css/mainCss.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16" fx:controller="diarymanagementsystem.FXMLEmailSentSuccessfullyController">
+   <children>
+      <ImageView layoutX="10.0" layoutY="10.0" style="-fx-opacity: 0.05;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@images/background/bulletin-board-g297cea5e9_1920.jpg" />
+         </image>
+         <effect>
+            <Lighting diffuseConstant="1.39" specularConstant="1.94" specularExponent="40.0" surfaceScale="0.0">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant>
+                     <color>
+                        <Color red="0.8105263113975525" green="0.7649123072624207" blue="0.9473684430122375" />
+                     </color>
+                  </Light.Distant>
+               </light>
+            </Lighting>
+         </effect>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <AnchorPane id="secondaryPane" layoutX="486.0" layoutY="36.0" minHeight="600.0" minWidth="500.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <Label layoutX="173.0" layoutY="43.0" prefWidth="500.0" text="Email has been sent successfully" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+               <font>
+                  <Font name="AdobeSongStd-Light" size="40.0" />
+               </font>
+            </Label>
+            <Button id="button" fx:id="backButton" layoutX="128.0" layoutY="400.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="70.0" prefWidth="250.0" text="Back" textFill="#da0037" AnchorPane.bottomAnchor="170.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Button>
+            <Text fill="WHITE" layoutX="242.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please check your email, The password is valid for one hour only after sending it." textAlignment="CENTER" wrappingWidth="400.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="190.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

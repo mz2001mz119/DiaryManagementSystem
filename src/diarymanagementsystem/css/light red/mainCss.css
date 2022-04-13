@@ -1,0 +1,251 @@
+* {
+    -fx-main-background-color: #082032;
+    -fx-secondary-background-color:#0A283E;
+	-fx-primary-color: #DA0037;
+	-fx-secondary-color: #EA0640;
+    -fx-secondary-color-withOpacity: rgba(68, 68, 68, 0.5);
+    -fx-dark-primary-color:#B2002D;
+	-fx-light-grey-color: #d1d1d1;
+    -fx-dark-grey-color:#BCBCBC;
+    -fx-text-color: white;
+}
+#backgroundPane{
+    -fx-background-color:  -fx-light-grey-color;
+}
+#slideMenu{
+    -fx-background-color:  -fx-main-background-color;
+    -fx-border-color:  -fx-primary-color transparent -fx-primary-color transparent;
+    -fx-border-width:  3px;
+}
+#secondarySlideMenu{
+    -fx-background-color:  -fx-secondary-background-color;
+    -fx-border-color:  -fx-primary-color transparent -fx-primary-color transparent;
+    -fx-border-width:  3px;
+    -fx-background-radius: 0px;
+    -fx-border-radius: 0px;
+}
+#sliderMenuTextButton{
+    -fx-text-fill: -fx-dark-primary-color; 
+    -fx-font-size: 22px; 
+    -fx-font-family: System ;
+    -fx-background-color:transparent;
+    -fx-alignment: center-left;
+}
+#sliderMenuTextButton:hover{
+    -fx-background-color:  -fx-primary-color;
+    -fx-text-fill: -fx-text-color;
+}
+#sliderMenuTextButton:armed{
+    -fx-background-color:  -fx-secondary-color;
+    -fx-text-fill: -fx-text-color;
+}
+#sliderMenuHideButton,#sliderMenuHomeButton,#sliderMenuProfileButton,#sliderMenuCalendarButton,#sliderMenuGroupsButton,
+#sliderMenuInvitationButton,#sliderMenuSettingsButton
+{
+    -fx-background-color:  transparent;
+    -fx-background-repeat: no-repeat; 
+    -fx-background-size: 30px 30px; 
+    -fx-background-position: center center;
+}
+#sliderMenuHideButton{-fx-background-image: url('../../images/icons/menu.png');}
+#sliderMenuHomeButton{-fx-background-image: url('../../images/icons/home.png');}
+#sliderMenuProfileButton{-fx-background-image: url('../../images/icons/profile.png');}
+#sliderMenuCalendarButton{-fx-background-image: url('../../images/icons/calendar.png');}
+#sliderMenuGroupsButton{-fx-background-image: url('../../images/icons/group.png');}
+#sliderMenuInvitationButton{-fx-background-image: url('../../images/icons/invitation.png');}
+#sliderMenuSettingsButton{-fx-background-image: url('../../images/icons/setting.png');}
+
+#sliderMenuHideButton:hover, #sliderMenuHomeButton:hover, #sliderMenuProfileButton:hover, #sliderMenuCalendarButton:hover,#sliderMenuGroupsButton:hover,#sliderMenuInvitationButton:hover,#sliderMenuSettingsButton:hover {
+    -fx-background-color:  -fx-primary-color;
+    -fx-border-color: -fx-primary-color;
+    -fx-background-repeat: no-repeat; 
+    -fx-background-size: 30px 30px; 
+    -fx-background-position: center center;
+}
+#sliderMenuHideButton:hover{-fx-background-image: url('../../images/icons/menuW.png');}
+#sliderMenuHomeButton:hover{-fx-background-image: url('../../images/icons/homeW.png');}
+#sliderMenuProfileButton:hover{-fx-background-image: url('../../images/icons/profileW.png');}
+#sliderMenuCalendarButton:hover{-fx-background-image: url('../../images/icons/calendarW.png');}
+#sliderMenuGroupsButton:hover{-fx-background-image: url('../../images/icons/groupW.png');}
+#sliderMenuInvitationButton:hover{-fx-background-image: url('../../images/icons/invitationW.png');}
+#sliderMenuSettingsButton:hover{-fx-background-image: url('../../images/icons/settingW.png');}
+
+
+#sliderMenuHideButton:armed, #sliderMenuHomeButton:armed, #sliderMenuProfileButton:armed, #sliderMenuCalendarButton:armed,#sliderMenuGroupsButton:armed,#sliderMenuInvitationButton:armed,#sliderMenuSettingsButton:armed{
+    -fx-background-color:  -fx-secondary-color;
+    -fx-border-color: -fx-secondary-color;
+    -fx-background-repeat: no-repeat; 
+    -fx-background-size: 30px 30px; 
+    -fx-background-position: center center;
+}
+
+#topBarButtons{
+    -fx-background-color:  transparent;
+    -fx-border-color: transparent;
+    -fx-text-fill:-fx-primary-color ; 
+}
+#topBarButtons:hover {
+    -fx-background-color:  #C1C1C1;
+    -fx-text-fill:-fx-primary-color ; 
+}
+#topBarButtons:armed {
+    -fx-background-color:  -fx-dark-grey-color;
+    -fx-text-fill:-fx-primary-color ; 
+}
+#textFieldDisable{
+    -fx-background-color:   transparent;
+    -fx-border-color:  transparent  transparent #575757  transparent;
+    -fx-text-fill: black;
+    -fx-border-width:  1px;
+}
+
+
+
+#textField{
+    -fx-background-color:   transparent;
+    -fx-border-color:  transparent  transparent -fx-primary-color  transparent;                                          -fx-text-fill: -fx-text-color;
+    -fx-border-width:  1px;
+}
+#textField:focused{
+    -fx-background-color:   transparent;
+    -fx-border-color:  transparent transparent -fx-secondary-color transparent;
+    -fx-text-fill: -fx-text-color; 
+    -fx-border-width:  2px;
+}
+#button{
+    -fx-background-color:  transparent;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-text-fill: -fx-primary-color;
+}
+#button:hover{
+    -fx-background-color:  -fx-primary-color;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-text-fill: -fx-text-color;
+}
+#button:armed{
+    -fx-background-color:  -fx-secondary-color;
+    -fx-border-color: -fx-secondary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-text-fill: -fx-text-color;
+}
+#textButton{
+    -fx-background-color:  transparent;
+    -fx-text-fill: -fx-primary-color;
+}
+
+#socialMediaFacebook, #socialMediaInstagram, #socialMediaTwitter, #socialMediaSite{
+    -fx-background-color:  transparent;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-background-repeat: no-repeat; 
+    -fx-background-size: 40px 40px; 
+    -fx-background-position: center center;
+}
+#socialMediaFacebook{-fx-background-image: url('../images/socialMedia/facebook.png');}
+#socialMediaInstagram{-fx-background-image: url('../images/socialMedia/instagram.png');}
+#socialMediaTwitter{-fx-background-image: url('../images/socialMedia/twitter.png');}
+#socialMediaSite{-fx-background-image: url('../images/socialMedia/site.png');}
+
+#socialMediaFacebook:hover, #socialMediaInstagram:hover, #socialMediaTwitter:hover, #socialMediaSite:hover{
+    -fx-background-color:  -fx-primary-color;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-background-repeat: no-repeat; 
+    -fx-background-size: 40px 40px; 
+    -fx-background-position: center center;
+}
+#socialMediaFacebook:hover{-fx-background-image: url('../images/socialMedia/facebookW.png');}
+#socialMediaInstagram:hover{-fx-background-image: url('../images/socialMedia/instagramW.png');}
+#socialMediaTwitter:hover{-fx-background-image: url('../images/socialMedia/twitterW.png');}
+#socialMediaSite:hover{-fx-background-image: url('../images/socialMedia/siteW.png');}
+
+#socialMediaFacebook:armed, #socialMediaInstagram:armed, #socialMediaTwitter:armed, #socialMediaSite:armed{
+    -fx-background-color:  -fx-secondary-color;
+    -fx-border-color: -fx-secondary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-background-repeat: no-repeat; 
+    -fx-background-size: 40px 40px; 
+    -fx-background-position: center center;
+}
+.date-picker{
+    -fx-background-color:  transparent;
+     -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  50px;
+    -fx-background-radius:  50px;
+    -fx-text-fill: white;
+    
+}
+.date-picker .text-field {
+    -fx-control-inner-background: transparent ;
+    -fx-background-radius: 50px;
+
+}
+.date-picker > .arrow-button {
+    -fx-background-radius: 50px;
+}
+
+.date-picker .arrow-button {
+	-fx-background-color: -fx-primary-color;
+	-fx-background-radius: 0;
+}
+.date-picker .arrow-button:hover {
+	-fx-background-color: -fx-secondary-color;
+}
+.date-picker .arrow-button .arrow {
+	-fx-background-color: white;
+}
+.date-picker .cell {
+	-fx-background-color: white;
+}
+.date-picker .cell:hover {
+	-fx-background-color: -fx-secondary-color;
+}
+.date-picker .cell:focused {
+	-fx-background-color: -fx-secondary-color;
+}
+.date-picker .selected {
+	-fx-background-color: -fx-primary-color;
+	-fx-text-fill: white;
+}
+.date-picker .selected:focused {
+	-fx-background-color: -fx-primary-color;
+	-fx-text-fill: white;
+}
+.date-picker-popup  {
+	-fx-border-color: transparent;
+}
+.date-picker-popup .month-year-pane {
+	-fx-background-color: -fx-primary-color;
+}
+.date-picker-popup .month-year-pane .label {
+	-fx-text-fill: white;
+}
+.date-picker-popup .week-number-cell {
+	-fx-text-fill: -fx-secondary-color;
+}
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+	-fx-background-color: white;
+}
+.combo-box{
+    -fx-background-color:  transparent;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  50px;
+    -fx-background-radius:  50px;
+    -fx-text-fill: white;
+}
+
+
+
+
+
+
+

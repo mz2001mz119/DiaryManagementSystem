@@ -1,0 +1,98 @@
+* {
+    -fx-main-background-color: #082032;
+	-fx-primary-color: #DA0037;
+	-fx-secondary-color: #EA0640;
+    -fx-secondary-color-withOpacity: rgba(68, 68, 68, 0.5);
+	-fx-light-grey-color: #d1d1d1;
+    -fx-text-color: white;
+}
+#backgroundPane{
+    -fx-background-color:  -fx-main-background-color;
+}
+#secondaryPane{
+    -fx-background-color:  -fx-secondary-color-withOpacity;
+    -fx-border-color:  -fx-primary-color transparent -fx-primary-color transparent;
+    -fx-border-width:  3px;
+}
+#textField{
+    -fx-background-color:   transparent;
+    -fx-border-color:  transparent  transparent -fx-primary-color  transparent;                                                   -fx-text-fill: -fx-text-color;
+    -fx-border-width:  1px;
+}
+#textField:focused{
+    -fx-background-color:   transparent;
+    -fx-border-color:  transparent transparent -fx-secondary-color transparent;
+    -fx-text-fill: -fx-text-color; 
+    -fx-border-width:  2px;
+}
+#button{
+    -fx-background-color:  transparent;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-text-fill: -fx-primary-color;
+}
+#button:hover{
+    -fx-background-color:  -fx-primary-color;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-text-fill: -fx-text-color;
+}
+#button:armed{
+    -fx-background-color:  -fx-secondary-color;
+    -fx-border-color: -fx-secondary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-text-fill: -fx-text-color;
+}
+#textButton{
+    -fx-background-color:  transparent;
+    -fx-text-fill: -fx-primary-color;
+}
+
+#socialMediaFacebook, #socialMediaInstagram, #socialMediaTwitter, #socialMediaSite{
+    -fx-background-color:  transparent;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-background-repeat: no-repeat; 
+    -fx-background-size: 40px 40px; 
+    -fx-background-position: center center;
+}
+#socialMediaFacebook{-fx-background-image: url('../images/socialMedia/facebook.png');}
+#socialMediaInstagram{-fx-background-image: url('../images/socialMedia/instagram.png');}
+#socialMediaTwitter{-fx-background-image: url('../images/socialMedia/twitter.png');}
+#socialMediaSite{-fx-background-image: url('../images/socialMedia/site.png');}
+
+#socialMediaFacebook:hover, #socialMediaInstagram:hover, #socialMediaTwitter:hover, #socialMediaSite:hover{
+    -fx-background-color:  -fx-primary-color;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-background-repeat: no-repeat; 
+    -fx-background-size: 40px 40px; 
+    -fx-background-position: center center;
+}
+#socialMediaFacebook:hover{-fx-background-image: url('../images/socialMedia/facebookW.png');}
+#socialMediaInstagram:hover{-fx-background-image: url('../images/socialMedia/instagramW.png');}
+#socialMediaTwitter:hover{-fx-background-image: url('../images/socialMedia/twitterW.png');}
+#socialMediaSite:hover{-fx-background-image: url('../images/socialMedia/siteW.png');}
+
+#socialMediaFacebook:armed, #socialMediaInstagram:armed, #socialMediaTwitter:armed, #socialMediaSite:armed{
+    -fx-background-color:  -fx-secondary-color;
+    -fx-border-color: -fx-secondary-color;
+    -fx-border-radius:  100%;
+    -fx-background-radius:  50px;
+    -fx-background-repeat: no-repeat; 
+    -fx-background-size: 40px 40px; 
+    -fx-background-position: center center;
+}
+
+
+
+
+
+
+
+

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="backgroundPane" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" stylesheets="@css/mainCss.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="diarymanagementsystem.FXMLLoginController">
+   <children>
+      <ImageView style="-fx-opacity: 0.05;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@images/background/bulletin-board-g297cea5e9_1920.jpg" />
+         </image>
+         <effect>
+            <Lighting diffuseConstant="1.39" specularConstant="1.94" specularExponent="40.0" surfaceScale="0.0">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant>
+                     <color>
+                        <Color red="0.8105263113975525" green="0.7649123072624207" blue="0.9473684430122375" />
+                     </color>
+                  </Light.Distant>
+               </light>
+            </Lighting>
+         </effect>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <AnchorPane id="secondaryPane" layoutX="949.0" layoutY="55.0" minHeight="600.0" minWidth="500.0" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+         <children>
+            <Label layoutX="173.0" layoutY="43.0" text="Login" textFill="WHITE">
+               <font>
+                  <Font name="AdobeSongStd-Light" size="65.0" />
+               </font>
+            </Label>
+            <Label id="emailLabel" fx:id="loginEmailLabel" layoutX="60.0" layoutY="167.0" text="Email" textFill="#da0037">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <TextField id="textField" fx:id="loginEmailTextField" focusTraversable="false" layoutX="38.0" layoutY="155.0" prefHeight="60.0" prefWidth="420.0" AnchorPane.leftAnchor="40.0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </TextField>
+            <Label id="passwordLabel" fx:id="loginPasswordLabel" layoutX="60.0" layoutY="273.0" text="Password" textFill="#da0037">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <PasswordField id="textField" fx:id="loginPasswordTextField" focusTraversable="false" layoutX="37.0" layoutY="261.0" prefHeight="60.0" prefWidth="420.0" AnchorPane.leftAnchor="40.0">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </PasswordField>
+            <Button id="button" fx:id="loginButton" layoutX="128.0" layoutY="400.0" mnemonicParsing="false" onAction="#logIntoMainInterface" prefHeight="70.0" prefWidth="250.0" text="Login" textFill="#da0037" AnchorPane.leftAnchor="125.0">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Button>
+            <Button id="textButton" fx:id="forgotPasswordButton" alignment="CENTER" layoutX="166.0" layoutY="333.0" mnemonicParsing="false" onAction="#openForgotPasswordPane" prefHeight="46.0" prefWidth="200.0" text="Forgot password?" AnchorPane.leftAnchor="150.0">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></Button>
+            <AnchorPane layoutX="129.0" layoutY="491.0" prefHeight="50.0" prefWidth="310.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="95.0">
+               <children>
+                  <Label layoutY="11.0" prefWidth="210.0" text="Don't have an account?" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button id="textButton" fx:id="signupButton" layoutX="197.0" layoutY="2.0" mnemonicParsing="false" onAction="#openSignupPane" prefHeight="46.0" prefWidth="100.0" text="Sign up">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <Label layoutX="181.0" layoutY="220.0" prefWidth="600.0" text="Diary Management System" textFill="WHITE" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="725.0">
+         <font>
+            <Font name="AGA Arabesque" size="50.0" />
+         </font>
+      </Label>
+      <Text fill="WHITE" layoutX="53.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A modern, easy-to-use calendar, with many features to add memories, events and notes, as well as to share moments with the ones you love" textAlignment="CENTER" wrappingWidth="800.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="625.0">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <Label alignment="CENTER" layoutX="409.0" layoutY="422.0" prefHeight="63.0" prefWidth="150.0" text="Follow us" textFill="#da0037" AnchorPane.bottomAnchor="214.8" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="949.6">
+         <font>
+            <Font name="AGA Arabesque" size="30.0" />
+         </font>
+      </Label>
+      <HBox layoutX="195.0" layoutY="510.0" prefHeight="80.0" prefWidth="560.0" spacing="80.0" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="195.0" AnchorPane.rightAnchor="745.0">
+         <children>
+            <Button id="socialMediaFacebook" fx:id="facebookButton" cache="true" mnemonicParsing="false" onAction="#openBrowser" prefHeight="80.0" prefWidth="80.0" />
+            <Button id="socialMediaInstagram" fx:id="instagramButton" cache="true" mnemonicParsing="false" onAction="#openBrowser" prefHeight="80.0" prefWidth="80.0" />
+            <Button id="socialMediaTwitter" fx:id="twitterButton" cache="true" mnemonicParsing="false" onAction="#openBrowser" prefHeight="80.0" prefWidth="80.0" />
+            <Button id="socialMediaSite" fx:id="siteButton" cache="true" mnemonicParsing="false" onAction="#openBrowser" prefHeight="80.0" prefWidth="80.0" />
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
