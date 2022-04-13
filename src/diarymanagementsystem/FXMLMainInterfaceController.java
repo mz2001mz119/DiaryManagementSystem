@@ -40,88 +40,327 @@ import javafx.util.Duration;
 public class FXMLMainInterfaceController implements Initializable {
     //to find if the menu is hedden or not 
     boolean isSliderMenuHidden=false;
+    int dayDate;
+    
+    
+    
+     @FXML
+    private AnchorPane profilePane;
 
-    
-    
-    
-    @FXML
-    private AnchorPane sliderMenuPane;
-    @FXML
-    private ImageView sliderMenuHideIcon;
-    @FXML
-    private Button sliderMenuHideButton;
-    @FXML
-    private ImageView sliderMenuHomeIcon;
-    @FXML
-    private Button sliderMenuHomeButton;
-    @FXML
-    private ImageView sliderMenuProfileIcon;
-    @FXML
-    private Button sliderMenuProfileButton;
-    @FXML
-    private ImageView sliderMenuCalendarIcon;
-    @FXML
-    private Button sliderMenuCalendarButton;
-    @FXML
-    private ImageView sliderMenuGroupsIcon;
-    @FXML
-    private Button sliderMenuGroupsButton;
-    @FXML
-    private ImageView sliderMenuInvitationIcon;
-    @FXML
-    private Button sliderMenuInvitationButton;
-    @FXML
-    private ImageView sliderMenuSettingsIcon;
-    @FXML
-    private Button sliderMenuSettingsButton;
-    @FXML
-    private Button sliderMenuHideButton2;
-    @FXML
-    private Button sliderMenuHomeButton2;
-    @FXML
-    private Button sliderMenuProfileButton2;
-    @FXML
-    private Button sliderMenuCalendarButton2;
-    @FXML
-    private Button sliderMenuGroupsButton2;
-    @FXML
-    private Button sliderMenuInvitationButton2;
-    @FXML
-    private Button sliderMenuSettingsButton2;
-    @FXML
-    private AnchorPane SliderMenu;
     @FXML
     private ImageView userImage;
+
     @FXML
     private Label userFullName;
+
     @FXML
     private Label userName;
-    @FXML
-    private AnchorPane profilePane;
+
     @FXML
     private Button userInfoButton;
+
     @FXML
     private Button editUserProfile;
+
     @FXML
     private AnchorPane userInfoPane;
+
     @FXML
     private TextField profileEmail;
+
     @FXML
     private TextField profileBirthdate;
+
     @FXML
     private TextField profileGender;
+
     @FXML
     private AnchorPane userEditInfoPane;
+
     @FXML
     private TextField editName;
+
     @FXML
     private TextField editUserName;
+
     @FXML
     private DatePicker editBirthdate;
+
     @FXML
     private TextField editEmail;
+
     @FXML
     private ComboBox<?> editGender;
+
+    @FXML
+    private AnchorPane calendarPane;
+
+    @FXML
+    private Button calendarDaysButton;
+
+    @FXML
+    private Button calendarMonthButton;
+
+    @FXML
+    private Button calendarYearButton;
+
+    @FXML
+    private AnchorPane calendarDaysPane;
+
+    @FXML
+    private AnchorPane diaryDay1;
+
+    @FXML
+    private Label day1;
+
+    @FXML
+    private AnchorPane diaryDay2;
+
+    @FXML
+    private Label day2;
+
+    @FXML
+    private AnchorPane diaryDay3;
+
+    @FXML
+    private Label day3;
+
+    @FXML
+    private AnchorPane diaryDay4;
+
+    @FXML
+    private Label day4;
+
+    @FXML
+    private AnchorPane diaryDay5;
+
+    @FXML
+    private Label day5;
+
+    @FXML
+    private AnchorPane diaryDay6;
+
+    @FXML
+    private Label day6;
+
+    @FXML
+    private AnchorPane diaryDay7;
+
+    @FXML
+    private Label day7;
+
+    @FXML
+    private AnchorPane diaryDay8;
+
+    @FXML
+    private Label day8;
+
+    @FXML
+    private AnchorPane diaryDay9;
+
+    @FXML
+    private Label day9;
+
+    @FXML
+    private AnchorPane diaryDay10;
+
+    @FXML
+    private Label day10;
+
+    @FXML
+    private AnchorPane diaryDay11;
+
+    @FXML
+    private Label day11;
+
+    @FXML
+    private AnchorPane diaryDay12;
+
+    @FXML
+    private Label day12;
+
+    @FXML
+    private AnchorPane diaryDay13;
+
+    @FXML
+    private Label day13;
+
+    @FXML
+    private AnchorPane diaryDay14;
+
+    @FXML
+    private Label day14;
+
+    @FXML
+    private AnchorPane diaryDay15;
+
+    @FXML
+    private Label day15;
+
+    @FXML
+    private AnchorPane diaryDay16;
+
+    @FXML
+    private Label day16;
+
+    @FXML
+    private AnchorPane diaryDay17;
+
+    @FXML
+    private Label day17;
+
+    @FXML
+    private AnchorPane diaryDay18;
+
+    @FXML
+    private Label day18;
+
+    @FXML
+    private AnchorPane diaryDay19;
+
+    @FXML
+    private Label day19;
+
+    @FXML
+    private AnchorPane diaryDay20;
+
+    @FXML
+    private Label day20;
+
+    @FXML
+    private AnchorPane diaryDay21;
+
+    @FXML
+    private Label day21;
+
+    @FXML
+    private AnchorPane diaryDay22;
+
+    @FXML
+    private Label day22;
+
+    @FXML
+    private AnchorPane diaryDay23;
+
+    @FXML
+    private Label day23;
+
+    @FXML
+    private AnchorPane diaryDay24;
+
+    @FXML
+    private Label day24;
+
+    @FXML
+    private AnchorPane diaryDay25;
+
+    @FXML
+    private Label day25;
+
+    @FXML
+    private AnchorPane diaryDay26;
+
+    @FXML
+    private Label day26;
+
+    @FXML
+    private AnchorPane diaryDay27;
+
+    @FXML
+    private Label day27;
+
+    @FXML
+    private AnchorPane diaryDay28;
+
+    @FXML
+    private Label day28;
+
+    @FXML
+    private AnchorPane diaryDay29;
+
+    @FXML
+    private Label day29;
+
+    @FXML
+    private AnchorPane diaryDay30;
+
+    @FXML
+    private Label day30;
+
+    @FXML
+    private AnchorPane diaryDay31;
+
+    @FXML
+    private Label day31;
+
+    @FXML
+    private AnchorPane SliderMenu;
+
+    @FXML
+    private Button sliderMenuHideButton2;
+
+    @FXML
+    private Button sliderMenuHomeButton2;
+
+    @FXML
+    private Button sliderMenuProfileButton2;
+
+    @FXML
+    private Button sliderMenuCalendarButton2;
+
+    @FXML
+    private Button sliderMenuGroupsButton2;
+
+    @FXML
+    private Button sliderMenuInvitationButton2;
+
+    @FXML
+    private Button sliderMenuSettingsButton2;
+
+    @FXML
+    private AnchorPane sliderMenuPane;
+
+    @FXML
+    private Button sliderMenuHideButton;
+
+    @FXML
+    private ImageView sliderMenuHideIcon;
+
+    @FXML
+    private Button sliderMenuHomeButton;
+
+    @FXML
+    private ImageView sliderMenuHomeIcon;
+
+    @FXML
+    private Button sliderMenuProfileButton;
+
+    @FXML
+    private ImageView sliderMenuProfileIcon;
+
+    @FXML
+    private Button sliderMenuCalendarButton;
+
+    @FXML
+    private ImageView sliderMenuCalendarIcon;
+
+    @FXML
+    private Button sliderMenuGroupsButton;
+
+    @FXML
+    private ImageView sliderMenuGroupsIcon;
+
+    @FXML
+    private Button sliderMenuInvitationButton;
+
+    @FXML
+    private ImageView sliderMenuInvitationIcon;
+
+    @FXML
+    private Button sliderMenuSettingsButton;
+
+    @FXML
+    private ImageView sliderMenuSettingsIcon;
 
     /**
      * Initializes the controller class.
@@ -345,7 +584,40 @@ public class FXMLMainInterfaceController implements Initializable {
             userEditInfoPane.setVisible(true);
         }
     }
-
+    @FXML
+    private void openDayDiary(MouseEvent event) {
+        if(event.getSource()==diaryDay1){dayDate=1;}
+        else if(event.getSource()==diaryDay2){dayDate=2;}
+        else if(event.getSource()==diaryDay3){dayDate=3;}
+        else if(event.getSource()==diaryDay4){dayDate=4;}
+        else if(event.getSource()==diaryDay5){dayDate=5;}
+        else if(event.getSource()==diaryDay6){dayDate=6;}
+        else if(event.getSource()==diaryDay7){dayDate=7;}
+        else if(event.getSource()==diaryDay8){dayDate=8;}
+        else if(event.getSource()==diaryDay9){dayDate=9;}
+        else if(event.getSource()==diaryDay10){dayDate=10;}
+        else if(event.getSource()==diaryDay11){dayDate=11;}
+        else if(event.getSource()==diaryDay12){dayDate=12;}
+        else if(event.getSource()==diaryDay13){dayDate=13;}
+        else if(event.getSource()==diaryDay14){dayDate=14;}
+        else if(event.getSource()==diaryDay15){dayDate=15;}
+        else if(event.getSource()==diaryDay16){dayDate=16;}
+        else if(event.getSource()==diaryDay17){dayDate=17;}
+        else if(event.getSource()==diaryDay18){dayDate=18;}
+        else if(event.getSource()==diaryDay19){dayDate=19;}
+        else if(event.getSource()==diaryDay20){dayDate=20;}
+        else if(event.getSource()==diaryDay21){dayDate=21;}
+        else if(event.getSource()==diaryDay22){dayDate=22;}
+        else if(event.getSource()==diaryDay23){dayDate=23;}
+        else if(event.getSource()==diaryDay24){dayDate=24;}
+        else if(event.getSource()==diaryDay25){dayDate=25;}
+        else if(event.getSource()==diaryDay26){dayDate=26;}
+        else if(event.getSource()==diaryDay27){dayDate=27;}
+        else if(event.getSource()==diaryDay28){dayDate=28;}
+        else if(event.getSource()==diaryDay29){dayDate=29;}
+        else if(event.getSource()==diaryDay30){dayDate=30;}
+        else if(event.getSource()==diaryDay31){dayDate=31;}
+    }
 
     
 }
