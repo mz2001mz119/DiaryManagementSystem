@@ -8,7 +8,10 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -133,6 +136,191 @@
             </AnchorPane>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="calendarPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane layoutX="110.0" layoutY="14.0" minHeight="70.0" minWidth="870.0" prefHeight="70.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;">
+               <children>
+                  <HBox alignment="CENTER" layoutX="185.0" prefHeight="50.0" prefWidth="500.0" spacing="40.0" style="-fx-border-color: transparent transparent #EA0640 transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="185.0">
+                     <children>
+                        <Button id="topBarButtons" fx:id="calendarDaysButton" mnemonicParsing="false" onAction="#topBarAction" text="Days">
+                           <font>
+                              <Font name="AdobePiStd" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button id="topBarButtons" fx:id="calendarMonthButton" mnemonicParsing="false" onAction="#topBarAction" text="Month">
+                           <font>
+                              <Font name="AdobePiStd" size="15.0" />
+                           </font>
+                        </Button>
+                        <Button id="topBarButtons" fx:id="calendarYearButton" mnemonicParsing="false" onAction="#topBarAction" text="Year">
+                           <font>
+                              <Font name="AdobePiStd" size="15.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="calendarDaysPane" layoutX="95.0" layoutY="127.0" prefHeight="500.0" prefWidth="900.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="95.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="130.0">
+               <children>
+                  <GridPane id="calenderGridPane" prefHeight="500.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay1" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <Label fx:id="day1" layoutX="14.0" layoutY="6.0" text="1" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay2" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
+                           <children>
+                              <Label fx:id="day2" text="2" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay3" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2">
+                           <children>
+                              <Label fx:id="day3" text="3" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay4" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3">
+                           <children>
+                              <Label fx:id="day4" text="4" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay5" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4">
+                           <children>
+                              <Label fx:id="day5" text="5" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay6" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5">
+                           <children>
+                              <Label fx:id="day6" text="6" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay7" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6">
+                           <children>
+                              <Label fx:id="day7" text="7" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay8" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="day8" text="8" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay9" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="day9" text="9" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay10" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="day10" text="10" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay11" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="day11" text="11" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay12" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="day12" text="12" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay13" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="day13" text="13" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay14" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="1">
+                           <children>
+                              <Label fx:id="day14" text="14" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay15" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="day15" text="15" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay16" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="day16" text="16" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay17" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="day17" text="17" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay18" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="day18" text="18" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="11.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay19" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="day19" text="19" textFill="#5a5a5a" AnchorPane.leftAnchor="16.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay20" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="day20" text="20" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay21" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="2">
+                           <children>
+                              <Label fx:id="day21" text="21" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay22" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="3">
+                           <children>
+                              <Label fx:id="day22" text="22" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay23" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                           <children>
+                              <Label fx:id="day23" text="23" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay24" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                           <children>
+                              <Label fx:id="day24" text="24" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay25" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                           <children>
+                              <Label fx:id="day25" text="25" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay26" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="3">
+                           <children>
+                              <Label fx:id="day26" text="26" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay27" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="3">
+                           <children>
+                              <Label fx:id="day27" text="27" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay28" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="3">
+                           <children>
+                              <Label fx:id="day28" text="28" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay29" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="4">
+                           <children>
+                              <Label fx:id="day29" text="29" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay30" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                           <children>
+                              <Label fx:id="day30" text="30" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" fx:id="diaryDay31" onMouseClicked="#openDayDiary" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                           <children>
+                              <Label fx:id="day31" text="31" textFill="#5a5a5a" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0" />
+                           </children></AnchorPane>
+                        <AnchorPane id="gridPaneCell" disable="true" opacity="0.8" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <AnchorPane id="gridPaneCell" disable="true" opacity="0.8" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                        <AnchorPane id="gridPaneCell" disable="true" opacity="0.8" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                        <AnchorPane id="gridPaneCell" disable="true" opacity="0.8" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                     </children>
+                  </GridPane>
+               </children></AnchorPane>
+            <Label fx:id="calendarDate" alignment="CENTER" contentDisplay="CENTER" layoutX="425.0" layoutY="90.0" prefHeight="36.0" prefWidth="239.0" text="4/2022" textAlignment="CENTER" textFill="#5a5a5a">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
       <AnchorPane layoutX="1186.0" layoutY="14.0" minHeight="700.0" minWidth="350.0" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: blue;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane id="secondarySlideMenu" fx:id="SliderMenu" layoutX="60.0" minHeight="700.0" minWidth="200.0" prefHeight="700.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-140.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -255,6 +443,31 @@
                   </AnchorPane>
                </children>
             </VBox>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="diaryDayBlackPane" prefHeight="700.0" prefWidth="1500.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane id="diaryDayPane" layoutX="92.0" layoutY="100.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <AnchorPane layoutX="76.0" layoutY="26.0" minHeight="70.0" minWidth="870.0" prefHeight="70.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="65.0" AnchorPane.topAnchor="20.0">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="185.0" prefHeight="50.0" prefWidth="500.0" spacing="40.0" style="-fx-border-color: transparent transparent #EA0640 transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="185.0">
+                           <children>
+                              <Button id="topBarButtons" fx:id="myDiaryButton" mnemonicParsing="false" onAction="#topBarAction" text="My Diary">
+                                 <font>
+                                    <Font name="AdobePiStd" size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button id="topBarButtons" fx:id="addNewDiaryButton" mnemonicParsing="false" onAction="#topBarAction" text="Add New Diary">
+                                 <font>
+                                    <Font name="AdobePiStd" size="15.0" />
+                                 </font>
+                              </Button>
+                           </children>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
          </children>
       </AnchorPane>
    </children>
