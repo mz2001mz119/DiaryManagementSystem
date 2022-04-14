@@ -96,6 +96,9 @@ public class FXMLMainInterfaceController implements Initializable {
     private ComboBox<?> editGender;
 
     @FXML
+    private Button editMyProfileSaveButton;
+
+    @FXML
     private AnchorPane calendarPane;
 
     @FXML
@@ -474,16 +477,9 @@ public class FXMLMainInterfaceController implements Initializable {
         sliderMenuHomeButton2.setStyle("-fx-background-color: #C30032; -fx-text-fill:white;");
         sliderMenuHomeIcon.setVisible(true);
         roundImage(userImage);
-        userInfoButton.setStyle("-fx-text-fill:#0A283E ;");
         
-        calendarDaysButton.setStyle("-fx-text-fill:#0A283E ;");
-        calendarDaysPane.setVisible(true);
         
-        myDiaryButton.setStyle("-fx-text-fill:#0A283E ;");
-        myDiaryPane.setVisible(true);
         
-        addMemory.setStyle("-fx-text-fill:#0A283E ;");
-        addNewMemoryPane.setVisible(true);
     }    
 
     @FXML
@@ -551,6 +547,9 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuInvitationButton2.setStyle("");
             sliderMenuSettingsButton2.setStyle("");
             
+            userInfoButton.setStyle("-fx-text-fill:#0A283E ;");
+            userInfoPane.setVisible(true);
+        
             sliderMenuHomeIcon.setVisible(false);
             sliderMenuProfileIcon.setVisible(true);
             sliderMenuCalendarIcon.setVisible(false);
@@ -575,6 +574,15 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuInvitationButton2.setStyle("");
             sliderMenuSettingsButton2.setStyle("");
             
+            calendarDaysButton.setStyle("-fx-text-fill:#0A283E ;");
+            calendarDaysPane.setVisible(true);
+
+            myDiaryButton.setStyle("-fx-text-fill:#0A283E ;");
+            myDiaryPane.setVisible(true);
+
+            addMemory.setStyle("-fx-text-fill:#0A283E ;");
+            addNewMemoryPane.setVisible(true);
+        
             sliderMenuHomeIcon.setVisible(false);
             sliderMenuProfileIcon.setVisible(false);
             sliderMenuCalendarIcon.setVisible(true);
@@ -739,31 +747,55 @@ public class FXMLMainInterfaceController implements Initializable {
             addNewDiaryPane.setVisible(true);
         }
         
-        
+        //Top bar Buttons
         else if(event.getSource()==addMemory){
             addMemory.setStyle("-fx-text-fill:#0A283E ;");
             addEvent.setStyle("");
             addNote.setStyle("");
             
+            addMemoryTitle.setText("");
+            addMemoryDescription.setText("");
+            addMemoryNotificationHours.setText("");
+            addMemoryNotificationMinutes.setText("");
+            addMemoryNotificationDate.setValue(null);
+            addMemoryNotification.setSelected(false);
+            
+            
             addNewMemoryPane.setVisible(true);
             addNewEventPane.setVisible(false);
+            addNewNotePane.setVisible(false);
+            
         }
         else if(event.getSource()==addEvent){
             addEvent.setStyle("-fx-text-fill:#0A283E ;");
             addMemory.setStyle("");
             addNote.setStyle("");
             
+            addEventTitle.setText("");
+            addEventNotificationHours.setText("");
+            addEventNotificationMinutes.setText("");
+            addEventDescription.setText("");
+            addEventNotificationDate.setValue(null);
+            addEventNotification.setSelected(false);
+            
+            
             addNewMemoryPane.setVisible(false);
             addNewEventPane.setVisible(true);
-            
+            addNewNotePane.setVisible(false);
         }
         else if(event.getSource()==addNote){
             addNote.setStyle("-fx-text-fill:#0A283E ;");
             addEvent.setStyle("");
             addMemory.setStyle("");
             
+            addNoteTitle.setText("");
+            addNoteDescription.setText("");
+            addNoteFix.setSelected(false);
+            
+            
             addNewMemoryPane.setVisible(false);
             addNewEventPane.setVisible(false);
+            addNewNotePane.setVisible(true);
         }
         
         
@@ -809,10 +841,30 @@ public class FXMLMainInterfaceController implements Initializable {
         if(event.getSource()==closeDiaryDayBlackPane){
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
+            addMemoryNotificationHours.setText("");
+            addMemoryNotificationMinutes.setText("");
             addMemoryNotificationDate.setValue(null);
             addMemoryNotification.setSelected(false);
-            
+            addEventTitle.setText("");
+            addEventNotificationHours.setText("");
+            addEventNotificationMinutes.setText("");
+            addEventDescription.setText("");
+            addEventNotificationDate.setValue(null);
+            addEventNotification.setSelected(false);
+            addNoteTitle.setText("");
+            addNoteDescription.setText("");
+            addNoteFix.setSelected(false);
             diaryDayBlackPane.setVisible(false);
+            addMemory.setStyle("-fx-text-fill:#0A283E ;");
+            addEvent.setStyle("");
+            addNote.setStyle("");       
+            addNewMemoryPane.setVisible(true);
+            addNewEventPane.setVisible(false);
+            addNewNotePane.setVisible(false);
+            addNewDiaryPane.setVisible(false);
+            
+            
+            
         }
     }
     @FXML
@@ -824,21 +876,60 @@ public class FXMLMainInterfaceController implements Initializable {
             //--
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
+            addMemoryNotificationHours.setText("");
+            addMemoryNotificationMinutes.setText("");
             addMemoryNotificationDate.setValue(null);
             addMemoryNotification.setSelected(false);
             
             diaryDayBlackPane.setVisible(false);
+            addMemory.setStyle("-fx-text-fill:#0A283E ;");
+            addEvent.setStyle("");
+            addNote.setStyle("");       
+            addNewMemoryPane.setVisible(true);
+            addNewEventPane.setVisible(false);
+            addNewNotePane.setVisible(false);
+            addNewDiaryPane.setVisible(false);
         }
-        if(event.getSource()==addNewEventPane){
+        if(event.getSource()==addNewEvent){
             //add memry
             //--
             //--
             addEventTitle.setText("");
+            addEventNotificationHours.setText("");
+            addEventNotificationMinutes.setText("");
             addEventDescription.setText("");
             addEventNotificationDate.setValue(null);
             addEventNotification.setSelected(false);
             
             diaryDayBlackPane.setVisible(false);
+            addMemory.setStyle("-fx-text-fill:#0A283E ;");
+            addEvent.setStyle("");
+            addNote.setStyle("");       
+            addNewMemoryPane.setVisible(true);
+            addNewEventPane.setVisible(false);
+            addNewNotePane.setVisible(false);
+            addNewDiaryPane.setVisible(false);
         }
+        if(event.getSource()==addNewNote){
+            //add memry
+            //--
+            //--
+            addNoteTitle.setText("");
+            addNoteDescription.setText("");
+            addNoteFix.setSelected(false);
+            
+            diaryDayBlackPane.setVisible(false);
+            addMemory.setStyle("-fx-text-fill:#0A283E ;");
+            addEvent.setStyle("");
+            addNote.setStyle("");       
+            addNewMemoryPane.setVisible(true);
+            addNewEventPane.setVisible(false);
+            addNewNotePane.setVisible(false);
+            addNewDiaryPane.setVisible(false);
+        }
+    }
+    @FXML
+    void actionButtons(ActionEvent event) {
+
     }
 }

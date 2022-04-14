@@ -137,12 +137,13 @@
 }
 #textFieldBlackText{
     -fx-background-color:   transparent;
-    -fx-border-color:  transparent  transparent -fx-primary-color  transparent;                                          -fx-text-fill: black;
+    -fx-border-color:  #9D9D9D  #9D9D9D -fx-primary-color  #9D9D9D;
+    -fx-text-fill: black;
     -fx-border-width:  1px;
 }
 #textFieldBlackText:focused{
     -fx-background-color:   transparent;
-    -fx-border-color:  transparent transparent -fx-secondary-color transparent;
+    -fx-border-color:  #9D9D9D #9D9D9D -fx-secondary-color #9D9D9D;
     -fx-text-fill: black; 
     -fx-border-width:  2px;
 }
@@ -284,7 +285,8 @@
 }
 #textAreaBlackText .content{
     -fx-background-color:   text-area-background;
-    -fx-border-color:  transparent  transparent -fx-primary-color  transparent;                                          -fx-text-fill: -fx-text-color;
+    -fx-border-color:  #9D9D9D  #9D9D9D -fx-primary-color  #9D9D9D;
+    -fx-text-fill: -fx-text-color;
     -fx-border-width:  1px;
 }
 #textAreaBlackText:focused .content{
