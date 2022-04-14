@@ -306,175 +306,76 @@ public class FXMLMainInterfaceController implements Initializable {
     private AnchorPane calendarMonthPane;
 
     @FXML
-    private AnchorPane diary;
+    private AnchorPane diaryMonth1;
 
     @FXML
-    private AnchorPane diaryDay41;
+    private Label month1;
 
     @FXML
-    private Label day41;
+    private AnchorPane diaryMonth2;
 
     @FXML
-    private AnchorPane diaryDay51;
+    private Label month2;
 
     @FXML
-    private Label day51;
+    private AnchorPane diaryMonth3;
 
     @FXML
-    private AnchorPane diaryDay61;
+    private Label month3;
 
     @FXML
-    private Label day61;
+    private AnchorPane diaryMonth4;
 
     @FXML
-    private AnchorPane diaryDay71;
+    private Label month4;
 
     @FXML
-    private Label day71;
+    private AnchorPane diaryMonth5;
 
     @FXML
-    private AnchorPane diaryDay81;
+    private Label month5;
 
     @FXML
-    private Label day81;
+    private AnchorPane diaryMonth6;
 
     @FXML
-    private AnchorPane diaryDay91;
+    private Label month6;
 
     @FXML
-    private Label day91;
+    private AnchorPane diaryMonth7;
 
     @FXML
-    private AnchorPane diaryDay101;
+    private Label month7;
 
     @FXML
-    private Label day101;
+    private AnchorPane diaryMonth8;
 
     @FXML
-    private AnchorPane diaryDay111;
+    private Label month8;
 
     @FXML
-    private Label day111;
+    private AnchorPane diaryMonth9;
 
     @FXML
-    private AnchorPane diaryDay121;
+    private Label month9;
 
     @FXML
-    private Label day121;
+    private AnchorPane diaryMonth10;
 
     @FXML
-    private AnchorPane diaryDay131;
+    private Label month10;
 
     @FXML
-    private Label day131;
+    private AnchorPane diaryMonth11;
 
     @FXML
-    private AnchorPane diaryDay141;
+    private Label month11;
 
     @FXML
-    private Label day141;
+    private AnchorPane diaryMonth12;
 
     @FXML
-    private AnchorPane diaryDay151;
-
-    @FXML
-    private Label day151;
-
-    @FXML
-    private AnchorPane diaryDay161;
-
-    @FXML
-    private Label day161;
-
-    @FXML
-    private AnchorPane diaryDay171;
-
-    @FXML
-    private Label day171;
-
-    @FXML
-    private AnchorPane diaryDay181;
-
-    @FXML
-    private Label day181;
-
-    @FXML
-    private AnchorPane diaryDay191;
-
-    @FXML
-    private Label day191;
-
-    @FXML
-    private AnchorPane diaryDay201;
-
-    @FXML
-    private Label day201;
-
-    @FXML
-    private AnchorPane diaryDay211;
-
-    @FXML
-    private Label day211;
-
-    @FXML
-    private AnchorPane diaryDay221;
-
-    @FXML
-    private Label day221;
-
-    @FXML
-    private AnchorPane diaryDay231;
-
-    @FXML
-    private Label day231;
-
-    @FXML
-    private AnchorPane diaryDay241;
-
-    @FXML
-    private Label day241;
-
-    @FXML
-    private AnchorPane diaryDay251;
-
-    @FXML
-    private Label day251;
-
-    @FXML
-    private AnchorPane diaryDay261;
-
-    @FXML
-    private Label day261;
-
-    @FXML
-    private AnchorPane diaryDay271;
-
-    @FXML
-    private Label day271;
-
-    @FXML
-    private AnchorPane diaryDay281;
-
-    @FXML
-    private Label day281;
-
-    @FXML
-    private AnchorPane diaryDay291;
-
-    @FXML
-    private Label day291;
-
-    @FXML
-    private AnchorPane diaryDay301;
-
-    @FXML
-    private Label day301;
-
-    @FXML
-    private AnchorPane diaryDay311;
-
-    @FXML
-    private Label day311;
+    private Label month12;
 
     @FXML
     private AnchorPane SliderMenu;
@@ -637,6 +538,7 @@ public class FXMLMainInterfaceController implements Initializable {
 
     @FXML
     private Button addNewNote;
+
 
 
 
