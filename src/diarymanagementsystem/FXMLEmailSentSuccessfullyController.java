@@ -58,6 +58,7 @@ public class FXMLEmailSentSuccessfullyController implements Initializable {
         Stage.setScene(Scene);
         Stage.show();
     }
+    @FXML
     private void checkCode(ActionEvent event) throws IOException {
         //check the code 
         //..
