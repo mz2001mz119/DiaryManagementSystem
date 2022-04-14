@@ -56,6 +56,9 @@ public class FXMLSignupController implements Initializable {
     @FXML
     private Label EmailErrorLabel;
 
+    @FXML
+    private Label userNameErrorLabel;
+
     /**
      * Initializes the controller class.
      */
