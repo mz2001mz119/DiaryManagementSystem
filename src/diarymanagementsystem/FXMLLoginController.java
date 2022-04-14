@@ -39,25 +39,41 @@ import javafx.util.Duration;
 public class FXMLLoginController implements Initializable {
 
     @FXML
-    private TextField loginEmailTextField;
-    @FXML
     private Label loginEmailLabel;
+
     @FXML
-    private PasswordField loginPasswordTextField;
+    private TextField loginEmailTextField;
+
     @FXML
     private Label loginPasswordLabel;
+
+    @FXML
+    private PasswordField loginPasswordTextField;
+
     @FXML
     private Button loginButton;
+
     @FXML
     private Button forgotPasswordButton;
+
     @FXML
     private Button signupButton;
+
+    @FXML
+    private Label EmailErrorLabel;
+
+    @FXML
+    private Label PasswordErrorLabel;
+
     @FXML
     private Button facebookButton;
+
     @FXML
     private Button instagramButton;
+
     @FXML
     private Button twitterButton;
+
     @FXML
     private Button siteButton;
 

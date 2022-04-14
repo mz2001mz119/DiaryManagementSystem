@@ -97,6 +97,8 @@
                   </Button>
                </children>
             </AnchorPane>
+            <Label id="ErrorLabel" fx:id="EmailErrorLabel" layoutX="159.0" layoutY="215.0" text="*Error: Please Enter A Correct Email" textAlignment="CENTER" visible="false" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="215.0" />
+            <Label id="ErrorLabel" fx:id="PasswordErrorLabel" layoutX="143.0" layoutY="324.0" text="*Error: Please Enter A Correct Password" textAlignment="CENTER" visible="false" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="155.0" AnchorPane.topAnchor="320.0" />
          </children>
       </AnchorPane>
       <Label layoutX="181.0" layoutY="220.0" prefWidth="600.0" text="Diary Management System" textFill="WHITE" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="725.0">

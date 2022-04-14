@@ -65,6 +65,7 @@
                   <Font size="28.0" />
                </font>
             </Button>
+            <Label id="ErrorLabel" fx:id="codeErrorLabel" layoutX="41.0" layoutY="323.0" text="*Error: Please Enter A Correct Code" visible="false" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="323.0" />
          </children>
       </AnchorPane>
    </children>

@@ -165,6 +165,7 @@
                   </HBox>
                </children>
             </VBox>
+            <Label id="ErrorLabel" fx:id="EmailErrorLabel" layoutX="932.0" layoutY="75.0" text="*Error: Please Enter A Correct Email" visible="false" AnchorPane.leftAnchor="830.0" AnchorPane.topAnchor="180.0" />
          </children>
       </AnchorPane>
    </children>

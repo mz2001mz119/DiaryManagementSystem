@@ -16,6 +16,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +29,15 @@ public class FXMLEmailSentSuccessfullyController implements Initializable {
 
     @FXML
     private Button backButton;
+
+    @FXML
+    private TextField confirmationCodeTextField;
+
+    @FXML
+    private TextField confirmationPasswordTextField;
+
+    @FXML
+    private Label codeErrorLabel;
 
     /**
      * Initializes the controller class.

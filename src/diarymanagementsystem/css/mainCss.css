@@ -88,6 +88,9 @@
     -fx-background-size: 40px 40px; 
     -fx-background-position: center center;
 }
+#ErrorLabel{
+    -fx-text-fill:red;
+}
 
 
 

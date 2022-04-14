@@ -36,16 +36,23 @@ import javafx.util.Duration;
  */
 public class FXMLForgotPasswordController implements Initializable {
 
-    @FXML
+     @FXML
     private Label forgotEmailLabel;
+
     @FXML
     private TextField forgotEmailTextField;
-    @FXML
-    private Button sendButton;
+
     @FXML
     private Button signupButton;
+
+    @FXML
+    private Button sendButton;
+
     @FXML
     private Button backButton;
+
+    @FXML
+    private Label EmailErrorLabel;
 
     /**
      * Initializes the controller class.

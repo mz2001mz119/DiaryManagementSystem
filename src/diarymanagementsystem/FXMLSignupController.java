@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -29,21 +30,31 @@ import javafx.stage.Stage;
 public class FXMLSignupController implements Initializable {
 
     @FXML
-    private Button backButton;
-    @FXML
     private TextField name;
+
     @FXML
     private TextField email;
+
     @FXML
     private TextField userName;
+
     @FXML
     private TextField password;
+
     @FXML
     private DatePicker birthdate;
+
     @FXML
     private ComboBox<?> gender;
+
     @FXML
     private Button signup;
+
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private Label EmailErrorLabel;
 
     /**
      * Initializes the controller class.

@@ -113,3 +113,6 @@
     -fx-background-radius:  50px;
     -fx-text-fill: white;
 }
+#ErrorLabel{
+    -fx-text-fill:red;
+}
