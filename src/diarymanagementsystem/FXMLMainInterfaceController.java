@@ -14,9 +14,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -28,6 +30,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -44,7 +47,7 @@ public class FXMLMainInterfaceController implements Initializable {
     
     
     
-     @FXML
+    @FXML
     private AnchorPane profilePane;
 
     @FXML
@@ -294,6 +297,9 @@ public class FXMLMainInterfaceController implements Initializable {
     private Label day31;
 
     @FXML
+    private Label calendarDate;
+
+    @FXML
     private AnchorPane SliderMenu;
 
     @FXML
@@ -362,6 +368,86 @@ public class FXMLMainInterfaceController implements Initializable {
     @FXML
     private ImageView sliderMenuSettingsIcon;
 
+    @FXML
+    private AnchorPane diaryDayBlackPane;
+
+    @FXML
+    private Button myDiaryButton;
+
+    @FXML
+    private Button addNewDiaryButton;
+
+    @FXML
+    private Label closeDiaryDayBlackPane;
+
+    @FXML
+    private AnchorPane myDiaryPane;
+
+    @FXML
+    private VBox myDiaryVBox;
+
+    @FXML
+    private AnchorPane addNewDiaryPane;
+
+    @FXML
+    private Button addMemory;
+
+    @FXML
+    private Button addEvent;
+
+    @FXML
+    private Button addNote;
+
+    @FXML
+    private AnchorPane addNewMemoryPane;
+
+    @FXML
+    private TextField addMemoryTitle;
+
+    @FXML
+    private TextArea addMemoryDescription;
+
+    @FXML
+    private CheckBox addMemoryNotification;
+
+    @FXML
+    private DatePicker addMemoryNotificationDate;
+
+    @FXML
+    private Button addNewMemory;
+
+    @FXML
+    private TextField addMemoryNotificationMinutes;
+
+    @FXML
+    private TextField addMemoryNotificationHours;
+
+    @FXML
+    private AnchorPane addNewEventPane;
+
+    @FXML
+    private TextField addEventTitle;
+
+    @FXML
+    private TextArea addEventDescription;
+
+    @FXML
+    private CheckBox addEventNotification;
+
+    @FXML
+    private DatePicker addEventNotificationDate;
+
+    @FXML
+    private Button addNewEvent;
+
+    @FXML
+    private TextField addEventNotificationMinutes;
+
+    @FXML
+    private TextField addEventNotificationHours;
+
+
+
     /**
      * Initializes the controller class.
      */
@@ -374,6 +460,15 @@ public class FXMLMainInterfaceController implements Initializable {
         sliderMenuHomeIcon.setVisible(true);
         roundImage(userImage);
         userInfoButton.setStyle("-fx-text-fill:#0A283E ;");
+        
+        calendarDaysButton.setStyle("-fx-text-fill:#0A283E ;");
+        calendarDaysPane.setVisible(true);
+        
+        myDiaryButton.setStyle("-fx-text-fill:#0A283E ;");
+        myDiaryPane.setVisible(true);
+        
+        addMemory.setStyle("-fx-text-fill:#0A283E ;");
+        addNewMemoryPane.setVisible(true);
     }    
 
     @FXML
@@ -425,6 +520,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuSettingsIcon.setVisible(false);
             
             profilePane.setVisible(false);
+            calendarPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuProfileButton||event.getSource() == sliderMenuProfileButton2){
             sliderMenuProfileButton.setStyle("-fx-background-color: #C30032;");
@@ -448,6 +544,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuSettingsIcon.setVisible(false);
             
             profilePane.setVisible(true);
+            calendarPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuCalendarButton||event.getSource()==sliderMenuCalendarButton2){
             sliderMenuCalendarButton.setStyle("-fx-background-color: #C30032;");
@@ -471,6 +568,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuSettingsIcon.setVisible(false);
             
             profilePane.setVisible(false);
+            calendarPane.setVisible(true);
         }
         else if(event.getSource()==sliderMenuGroupsButton||event.getSource()==sliderMenuGroupsButton2){
             sliderMenuGroupsButton.setStyle("-fx-background-color: #C30032;");
@@ -494,6 +592,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuSettingsIcon.setVisible(false);
             
             profilePane.setVisible(false);
+            calendarPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuInvitationButton||event.getSource()==sliderMenuInvitationButton2){
             sliderMenuInvitationButton.setStyle("-fx-background-color: #C30032;");
@@ -517,6 +616,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuSettingsIcon.setVisible(false);
             
             profilePane.setVisible(false);
+            calendarPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuSettingsButton||event.getSource() == sliderMenuSettingsButton2){
             sliderMenuSettingsButton.setStyle("-fx-background-color: #C30032;");
@@ -540,6 +640,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuSettingsIcon.setVisible(true);
             
             profilePane.setVisible(false);
+            calendarPane.setVisible(false);
         }
 
     }
@@ -583,6 +684,74 @@ public class FXMLMainInterfaceController implements Initializable {
             userInfoPane.setVisible(false);
             userEditInfoPane.setVisible(true);
         }
+        
+        
+        else if(event.getSource()==calendarDaysButton){
+            calendarDaysButton.setStyle("-fx-text-fill:#0A283E ;");
+            calendarMonthButton.setStyle("");
+            calendarYearButton.setStyle("");
+            
+            calendarDaysPane.setVisible(true);
+        }
+        else if(event.getSource()==calendarMonthButton){
+            calendarMonthButton.setStyle("-fx-text-fill:#0A283E ;");
+            calendarDaysButton.setStyle("");
+            calendarYearButton.setStyle("");
+            
+            calendarDaysPane.setVisible(false);
+        }
+        else if(event.getSource()==calendarYearButton){
+            calendarYearButton.setStyle("-fx-text-fill:#0A283E ;");
+            calendarMonthButton.setStyle("");
+            calendarDaysButton.setStyle("");
+            
+            calendarDaysPane.setVisible(false);
+        }
+        
+        
+        else if(event.getSource()==myDiaryButton){
+            myDiaryButton.setStyle("-fx-text-fill:#0A283E ;");
+            addNewDiaryButton.setStyle("");
+            
+            myDiaryPane.setVisible(true);
+            addNewDiaryPane.setVisible(false);
+        }
+        else if(event.getSource()==addNewDiaryButton){
+            addNewDiaryButton.setStyle("-fx-text-fill:#0A283E ;");
+            myDiaryButton.setStyle("");
+            
+            myDiaryPane.setVisible(false);
+            addNewDiaryPane.setVisible(true);
+        }
+        
+        
+        else if(event.getSource()==addMemory){
+            addMemory.setStyle("-fx-text-fill:#0A283E ;");
+            addEvent.setStyle("");
+            addNote.setStyle("");
+            
+            addNewMemoryPane.setVisible(true);
+            addNewEventPane.setVisible(false);
+        }
+        else if(event.getSource()==addEvent){
+            addEvent.setStyle("-fx-text-fill:#0A283E ;");
+            addMemory.setStyle("");
+            addNote.setStyle("");
+            
+            addNewMemoryPane.setVisible(false);
+            addNewEventPane.setVisible(true);
+            
+        }
+        else if(event.getSource()==addNote){
+            addNote.setStyle("-fx-text-fill:#0A283E ;");
+            addEvent.setStyle("");
+            addMemory.setStyle("");
+            
+            addNewMemoryPane.setVisible(false);
+            addNewEventPane.setVisible(false);
+        }
+        
+        
     }
     @FXML
     private void openDayDiary(MouseEvent event) {
@@ -617,7 +786,44 @@ public class FXMLMainInterfaceController implements Initializable {
         else if(event.getSource()==diaryDay29){dayDate=29;}
         else if(event.getSource()==diaryDay30){dayDate=30;}
         else if(event.getSource()==diaryDay31){dayDate=31;}
+        diaryDayBlackPane.setVisible(true);
     }
 
-    
+    @FXML
+    private void closePane(MouseEvent event) {
+        if(event.getSource()==closeDiaryDayBlackPane){
+            addMemoryTitle.setText("");
+            addMemoryDescription.setText("");
+            addMemoryNotificationDate.setValue(null);
+            addMemoryNotification.setSelected(false);
+            
+            diaryDayBlackPane.setVisible(false);
+        }
+    }
+    @FXML
+    void addDiaryButtonAction(ActionEvent event) {
+        // I HAVE TO ADD THE SAME FUNCTIONALITY LIKE event.getSource()==addMemory TO RESET THE PANE
+        if(event.getSource()==addNewMemory){
+            //add memry
+            //--
+            //--
+            addMemoryTitle.setText("");
+            addMemoryDescription.setText("");
+            addMemoryNotificationDate.setValue(null);
+            addMemoryNotification.setSelected(false);
+            
+            diaryDayBlackPane.setVisible(false);
+        }
+        if(event.getSource()==addNewEventPane){
+            //add memry
+            //--
+            //--
+            addEventTitle.setText("");
+            addEventDescription.setText("");
+            addEventNotificationDate.setValue(null);
+            addEventNotification.setSelected(false);
+            
+            diaryDayBlackPane.setVisible(false);
+        }
+    }
 }

@@ -98,6 +98,29 @@
     -fx-text-fill: black;
     -fx-border-width:  1px;
 }
+#gridPaneCell{
+    -fx-border-color:#C1C1C1;
+    -fx-background-color:white;
+}
+#gridPaneCell:hover{
+    -fx-background-color:radial-gradient(focus-distance 0% , center 50% 50% , radius 40% , #d1d1d1,#E7E7E7);
+}
+#gridPaneCell:armed{
+    -fx-background-color:blue;
+}
+#diaryDayBlackPane{
+    -fx-background-color:rgba(0, 0, 0, 0.5);
+}
+#diaryDayPane{
+    -fx-background-color:  -fx-light-grey-color;
+    -fx-border-color:-fx-primary-color;
+}
+#addNewDiaryPane{
+    /*-fx-border-color: #DA0037;*/
+    -fx-background-color:  #CFCFCF;
+}
+
+
 
 
 
@@ -110,6 +133,17 @@
     -fx-background-color:   transparent;
     -fx-border-color:  transparent transparent -fx-secondary-color transparent;
     -fx-text-fill: -fx-text-color; 
+    -fx-border-width:  2px;
+}
+#textFieldBlackText{
+    -fx-background-color:   transparent;
+    -fx-border-color:  transparent  transparent -fx-primary-color  transparent;                                          -fx-text-fill: black;
+    -fx-border-width:  1px;
+}
+#textFieldBlackText:focused{
+    -fx-background-color:   transparent;
+    -fx-border-color:  transparent transparent -fx-secondary-color transparent;
+    -fx-text-fill: black; 
     -fx-border-width:  2px;
 }
 #button{
@@ -180,7 +214,7 @@
      -fx-border-color: -fx-primary-color;
     -fx-border-radius:  50px;
     -fx-background-radius:  50px;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     
 }
 .date-picker .text-field {
@@ -241,6 +275,40 @@
     -fx-border-radius:  50px;
     -fx-background-radius:  50px;
     -fx-text-fill: white;
+}
+#comboBoxBlackText{
+    -fx-text-fill: black;
+}
+#textAreaBlackText{
+    text-area-background: #CFCFCF;
+}
+#textAreaBlackText .content{
+    -fx-background-color:   text-area-background;
+    -fx-border-color:  transparent  transparent -fx-primary-color  transparent;                                          -fx-text-fill: -fx-text-color;
+    -fx-border-width:  1px;
+}
+#textAreaBlackText:focused .content{
+    -fx-border-color:  transparent transparent -fx-secondary-color transparent;
+    -fx-text-fill: black; 
+    -fx-border-width:  2px;
+}
+.check-box .box {
+
+-fx-background-color: transparent;
+-fx-border-color:-fx-primary-color;
+-fx-border-radius:3px; 
+
+}
+
+.check-box:selected .mark {
+
+-fx-background-color: -fx-primary-color;
+
+}
+
+.check-box:selected .box {
+
+-fx-background-color: transparent;
 }
 
 
