@@ -446,6 +446,21 @@ public class FXMLMainInterfaceController implements Initializable {
     @FXML
     private TextField addEventNotificationHours;
 
+    @FXML
+    private AnchorPane addNewNotePane;
+
+    @FXML
+    private TextField addNoteTitle;
+
+    @FXML
+    private TextArea addNoteDescription;
+
+    @FXML
+    private CheckBox addNoteFix;
+
+    @FXML
+    private Button addNewNote;
+
 
 
     /**

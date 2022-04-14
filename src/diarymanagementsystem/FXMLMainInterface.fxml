@@ -139,7 +139,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="calendarPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="calendarPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane layoutX="110.0" layoutY="14.0" minHeight="70.0" minWidth="870.0" prefHeight="70.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;">
                <children>
@@ -448,7 +448,7 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane id="diaryDayBlackPane" fx:id="diaryDayBlackPane" prefHeight="700.0" prefWidth="1500.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="diaryDayBlackPane" fx:id="diaryDayBlackPane" prefHeight="700.0" prefWidth="1500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane id="diaryDayPane" layoutX="92.0" layoutY="100.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
                <children>
@@ -483,7 +483,7 @@
                         <VBox fx:id="myDiaryVBox" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
-                  <AnchorPane id="addNewDiaryPane" fx:id="addNewDiaryPane" layoutX="66.0" layoutY="99.0" prefHeight="450.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+                  <AnchorPane id="addNewDiaryPane" fx:id="addNewDiaryPane" layoutX="66.0" layoutY="99.0" prefHeight="450.0" prefWidth="900.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
                      <children>
                         <AnchorPane layoutX="13.0" minHeight="50.0" minWidth="870.0" prefHeight="50.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;">
                            <children>
@@ -508,7 +508,7 @@
                               </HBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="addNewMemoryPane" layoutX="27.0" layoutY="52.0" prefHeight="430.0" prefWidth="850.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
+                        <AnchorPane fx:id="addNewMemoryPane" layoutX="27.0" layoutY="52.0" prefHeight="430.0" prefWidth="850.0" visible="false" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
                            <children>
                               <Label id="emailLabel" layoutX="17.0" layoutY="11.0" prefHeight="36.0" prefWidth="200.0" text="Memory Title:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
                                  <font>
@@ -587,6 +587,36 @@
                                     <Font size="15.0" />
                                  </font>
                               </TextField>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane fx:id="addNewNotePane" layoutX="33.0" layoutY="62.0" prefHeight="430.0" prefWidth="850.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
+                           <children>
+                              <Label id="emailLabel" layoutX="17.0" layoutY="11.0" prefHeight="36.0" prefWidth="130.0" text="Event Title:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="textFieldBlackText" fx:id="addNoteTitle" focusTraversable="false" layoutX="14.0" layoutY="46.0" prefHeight="40.0" prefWidth="420.0" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="45.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <Label id="emailLabel" layoutX="15.0" layoutY="171.0" prefHeight="36.0" prefWidth="189.0" text="Description:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="90.0">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                              </Label>
+                              <TextArea id="textAreaBlackText" fx:id="addNoteDescription" layoutX="15.0" layoutY="206.0" prefHeight="170.0" prefWidth="820.0" AnchorPane.topAnchor="130.0" />
+                              <CheckBox fx:id="addNoteFix" layoutX="15.0" layoutY="309.0" mnemonicParsing="false" text="Notification" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="309.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </CheckBox>
+                              <Button id="button" fx:id="addNewNote" layoutX="310.0" layoutY="355.0" mnemonicParsing="false" onAction="#addDiaryButtonAction" prefHeight="40.0" prefWidth="250.0" text="Add" textFill="#da0037">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </children>
