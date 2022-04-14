@@ -119,8 +119,21 @@
     /*-fx-border-color: #DA0037;*/
     -fx-background-color:  #CFCFCF;
 }
-
-
+#browseButton{
+    -fx-background-radius:100%;
+    -fx-border-radius:100%;
+    -fx-background-color:transparent;
+    -fx-font-size: 30px;
+    -fx-text-fill:#909090;  
+}
+#browseButton:hover{
+    -fx-background-color:radial-gradient(focus-distance 0% , center 50% 50% , radius 60% , #909090,#E7E7E7);
+    -fx-text-fill:-fx-light-grey-color;  
+}
+#browseButton:armed{
+    -fx-background-color:radial-gradient(focus-distance 0% , center 50% 50% , radius 40% , #B6B6B6,#E7E7E7);
+    -fx-text-fill:-fx-light-grey-color;  
+}
 
 
 

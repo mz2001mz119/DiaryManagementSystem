@@ -5,7 +5,10 @@
  */
 package diarymanagementsystem;
 
+import static java.lang.String.valueOf;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
@@ -43,7 +46,14 @@ import javafx.util.Duration;
 public class FXMLMainInterfaceController implements Initializable {
     //to find if the menu is hedden or not 
     boolean isSliderMenuHidden=false;
-    int dayDate;
+    static int dayDate;
+    static int monthDate;
+    static int yearDate;
+    static int newClaendarYears;
+    static int monthDays[]={31,28,31,30,31,30,31,31,30,31,30,31};
+    static int monthDaysLeapYear[]={31,29,31,30,31,30,31,31,30,31,30,3};
+    
+    
     
     
     
@@ -300,9 +310,6 @@ public class FXMLMainInterfaceController implements Initializable {
     private Label day31;
 
     @FXML
-    private Label calendarDate;
-
-    @FXML
     private AnchorPane calendarMonthPane;
 
     @FXML
@@ -376,6 +383,114 @@ public class FXMLMainInterfaceController implements Initializable {
 
     @FXML
     private Label month12;
+
+    @FXML
+    private AnchorPane calendarYearPane;
+
+    @FXML
+    private AnchorPane diaryYear1;
+
+    @FXML
+    private Label year1;
+
+    @FXML
+    private AnchorPane diaryYear2;
+
+    @FXML
+    private Label year2;
+
+    @FXML
+    private AnchorPane diaryYear3;
+
+    @FXML
+    private Label year3;
+
+    @FXML
+    private AnchorPane diaryYear4;
+
+    @FXML
+    private Label year4;
+
+    @FXML
+    private AnchorPane diaryYear5;
+
+    @FXML
+    private Label year5;
+
+    @FXML
+    private AnchorPane diaryYear6;
+
+    @FXML
+    private Label year6;
+
+    @FXML
+    private AnchorPane diaryYear7;
+
+    @FXML
+    private Label year7;
+
+    @FXML
+    private AnchorPane diaryYear8;
+
+    @FXML
+    private Label year8;
+
+    @FXML
+    private AnchorPane diaryYear9;
+
+    @FXML
+    private Label year9;
+
+    @FXML
+    private AnchorPane diaryYear10;
+
+    @FXML
+    private Label year10;
+
+    @FXML
+    private AnchorPane diaryYear11;
+
+    @FXML
+    private Label year11;
+
+    @FXML
+    private AnchorPane diaryYear12;
+
+    @FXML
+    private Label year12;
+
+    @FXML
+    private AnchorPane diaryYear13;
+
+    @FXML
+    private Label year13;
+
+    @FXML
+    private AnchorPane diaryYear14;
+
+    @FXML
+    private Label year14;
+
+    @FXML
+    private AnchorPane diaryYear15;
+
+    @FXML
+    private Label year15;
+
+    @FXML
+    private AnchorPane diaryYear16;
+
+    @FXML
+    private Label year16;
+
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private Button forwardButton;
+
+    @FXML
+    private Label calendarDate;
 
     @FXML
     private AnchorPane SliderMenu;
@@ -553,9 +668,17 @@ public class FXMLMainInterfaceController implements Initializable {
         sliderMenuHomeButton2.setStyle("-fx-background-color: #C30032; -fx-text-fill:white;");
         sliderMenuHomeIcon.setVisible(true);
         roundImage(userImage);
-        
-        
-        
+        //set current date
+        LocalDate today = LocalDate.now();
+        String formattedDate = today.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        //set Calendar date lable
+        String dateNow[]= formattedDate.split("-");
+        calendarDate.setText(dateNow[1]+"/"+dateNow[2]);
+        monthDate=Integer.parseInt(dateNow[1]);
+        yearDate=Integer.parseInt(dateNow[2]);
+        editcalendarDaysPane(monthDate,yearDate);
+        newClaendarYears = yearDate;
+        setCalendarYears(yearDate);
     }    
 
     @FXML
@@ -624,8 +747,10 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuSettingsButton2.setStyle("");
             
             userInfoButton.setStyle("-fx-text-fill:#0A283E ;");
+            editUserProfile.setStyle("");
             userInfoPane.setVisible(true);
-        
+            userEditInfoPane.setVisible(false);
+            
             sliderMenuHomeIcon.setVisible(false);
             sliderMenuProfileIcon.setVisible(true);
             sliderMenuCalendarIcon.setVisible(false);
@@ -658,7 +783,26 @@ public class FXMLMainInterfaceController implements Initializable {
 
             addMemory.setStyle("-fx-text-fill:#0A283E ;");
             addNewMemoryPane.setVisible(true);
+            
+            calendarDaysButton.setStyle("-fx-text-fill:#0A283E ;");
+            calendarMonthButton.setStyle("");
+            calendarYearButton.setStyle("");
+            
+            LocalDate today = LocalDate.now();
+            String formattedDate = today.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            //set Calendar date lable
+            String dateNow[]= formattedDate.split("-");
+            calendarDate.setText(dateNow[1]+"/"+dateNow[2]);
+            monthDate=Integer.parseInt(dateNow[1]);
+            yearDate=Integer.parseInt(dateNow[2]);
+            editcalendarDaysPane(monthDate,yearDate);
+            newClaendarYears = yearDate;
+            setCalendarYears(yearDate);
         
+            calendarDaysPane.setVisible(true);
+            calendarMonthPane.setVisible(false);
+            calendarYearPane.setVisible(false);
+            
             sliderMenuHomeIcon.setVisible(false);
             sliderMenuProfileIcon.setVisible(false);
             sliderMenuCalendarIcon.setVisible(true);
@@ -668,6 +812,7 @@ public class FXMLMainInterfaceController implements Initializable {
             
             profilePane.setVisible(false);
             calendarPane.setVisible(true);
+            
         }
         else if(event.getSource()==sliderMenuGroupsButton||event.getSource()==sliderMenuGroupsButton2){
             sliderMenuGroupsButton.setStyle("-fx-background-color: #C30032;");
@@ -743,7 +888,7 @@ public class FXMLMainInterfaceController implements Initializable {
         }
 
     }
-
+    // make profile image round
     private void roundImage(ImageView img) {
          // set a clip to apply rounded border to the original image.
             Rectangle clip = new Rectangle(
@@ -771,6 +916,7 @@ public class FXMLMainInterfaceController implements Initializable {
 
     @FXML
     private void topBarAction(ActionEvent event) {
+        //user Profile Top bar 
         if(event.getSource()==userInfoButton){
             userInfoButton.setStyle("-fx-text-fill:#0A283E ;");
             editUserProfile.setStyle("");
@@ -784,13 +930,15 @@ public class FXMLMainInterfaceController implements Initializable {
             userEditInfoPane.setVisible(true);
         }
         
-        
+        //calendar Top bar
         else if(event.getSource()==calendarDaysButton){
             calendarDaysButton.setStyle("-fx-text-fill:#0A283E ;");
             calendarMonthButton.setStyle("");
             calendarYearButton.setStyle("");
             
             calendarDaysPane.setVisible(true);
+            calendarMonthPane.setVisible(false);
+            calendarYearPane.setVisible(false);
         }
         else if(event.getSource()==calendarMonthButton){
             calendarMonthButton.setStyle("-fx-text-fill:#0A283E ;");
@@ -798,6 +946,8 @@ public class FXMLMainInterfaceController implements Initializable {
             calendarYearButton.setStyle("");
             
             calendarDaysPane.setVisible(false);
+            calendarMonthPane.setVisible(true);
+            calendarYearPane.setVisible(false);
         }
         else if(event.getSource()==calendarYearButton){
             calendarYearButton.setStyle("-fx-text-fill:#0A283E ;");
@@ -805,9 +955,11 @@ public class FXMLMainInterfaceController implements Initializable {
             calendarDaysButton.setStyle("");
             
             calendarDaysPane.setVisible(false);
+            calendarMonthPane.setVisible(false);
+            calendarYearPane.setVisible(true);
         }
         
-        
+        //open diary top bar
         else if(event.getSource()==myDiaryButton){
             myDiaryButton.setStyle("-fx-text-fill:#0A283E ;");
             addNewDiaryButton.setStyle("");
@@ -823,7 +975,7 @@ public class FXMLMainInterfaceController implements Initializable {
             addNewDiaryPane.setVisible(true);
         }
         
-        //Top bar Buttons
+        //add new diary Top bar Buttons
         else if(event.getSource()==addMemory){
             addMemory.setStyle("-fx-text-fill:#0A283E ;");
             addEvent.setStyle("");
@@ -876,6 +1028,7 @@ public class FXMLMainInterfaceController implements Initializable {
         
         
     }
+    //save the day when the user open a day on the calendar
     @FXML
     private void openDayDiary(MouseEvent event) {
         if(event.getSource()==diaryDay1){dayDate=1;}
@@ -914,6 +1067,7 @@ public class FXMLMainInterfaceController implements Initializable {
 
     @FXML
     private void closePane(MouseEvent event) {
+        //close diary pane on calendar and reset the fields
         if(event.getSource()==closeDiaryDayBlackPane){
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
@@ -945,9 +1099,9 @@ public class FXMLMainInterfaceController implements Initializable {
     }
     @FXML
     void addDiaryButtonAction(ActionEvent event) {
-        // I HAVE TO ADD THE SAME FUNCTIONALITY LIKE event.getSource()==addMemory TO RESET THE PANE
+        //add diary buttons adds diary and reset fields and close the pane
         if(event.getSource()==addNewMemory){
-            //add memry
+            //add memory
             //--
             //--
             addMemoryTitle.setText("");
@@ -967,7 +1121,7 @@ public class FXMLMainInterfaceController implements Initializable {
             addNewDiaryPane.setVisible(false);
         }
         if(event.getSource()==addNewEvent){
-            //add memry
+            //add event
             //--
             //--
             addEventTitle.setText("");
@@ -987,7 +1141,7 @@ public class FXMLMainInterfaceController implements Initializable {
             addNewDiaryPane.setVisible(false);
         }
         if(event.getSource()==addNewNote){
-            //add memry
+            //add note
             //--
             //--
             addNoteTitle.setText("");
@@ -1005,7 +1159,135 @@ public class FXMLMainInterfaceController implements Initializable {
         }
     }
     @FXML
-    void actionButtons(ActionEvent event) {
+    private void actionButtons(ActionEvent event) {
+        if(event.getSource()==editMyProfileSaveButton){
+            //check the info then save
+        }
+    }
+    @FXML
+    private void setMonth(MouseEvent event) {
+        //save month 
+        if(event.getSource()==diaryMonth1){monthDate=1;}
+        else if(event.getSource()==diaryMonth2){monthDate=2;}
+        else if(event.getSource()==diaryMonth3){monthDate=3;}
+        else if(event.getSource()==diaryMonth4){monthDate=4;}
+        else if(event.getSource()==diaryMonth5){monthDate=5;}
+        else if(event.getSource()==diaryMonth6){monthDate=6;}
+        else if(event.getSource()==diaryMonth7){monthDate=7;}
+        else if(event.getSource()==diaryMonth8){monthDate=8;}
+        else if(event.getSource()==diaryMonth9){monthDate=9;}
+        else if(event.getSource()==diaryMonth10){monthDate=10;}
+        else if(event.getSource()==diaryMonth11){monthDate=11;}
+        else if(event.getSource()==diaryMonth12){monthDate=12;}
+        //change the label
+        calendarDate.setText(""+monthDate+"/"+yearDate);
+        editcalendarDaysPane(monthDate,yearDate);
+        //open days pane
+        calendarDaysButton.setStyle("-fx-text-fill:#0A283E ;");
+        calendarMonthButton.setStyle("");
+        calendarYearButton.setStyle("");
+        
+        calendarDaysPane.setVisible(true);
+        calendarMonthPane.setVisible(false);
+        calendarYearPane.setVisible(false);
+    }
+    private void editcalendarDaysPane(int monthDate,int year) {
+        if(year%4==0){
 
+            if(monthDaysLeapYear[monthDate-1]==29){
+                diaryDay31.setDisable(true);
+                diaryDay30.setDisable(true);
+            }
+            else if(monthDaysLeapYear[monthDate-1]==30){
+                diaryDay31.setDisable(true);
+                diaryDay30.setDisable(false);
+                diaryDay29.setDisable(false);
+            }
+            else{
+                diaryDay31.setDisable(false);
+                diaryDay30.setDisable(false);
+                diaryDay29.setDisable(false);
+            }
+        }
+        else{
+            if(monthDays[monthDate-1]==28){
+                diaryDay31.setDisable(true);
+                diaryDay30.setDisable(true);
+                diaryDay29.setDisable(true);
+            }
+            else if(monthDays[monthDate-1]==30){
+                diaryDay31.setDisable(true);
+                diaryDay30.setDisable(false);
+                diaryDay29.setDisable(false);
+            }
+            else{
+                diaryDay31.setDisable(false);
+                diaryDay30.setDisable(false);
+                diaryDay29.setDisable(false);
+            }
+                
+        }
+    }
+    @FXML
+    private void setYear(MouseEvent event) {
+        if(event.getSource()==diaryYear1){yearDate=Integer.parseInt(year1.getText());}
+        else if(event.getSource()==diaryYear2){yearDate=Integer.parseInt(year2.getText());}
+        else if(event.getSource()==diaryYear3){yearDate=Integer.parseInt(year3.getText());}
+        else if(event.getSource()==diaryYear4){yearDate=Integer.parseInt(year4.getText());}
+        else if(event.getSource()==diaryYear5){yearDate=Integer.parseInt(year5.getText());}
+        else if(event.getSource()==diaryYear6){yearDate=Integer.parseInt(year6.getText());}
+        else if(event.getSource()==diaryYear7){yearDate=Integer.parseInt(year7.getText());}
+        else if(event.getSource()==diaryYear8){yearDate=Integer.parseInt(year8.getText());}
+        else if(event.getSource()==diaryYear9){yearDate=Integer.parseInt(year9.getText());}
+        else if(event.getSource()==diaryYear10){yearDate=Integer.parseInt(year10.getText());}
+        else if(event.getSource()==diaryYear11){yearDate=Integer.parseInt(year11.getText());}
+        else if(event.getSource()==diaryYear12){yearDate=Integer.parseInt(year12.getText());}
+        else if(event.getSource()==diaryYear13){yearDate=Integer.parseInt(year13.getText());}
+        else if(event.getSource()==diaryYear14){yearDate=Integer.parseInt(year14.getText());}
+        else if(event.getSource()==diaryYear15){yearDate=Integer.parseInt(year15.getText());}
+        else if(event.getSource()==diaryYear16){yearDate=Integer.parseInt(year16.getText());}
+        
+        //change the label
+        calendarDate.setText(""+monthDate+"/"+yearDate);
+        editcalendarDaysPane(monthDate,yearDate);
+        //open days pane
+        calendarMonthButton.setStyle("-fx-text-fill:#0A283E ;");
+        calendarDaysButton.setStyle("");
+        calendarYearButton.setStyle("");
+
+        calendarDaysPane.setVisible(false);
+        calendarMonthPane.setVisible(true);
+        calendarYearPane.setVisible(false);
+    }
+    @FXML
+    private void cahngeClaendarYears(ActionEvent event) {
+        if(event.getSource()==backButton && newClaendarYears>1922){
+             newClaendarYears -= 16;
+             setCalendarYears(newClaendarYears);
+        }
+        if(event.getSource()==forwardButton && newClaendarYears<2122){
+             newClaendarYears += 16;
+             setCalendarYears(newClaendarYears);
+        }
+    }
+    private void setCalendarYears(int currentYear){
+        year1.setText(valueOf(currentYear-4));
+        year2.setText(valueOf(currentYear-3));
+        year3.setText(valueOf(currentYear-2));
+        year4.setText(valueOf(currentYear-1));
+        year5.setText(valueOf(currentYear));
+        year6.setText(valueOf(currentYear+1));
+        year7.setText(valueOf(currentYear+2));
+        year8.setText(valueOf(currentYear+3));
+        year9.setText(valueOf(currentYear+4));
+        year10.setText(valueOf(currentYear+5));
+        year11.setText(valueOf(currentYear+6));
+        year12.setText(valueOf(currentYear+7));
+        year13.setText(valueOf(currentYear+8));
+        year14.setText(valueOf(currentYear+9));
+        year15.setText(valueOf(currentYear+10));
+        year16.setText(valueOf(currentYear+11));
+
+        
     }
 }
