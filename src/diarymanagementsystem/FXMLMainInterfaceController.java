@@ -303,6 +303,180 @@ public class FXMLMainInterfaceController implements Initializable {
     private Label calendarDate;
 
     @FXML
+    private AnchorPane calendarMonthPane;
+
+    @FXML
+    private AnchorPane diary;
+
+    @FXML
+    private AnchorPane diaryDay41;
+
+    @FXML
+    private Label day41;
+
+    @FXML
+    private AnchorPane diaryDay51;
+
+    @FXML
+    private Label day51;
+
+    @FXML
+    private AnchorPane diaryDay61;
+
+    @FXML
+    private Label day61;
+
+    @FXML
+    private AnchorPane diaryDay71;
+
+    @FXML
+    private Label day71;
+
+    @FXML
+    private AnchorPane diaryDay81;
+
+    @FXML
+    private Label day81;
+
+    @FXML
+    private AnchorPane diaryDay91;
+
+    @FXML
+    private Label day91;
+
+    @FXML
+    private AnchorPane diaryDay101;
+
+    @FXML
+    private Label day101;
+
+    @FXML
+    private AnchorPane diaryDay111;
+
+    @FXML
+    private Label day111;
+
+    @FXML
+    private AnchorPane diaryDay121;
+
+    @FXML
+    private Label day121;
+
+    @FXML
+    private AnchorPane diaryDay131;
+
+    @FXML
+    private Label day131;
+
+    @FXML
+    private AnchorPane diaryDay141;
+
+    @FXML
+    private Label day141;
+
+    @FXML
+    private AnchorPane diaryDay151;
+
+    @FXML
+    private Label day151;
+
+    @FXML
+    private AnchorPane diaryDay161;
+
+    @FXML
+    private Label day161;
+
+    @FXML
+    private AnchorPane diaryDay171;
+
+    @FXML
+    private Label day171;
+
+    @FXML
+    private AnchorPane diaryDay181;
+
+    @FXML
+    private Label day181;
+
+    @FXML
+    private AnchorPane diaryDay191;
+
+    @FXML
+    private Label day191;
+
+    @FXML
+    private AnchorPane diaryDay201;
+
+    @FXML
+    private Label day201;
+
+    @FXML
+    private AnchorPane diaryDay211;
+
+    @FXML
+    private Label day211;
+
+    @FXML
+    private AnchorPane diaryDay221;
+
+    @FXML
+    private Label day221;
+
+    @FXML
+    private AnchorPane diaryDay231;
+
+    @FXML
+    private Label day231;
+
+    @FXML
+    private AnchorPane diaryDay241;
+
+    @FXML
+    private Label day241;
+
+    @FXML
+    private AnchorPane diaryDay251;
+
+    @FXML
+    private Label day251;
+
+    @FXML
+    private AnchorPane diaryDay261;
+
+    @FXML
+    private Label day261;
+
+    @FXML
+    private AnchorPane diaryDay271;
+
+    @FXML
+    private Label day271;
+
+    @FXML
+    private AnchorPane diaryDay281;
+
+    @FXML
+    private Label day281;
+
+    @FXML
+    private AnchorPane diaryDay291;
+
+    @FXML
+    private Label day291;
+
+    @FXML
+    private AnchorPane diaryDay301;
+
+    @FXML
+    private Label day301;
+
+    @FXML
+    private AnchorPane diaryDay311;
+
+    @FXML
+    private Label day311;
+
+    @FXML
     private AnchorPane SliderMenu;
 
     @FXML

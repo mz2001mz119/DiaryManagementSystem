@@ -40,12 +40,12 @@
       </ImageView>
       <AnchorPane id="secondaryPane" layoutX="486.0" layoutY="36.0" minHeight="600.0" minWidth="500.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="50.0">
          <children>
-            <Label layoutX="173.0" layoutY="43.0" prefWidth="500.0" text="Email has been sent successfully" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+            <Label alignment="CENTER" layoutX="6.0" layoutY="86.0" prefHeight="46.0" prefWidth="400.0" text="Email has been sent " textFill="WHITE" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
                <font>
                   <Font name="AdobeSongStd-Light" size="40.0" />
                </font>
             </Label>
-            <Button id="button" fx:id="backButton" layoutX="128.0" layoutY="400.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="70.0" prefWidth="250.0" text="Back" textFill="#da0037" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0">
+            <Button id="button" fx:id="backButton" layoutX="128.0" layoutY="400.0" mnemonicParsing="false" onAction="#backToMain" prefHeight="70.0" prefWidth="200.0" text="Back" textFill="#da0037" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="30.0">
                <font>
                   <Font size="28.0" />
                </font>
@@ -66,6 +66,11 @@
                </font>
             </TextField>
             <Label id="ErrorLabel" fx:id="codeErrorLabel" layoutX="163.0" layoutY="339.0" prefHeight="18.0" prefWidth="194.0" text="*Error: Please Enter A Correct Code" visible="false" AnchorPane.leftAnchor="155.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="336.0" />
+            <Button id="button" fx:id="confirmButton" layoutX="14.0" layoutY="476.0" mnemonicParsing="false" onAction="#checkCode" prefHeight="70.0" prefWidth="200.0" text="Confirm" textFill="#da0037" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="30.0">
+               <font>
+                  <Font size="28.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>

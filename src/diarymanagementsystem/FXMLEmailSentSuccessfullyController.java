@@ -39,6 +39,9 @@ public class FXMLEmailSentSuccessfullyController implements Initializable {
     @FXML
     private Label codeErrorLabel;
 
+    @FXML
+    private Button confirmButton;
+
     /**
      * Initializes the controller class.
      */
@@ -55,5 +58,16 @@ public class FXMLEmailSentSuccessfullyController implements Initializable {
         Stage.setScene(Scene);
         Stage.show();
     }
-    
+    private void checkCode(ActionEvent event) throws IOException {
+        //check the code 
+        //..
+        //..
+        //..
+        //if the code correct then:
+        Parent Parent = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
+        Scene Scene = new Scene(Parent);
+        Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+        Stage.setScene(Scene);
+        Stage.show();
+    }
 }

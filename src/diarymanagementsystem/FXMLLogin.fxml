@@ -106,12 +106,12 @@
             <Font name="AGA Arabesque" size="50.0" />
          </font>
       </Label>
-      <Text fill="WHITE" layoutX="53.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A modern, easy-to-use calendar, with many features to add memories, events and notes, as well as to share moments with the ones you love" textAlignment="CENTER" wrappingWidth="800.0" AnchorPane.leftAnchor="75.0" AnchorPane.rightAnchor="625.0">
+      <Text fill="WHITE" layoutX="125.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="A modern, easy-to-use calendar, with many features to add memories, events and notes, as well as to share moments with the ones you love" textAlignment="CENTER" wrappingWidth="700.0" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="675.0">
          <font>
             <Font size="20.0" />
          </font>
       </Text>
-      <Label alignment="CENTER" layoutX="409.0" layoutY="422.0" prefHeight="63.0" prefWidth="150.0" text="Follow us" textFill="#da0037" AnchorPane.bottomAnchor="214.8" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="949.6">
+      <Label alignment="CENTER" layoutX="409.0" layoutY="422.0" prefHeight="63.0" prefWidth="150.0" text="Follow us" textFill="#da0037" AnchorPane.bottomAnchor="214.8" AnchorPane.leftAnchor="400.0">
          <font>
             <Font name="AGA Arabesque" size="30.0" />
          </font>
