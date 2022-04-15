@@ -144,7 +144,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="calendarPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="calendarPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane layoutX="110.0" layoutY="14.0" minHeight="70.0" minWidth="870.0" prefHeight="70.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;">
                <children>
@@ -169,7 +169,7 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="calendarDaysPane" layoutX="95.0" layoutY="127.0" prefHeight="500.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="95.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="130.0">
+            <AnchorPane fx:id="calendarDaysPane" layoutX="95.0" layoutY="127.0" prefHeight="500.0" prefWidth="900.0" AnchorPane.bottomAnchor="73.0" AnchorPane.leftAnchor="95.0" AnchorPane.rightAnchor="95.0" AnchorPane.topAnchor="130.0">
                <children>
                   <GridPane id="calenderGridPane" prefHeight="500.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
@@ -622,7 +622,8 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="1186.0" layoutY="14.0" minHeight="700.0" minWidth="350.0" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: blue;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane id="rightPane" fx:id="caledarSearchPane" layoutX="1150.0" prefHeight="700.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="fixNotesPane" layoutX="1186.0" layoutY="14.0" minHeight="700.0" minWidth="350.0" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: blue;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane id="secondarySlideMenu" fx:id="SliderMenu" layoutX="60.0" minHeight="700.0" minWidth="200.0" prefHeight="700.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-140.0" AnchorPane.topAnchor="0.0">
          <children>
             <VBox alignment="TOP_CENTER" maxWidth="200.0" minHeight="700.0" minWidth="200.0" prefHeight="700.0" prefWidth="200.0">
@@ -818,7 +819,7 @@
                                     <Font size="15.0" />
                                  </font>
                               </TextField>
-                              <Label id="emailLabel" layoutX="15.0" layoutY="171.0" prefHeight="36.0" prefWidth="189.0" text="Description:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="90.0">
+                              <Label id="emailLabel" layoutX="15.0" layoutY="171.0" prefHeight="36.0" prefWidth="189.0" text="Text:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="90.0">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
@@ -889,7 +890,7 @@
                         </AnchorPane>
                         <AnchorPane fx:id="addNewNotePane" layoutX="33.0" layoutY="62.0" prefHeight="430.0" prefWidth="850.0" visible="false" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
                            <children>
-                              <Label id="emailLabel" layoutX="17.0" layoutY="11.0" prefHeight="36.0" prefWidth="130.0" text="Event Title:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+                              <Label id="emailLabel" layoutX="17.0" layoutY="11.0" prefHeight="36.0" prefWidth="130.0" text="Note Title:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
@@ -899,13 +900,13 @@
                                     <Font size="15.0" />
                                  </font>
                               </TextField>
-                              <Label id="emailLabel" layoutX="15.0" layoutY="171.0" prefHeight="36.0" prefWidth="189.0" text="Description:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="90.0">
+                              <Label id="emailLabel" layoutX="15.0" layoutY="171.0" prefHeight="36.0" prefWidth="189.0" text="Note:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="90.0">
                                  <font>
                                     <Font size="25.0" />
                                  </font>
                               </Label>
                               <TextArea id="textAreaBlackText" fx:id="addNoteDescription" layoutX="15.0" layoutY="206.0" prefHeight="170.0" prefWidth="820.0" AnchorPane.topAnchor="130.0" />
-                              <CheckBox fx:id="addNoteFix" layoutX="15.0" layoutY="309.0" mnemonicParsing="false" text="Notification" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="320.0">
+                              <CheckBox fx:id="addNoteFix" layoutX="15.0" layoutY="309.0" mnemonicParsing="false" text="Fix Note" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="320.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>

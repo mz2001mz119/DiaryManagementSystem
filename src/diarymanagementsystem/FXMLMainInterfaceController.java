@@ -493,6 +493,12 @@ public class FXMLMainInterfaceController implements Initializable {
     private Label calendarDate;
 
     @FXML
+    private AnchorPane caledarSearchPane;
+
+    @FXML
+    private AnchorPane fixNotesPane;
+
+    @FXML
     private AnchorPane SliderMenu;
 
     @FXML
@@ -657,6 +663,7 @@ public class FXMLMainInterfaceController implements Initializable {
 
 
 
+//000
     /**
      * Initializes the controller class.
      */
@@ -667,6 +674,7 @@ public class FXMLMainInterfaceController implements Initializable {
         sliderMenuHomeButton.setStyle("-fx-background-color: #C30032; ");
         sliderMenuHomeButton2.setStyle("-fx-background-color: #C30032; -fx-text-fill:white;");
         sliderMenuHomeIcon.setVisible(true);
+        fixNotesPane.setVisible(true);
         roundImage(userImage);
         //set current date
         LocalDate today = LocalDate.now();
@@ -729,6 +737,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuInvitationIcon.setVisible(false);
             sliderMenuSettingsIcon.setVisible(false);
             
+            fixNotesPane.setVisible(true);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
         }
@@ -758,6 +767,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuInvitationIcon.setVisible(false);
             sliderMenuSettingsIcon.setVisible(false);
             
+            fixNotesPane.setVisible(false);
             profilePane.setVisible(true);
             calendarPane.setVisible(false);
         }
@@ -810,6 +820,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuInvitationIcon.setVisible(false);
             sliderMenuSettingsIcon.setVisible(false);
             
+            fixNotesPane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(true);
             
@@ -835,6 +846,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuInvitationIcon.setVisible(false);
             sliderMenuSettingsIcon.setVisible(false);
             
+            fixNotesPane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
         }
@@ -859,6 +871,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuInvitationIcon.setVisible(true);
             sliderMenuSettingsIcon.setVisible(false);
             
+            fixNotesPane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
         }
@@ -883,6 +896,7 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuInvitationIcon.setVisible(false);
             sliderMenuSettingsIcon.setVisible(true);
             
+            fixNotesPane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
         }

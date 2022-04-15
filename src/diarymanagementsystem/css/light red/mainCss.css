@@ -134,7 +134,9 @@
     -fx-background-color:radial-gradient(focus-distance 0% , center 50% 50% , radius 40% , #B6B6B6,#E7E7E7);
     -fx-text-fill:-fx-light-grey-color;  
 }
-
+#rightPane{
+    
+}
 
 
 #textField{
