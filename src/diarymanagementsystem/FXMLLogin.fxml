@@ -48,7 +48,7 @@
                   <Font name="AdobeSongStd-Light" size="65.0" />
                </font>
             </Label>
-            <Label id="emailLabel" fx:id="loginEmailLabel" layoutX="60.0" layoutY="167.0" text="Email" textFill="#da0037">
+            <Label id="emailLabel" fx:id="loginEmailLabel" layoutX="60.0" layoutY="167.0" text="Email / UserName" textFill="#da0037">
                <font>
                   <Font size="25.0" />
                </font>
