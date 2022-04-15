@@ -115,7 +115,7 @@
     -fx-background-color:  -fx-light-grey-color;
     -fx-border-color:-fx-primary-color;
 }
-#addNewDiaryPane{
+#addNewDiaryPane,#diaryNotificationPane{
     /*-fx-border-color: #DA0037;*/
     -fx-background-color:  #CFCFCF;
 }
@@ -135,8 +135,26 @@
     -fx-text-fill:-fx-light-grey-color;  
 }
 #rightPane{
-    
+    -fx-border-color: -fx-primary-color transparent -fx-primary-color transparent;
+    -fx-border-width: 3px;
+    -fx-background-color:-fx-light-grey-color;
 }
+#searchTextField{
+    -fx-background-color:   transparent;
+    -fx-border-color:  -fx-primary-color ;
+    -fx-text-fill: black;
+    -fx-border-width:  1px;
+    -fx-border-radius:100%;
+    -fx-background-radius:100%;
+        
+}
+#rightVBox{
+    -fx-background-color:-fx-light-grey-color;
+}
+
+
+
+
 
 
 #textField{
@@ -152,13 +170,13 @@
 }
 #textFieldBlackText{
     -fx-background-color:   transparent;
-    -fx-border-color:  #9D9D9D  #9D9D9D -fx-primary-color  #9D9D9D;
+    -fx-border-color:  transparent  transparent -fx-primary-color  transparent;/*#9D9D9D*/
     -fx-text-fill: black;
     -fx-border-width:  1px;
 }
 #textFieldBlackText:focused{
     -fx-background-color:   transparent;
-    -fx-border-color:  #9D9D9D #9D9D9D -fx-secondary-color #9D9D9D;
+    -fx-border-color:  transparent transparent -fx-secondary-color transparent;
     -fx-text-fill: black; 
     -fx-border-width:  2px;
 }

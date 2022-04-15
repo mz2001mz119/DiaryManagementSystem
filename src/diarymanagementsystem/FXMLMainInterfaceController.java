@@ -57,7 +57,7 @@ public class FXMLMainInterfaceController implements Initializable {
     
     
     
-    @FXML
+     @FXML
     private AnchorPane profilePane;
 
     @FXML
@@ -496,6 +496,15 @@ public class FXMLMainInterfaceController implements Initializable {
     private AnchorPane caledarSearchPane;
 
     @FXML
+    private TextField calendarSearchTextField;
+
+    @FXML
+    private ComboBox<?> calendarSearchFilter;
+
+    @FXML
+    private VBox caledarSearchVBox;
+
+    @FXML
     private AnchorPane fixNotesPane;
 
     @FXML
@@ -610,16 +619,7 @@ public class FXMLMainInterfaceController implements Initializable {
     private CheckBox addMemoryNotification;
 
     @FXML
-    private DatePicker addMemoryNotificationDate;
-
-    @FXML
     private Button addNewMemory;
-
-    @FXML
-    private TextField addMemoryNotificationMinutes;
-
-    @FXML
-    private TextField addMemoryNotificationHours;
 
     @FXML
     private AnchorPane addNewEventPane;
@@ -634,16 +634,7 @@ public class FXMLMainInterfaceController implements Initializable {
     private CheckBox addEventNotification;
 
     @FXML
-    private DatePicker addEventNotificationDate;
-
-    @FXML
     private Button addNewEvent;
-
-    @FXML
-    private TextField addEventNotificationMinutes;
-
-    @FXML
-    private TextField addEventNotificationHours;
 
     @FXML
     private AnchorPane addNewNotePane;
@@ -659,6 +650,25 @@ public class FXMLMainInterfaceController implements Initializable {
 
     @FXML
     private Button addNewNote;
+
+    @FXML
+    private AnchorPane dirayNotificationBlackPane;
+
+    @FXML
+    private Label closeNotificationBlackPane;
+
+    @FXML
+    private DatePicker addNotificationDate;
+
+    @FXML
+    private TextField addNotificationMinutes;
+
+    @FXML
+    private TextField addNotificationHours;
+
+    @FXML
+    private Button addNotification;
+
 
 
 
@@ -740,6 +750,7 @@ public class FXMLMainInterfaceController implements Initializable {
             fixNotesPane.setVisible(true);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
+            caledarSearchPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuProfileButton||event.getSource() == sliderMenuProfileButton2){
             sliderMenuProfileButton.setStyle("-fx-background-color: #C30032;");
@@ -770,6 +781,7 @@ public class FXMLMainInterfaceController implements Initializable {
             fixNotesPane.setVisible(false);
             profilePane.setVisible(true);
             calendarPane.setVisible(false);
+            caledarSearchPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuCalendarButton||event.getSource()==sliderMenuCalendarButton2){
             sliderMenuCalendarButton.setStyle("-fx-background-color: #C30032;");
@@ -823,7 +835,7 @@ public class FXMLMainInterfaceController implements Initializable {
             fixNotesPane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(true);
-            
+            caledarSearchPane.setVisible(true);
         }
         else if(event.getSource()==sliderMenuGroupsButton||event.getSource()==sliderMenuGroupsButton2){
             sliderMenuGroupsButton.setStyle("-fx-background-color: #C30032;");
@@ -849,6 +861,7 @@ public class FXMLMainInterfaceController implements Initializable {
             fixNotesPane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
+            caledarSearchPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuInvitationButton||event.getSource()==sliderMenuInvitationButton2){
             sliderMenuInvitationButton.setStyle("-fx-background-color: #C30032;");
@@ -874,6 +887,7 @@ public class FXMLMainInterfaceController implements Initializable {
             fixNotesPane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
+            caledarSearchPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuSettingsButton||event.getSource() == sliderMenuSettingsButton2){
             sliderMenuSettingsButton.setStyle("-fx-background-color: #C30032;");
@@ -899,6 +913,7 @@ public class FXMLMainInterfaceController implements Initializable {
             fixNotesPane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
+            caledarSearchPane.setVisible(false);
         }
 
     }
@@ -997,9 +1012,6 @@ public class FXMLMainInterfaceController implements Initializable {
             
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
-            addMemoryNotificationHours.setText("");
-            addMemoryNotificationMinutes.setText("");
-            addMemoryNotificationDate.setValue(null);
             addMemoryNotification.setSelected(false);
             
             
@@ -1014,10 +1026,7 @@ public class FXMLMainInterfaceController implements Initializable {
             addNote.setStyle("");
             
             addEventTitle.setText("");
-            addEventNotificationHours.setText("");
-            addEventNotificationMinutes.setText("");
             addEventDescription.setText("");
-            addEventNotificationDate.setValue(null);
             addEventNotification.setSelected(false);
             
             
@@ -1085,15 +1094,9 @@ public class FXMLMainInterfaceController implements Initializable {
         if(event.getSource()==closeDiaryDayBlackPane){
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
-            addMemoryNotificationHours.setText("");
-            addMemoryNotificationMinutes.setText("");
-            addMemoryNotificationDate.setValue(null);
             addMemoryNotification.setSelected(false);
             addEventTitle.setText("");
-            addEventNotificationHours.setText("");
-            addEventNotificationMinutes.setText("");
             addEventDescription.setText("");
-            addEventNotificationDate.setValue(null);
             addEventNotification.setSelected(false);
             addNoteTitle.setText("");
             addNoteDescription.setText("");
@@ -1106,9 +1109,25 @@ public class FXMLMainInterfaceController implements Initializable {
             addNewEventPane.setVisible(false);
             addNewNotePane.setVisible(false);
             addNewDiaryPane.setVisible(false);
-            
-            
-            
+        }
+        if(event.getSource()==closeNotificationBlackPane){
+            addNotificationDate.setValue(null);
+            addNotificationMinutes.setText("");
+            addNotificationHours.setText("");
+            dirayNotificationBlackPane.setVisible(false);
+        }
+    }
+    @FXML
+    void openNotificationPane(ActionEvent event) {
+        if(event.getSource()==addEventNotification && addEventNotification.isSelected() ){
+            //pass the "event" parameter then
+            //--
+            dirayNotificationBlackPane.setVisible(true);
+        }
+        if(event.getSource()==addMemoryNotification && addMemoryNotification.isSelected() ){
+            //pass the "event" parameter then
+            //--
+            dirayNotificationBlackPane.setVisible(true);
         }
     }
     @FXML
@@ -1120,9 +1139,6 @@ public class FXMLMainInterfaceController implements Initializable {
             //--
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
-            addMemoryNotificationHours.setText("");
-            addMemoryNotificationMinutes.setText("");
-            addMemoryNotificationDate.setValue(null);
             addMemoryNotification.setSelected(false);
             
             diaryDayBlackPane.setVisible(false);
@@ -1139,10 +1155,7 @@ public class FXMLMainInterfaceController implements Initializable {
             //--
             //--
             addEventTitle.setText("");
-            addEventNotificationHours.setText("");
-            addEventNotificationMinutes.setText("");
             addEventDescription.setText("");
-            addEventNotificationDate.setValue(null);
             addEventNotification.setSelected(false);
             
             diaryDayBlackPane.setVisible(false);

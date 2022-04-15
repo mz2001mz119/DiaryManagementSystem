@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -144,7 +145,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="calendarPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="calendarPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane layoutX="110.0" layoutY="14.0" minHeight="70.0" minWidth="870.0" prefHeight="70.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;">
                <children>
@@ -622,7 +623,24 @@
             </Label>
          </children>
       </AnchorPane>
-      <AnchorPane id="rightPane" fx:id="caledarSearchPane" layoutX="1150.0" prefHeight="700.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane id="rightPane" fx:id="caledarSearchPane" layoutX="1150.0" prefHeight="700.0" prefWidth="350.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextField id="searchTextField" fx:id="calendarSearchTextField" layoutX="13.0" layoutY="14.0" prefHeight="27.0" prefWidth="230.0" promptText="search">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </TextField>
+            <ComboBox fx:id="calendarSearchFilter" layoutX="250.0" layoutY="14.0" prefHeight="34.0" prefWidth="100.0" />
+            <ScrollPane layoutY="69.0" prefHeight="644.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="348.0">
+                     <children>
+                        <VBox id="rightVBox" fx:id="caledarSearchVBox" layoutX="16.0" layoutY="52.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </ScrollPane>
+         </children></AnchorPane>
       <AnchorPane fx:id="fixNotesPane" layoutX="1186.0" layoutY="14.0" minHeight="700.0" minWidth="350.0" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: blue;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <AnchorPane id="secondarySlideMenu" fx:id="SliderMenu" layoutX="60.0" minHeight="700.0" minWidth="200.0" prefHeight="700.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-140.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -777,7 +795,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <AnchorPane fx:id="myDiaryPane" layoutX="66.0" layoutY="100.0" prefHeight="450.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                  <AnchorPane fx:id="myDiaryPane" layoutX="66.0" layoutY="100.0" prefHeight="450.0" prefWidth="900.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
                      <children>
                         <VBox fx:id="myDiaryVBox" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
@@ -807,7 +825,7 @@
                               </HBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="addNewMemoryPane" layoutX="27.0" layoutY="52.0" prefHeight="430.0" prefWidth="850.0" visible="false" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
+                        <AnchorPane fx:id="addNewMemoryPane" layoutX="27.0" layoutY="52.0" prefHeight="430.0" prefWidth="850.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
                            <children>
                               <Label id="emailLabel" layoutX="17.0" layoutY="11.0" prefHeight="36.0" prefWidth="200.0" text="Memory Title:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
                                  <font>
@@ -825,27 +843,16 @@
                                  </font>
                               </Label>
                               <TextArea id="textAreaBlackText" fx:id="addMemoryDescription" layoutX="15.0" layoutY="206.0" prefHeight="170.0" prefWidth="820.0" AnchorPane.topAnchor="130.0" />
-                              <CheckBox fx:id="addMemoryNotification" layoutX="15.0" layoutY="309.0" mnemonicParsing="false" text="Notification" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="320.0">
+                              <CheckBox fx:id="addMemoryNotification" layoutX="15.0" layoutY="309.0" mnemonicParsing="false" onAction="#openNotificationPane" text="Notification" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="320.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </CheckBox>
-                              <DatePicker fx:id="addMemoryNotificationDate" editable="false" layoutX="142.0" layoutY="311.0" prefHeight="31.0" prefWidth="300.0" AnchorPane.topAnchor="320.0" />
                               <Button id="button" fx:id="addNewMemory" layoutX="310.0" layoutY="355.0" mnemonicParsing="false" onAction="#addDiaryButtonAction" prefHeight="40.0" prefWidth="250.0" text="Add" textFill="#da0037" AnchorPane.topAnchor="370.0">
                                  <font>
                                     <Font size="28.0" />
                                  </font>
                               </Button>
-                              <TextField id="textFieldBlackText" fx:id="addMemoryNotificationMinutes" focusTraversable="false" layoutX="542.0" layoutY="314.0" prefHeight="30.0" prefWidth="110.0" promptText="mm" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="314.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </TextField>
-                              <TextField id="textFieldBlackText" fx:id="addMemoryNotificationHours" focusTraversable="false" layoutX="662.0" layoutY="314.0" prefHeight="30.0" prefWidth="110.0" promptText="hh (24)" AnchorPane.leftAnchor="660.0" AnchorPane.topAnchor="314.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </TextField>
                            </children></AnchorPane>
                         <AnchorPane fx:id="addNewEventPane" layoutX="23.0" layoutY="52.0" prefHeight="430.0" prefWidth="850.0" visible="false" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
                            <children>
@@ -865,27 +872,16 @@
                                  </font>
                               </Label>
                               <TextArea id="textAreaBlackText" fx:id="addEventDescription" layoutX="15.0" layoutY="206.0" prefHeight="170.0" prefWidth="820.0" AnchorPane.topAnchor="130.0" />
-                              <CheckBox fx:id="addEventNotification" layoutX="15.0" layoutY="309.0" mnemonicParsing="false" text="Notification" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="320.0">
+                              <CheckBox fx:id="addEventNotification" layoutX="15.0" layoutY="309.0" mnemonicParsing="false" onAction="#openNotificationPane" text="Notification" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="320.0">
                                  <font>
                                     <Font size="15.0" />
                                  </font>
                               </CheckBox>
-                              <DatePicker fx:id="addEventNotificationDate" editable="false" layoutX="142.0" layoutY="305.0" prefHeight="31.0" prefWidth="300.0" AnchorPane.topAnchor="320.0" />
                               <Button id="button" fx:id="addNewEvent" layoutX="310.0" layoutY="355.0" mnemonicParsing="false" onAction="#addDiaryButtonAction" prefHeight="40.0" prefWidth="250.0" text="Add" textFill="#da0037" AnchorPane.topAnchor="370.0">
                                  <font>
                                     <Font size="28.0" />
                                  </font>
                               </Button>
-                              <TextField id="textFieldBlackText" fx:id="addEventNotificationMinutes" focusTraversable="false" layoutX="527.0" layoutY="301.0" prefHeight="30.0" prefWidth="110.0" promptText="mm" AnchorPane.leftAnchor="540.0" AnchorPane.topAnchor="314.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </TextField>
-                              <TextField id="textFieldBlackText" fx:id="addEventNotificationHours" focusTraversable="false" layoutX="649.0" layoutY="301.0" prefHeight="30.0" prefWidth="110.0" promptText="hh (24)" AnchorPane.leftAnchor="660.0" AnchorPane.topAnchor="314.0">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </TextField>
                            </children>
                         </AnchorPane>
                         <AnchorPane fx:id="addNewNotePane" layoutX="33.0" layoutY="62.0" prefHeight="430.0" prefWidth="850.0" visible="false" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
@@ -921,6 +917,44 @@
                      </children>
                   </AnchorPane>
                </children></AnchorPane>
+            <AnchorPane id="diaryDayBlackPane" fx:id="dirayNotificationBlackPane" layoutX="326.0" layoutY="-62.0" prefHeight="600.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <AnchorPane id="diaryNotificationPane" layoutX="285.0" layoutY="14.0" prefHeight="200.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <Label fx:id="closeNotificationBlackPane" layoutX="456.0" layoutY="21.0" onMouseClicked="#closePane" text="X" textFill="#da0037" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                           <font>
+                              <Font size="25.0" />
+                           </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Label>
+                        <Label layoutX="166.0" layoutY="10.0" text="Notifications">
+                           <font>
+                              <Font name="AdobeMingStd-Light" size="30.0" />
+                           </font>
+                        </Label>
+                        <VBox layoutX="28.0" layoutY="67.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0" />
+                        <DatePicker fx:id="addNotificationDate" editable="false" layoutX="29.0" layoutY="432.0" prefHeight="31.0" prefWidth="200.0" promptText="Date" AnchorPane.leftAnchor="29.0" AnchorPane.topAnchor="432.0" />
+                        <TextField id="textFieldBlackText" fx:id="addNotificationMinutes" focusTraversable="false" layoutX="253.0" layoutY="430.0" prefHeight="30.0" prefWidth="110.0" promptText="mm" AnchorPane.leftAnchor="253.0" AnchorPane.topAnchor="430.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <TextField id="textFieldBlackText" fx:id="addNotificationHours" focusTraversable="false" layoutX="375.0" layoutY="430.0" prefHeight="30.0" prefWidth="110.0" promptText="hh (24)" AnchorPane.leftAnchor="370.0" AnchorPane.topAnchor="430.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Button id="button" fx:id="addNotification" layoutX="128.0" layoutY="507.0" mnemonicParsing="false" onAction="#addDiaryButtonAction" prefHeight="40.0" prefWidth="250.0" text="Add" textFill="#da0037" AnchorPane.bottomAnchor="30.0">
+                           <font>
+                              <Font size="28.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
          </children>
       </AnchorPane>
    </children>
