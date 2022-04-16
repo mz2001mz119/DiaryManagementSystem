@@ -180,6 +180,9 @@
     -fx-text-fill: black; 
     -fx-border-width:  2px;
 }
+#midScrollPane{
+    -fx-border-color: -fx-primary-color;
+}
 #button{
     -fx-background-color:  transparent;
     -fx-border-color: -fx-primary-color;

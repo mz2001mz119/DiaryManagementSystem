@@ -109,6 +109,9 @@ public class FXMLMainInterfaceController implements Initializable {
     private Button editMyProfileSaveButton;
 
     @FXML
+    private AnchorPane fixNotesPane;
+
+    @FXML
     private AnchorPane calendarPane;
 
     @FXML
@@ -505,7 +508,25 @@ public class FXMLMainInterfaceController implements Initializable {
     private VBox caledarSearchVBox;
 
     @FXML
-    private AnchorPane fixNotesPane;
+    private AnchorPane groupPane;
+
+    @FXML
+    private TextField publicGroupsSearchTextField;
+
+    @FXML
+    private VBox publicGroupVBox;
+
+    @FXML
+    private AnchorPane myGroupsPane;
+
+    @FXML
+    private TextField calendarSearchTextField1;
+
+    @FXML
+    private Button createNewGroup;
+
+    @FXML
+    private VBox myGroupsSearchVBox;
 
     @FXML
     private AnchorPane SliderMenu;
