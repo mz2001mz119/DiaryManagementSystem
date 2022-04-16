@@ -5,11 +5,14 @@
  */
 package diarymanagementsystem;
 
+import static diarymanagementsystem.FXMLForgotPasswordController.addTextLimiter;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -55,6 +58,20 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
         // matched the ReGex
         return m.matches();
     }
+            public static void addTextLimiter(final TextField tf, final int maxLength) {
+    tf.textProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+            if (tf.getText().length() > maxLength) {
+                String s = tf.getText().substring(0, maxLength);
+                tf.setText(s);
+            }
+        }
+    });
+    
+}
+  
+       
     @FXML
     private Button backButton;
 
@@ -72,10 +89,13 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
 
     /**
      * Initializes the controller class.
+     * 
      */
+  
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-   
+     addTextLimiter(confirmationCodeTextField, 50);
+     addTextLimiter(confirmationPasswordTextField, 50);
     }    
 
     @FXML
@@ -130,5 +150,6 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
       alert.showAndWait();}
     
     }
+    
     
 }

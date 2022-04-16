@@ -70,6 +70,7 @@ public class FXMLForgotPasswordController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         //control the "Email" labels transitions ubove the Email&Password Text Fields
+        addTextLimiter(forgotEmailTextField, 50);
         forgotEmailTextField.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
@@ -118,7 +119,7 @@ public class FXMLForgotPasswordController implements Initializable {
         
        
        //Send an Email with new code and add the new random code on a forgotPassword table with validation date
-try{     addTextLimiter(forgotEmailTextField, 50);
+try{     
          String reseption=forgotEmailTextField.getText();
          Random=getAlphaNumericString(8);
          send_email.sendemail(reseption,Random);
