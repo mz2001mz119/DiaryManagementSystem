@@ -12,9 +12,6 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import javax.mail.Authenticator;
 
-
-
-
 public class send_email {
     
    public static void sendemail(String recepient,String Random) throws MessagingException{

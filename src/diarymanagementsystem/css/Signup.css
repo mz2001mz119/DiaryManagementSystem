@@ -3,7 +3,7 @@
 	-fx-primary-color: #DA0037;
 	-fx-secondary-color: #EA0640;
 	-fx-light-grey-color: #d1d1d1;
-    -fx-text-color: white;
+        -fx-text-color: white;
 	-fx-focus-color: -fx-secondary-color;
 }
 #backgroundPane{
@@ -112,6 +112,14 @@
     -fx-border-radius:  50px;
     -fx-background-radius:  50px;
     -fx-text-fill: white;
+}
+.jfx-combo-box {
+	-fx-background-color:  PINK;
+}
+
+.jfx-combo-box .label {
+	-fx-background-color:  WHITE;
+	-fx-text-fill: RED;
 }
 #ErrorLabel{
     -fx-text-fill:red;
