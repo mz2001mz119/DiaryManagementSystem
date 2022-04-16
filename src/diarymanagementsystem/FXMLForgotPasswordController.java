@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.Random;
 import java.util.ResourceBundle;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
@@ -22,12 +24,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.mail.MessagingException;
 //
 //
 /**
@@ -37,6 +41,10 @@ import javafx.util.Duration;
  */
 public class FXMLForgotPasswordController implements Initializable {
 
+    static public String Random;
+    
+    
+ 
      @FXML
     private Label forgotEmailLabel;
 
@@ -62,6 +70,7 @@ public class FXMLForgotPasswordController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         //control the "Email" labels transitions ubove the Email&Password Text Fields
+        addTextLimiter(forgotEmailTextField, 50);
         forgotEmailTextField.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
@@ -103,21 +112,30 @@ public class FXMLForgotPasswordController implements Initializable {
     }
 
     @FXML
-    private void sendForgotEmail(ActionEvent event) throws IOException {
-        //chack the Email First
-        //..
-        //..
-        //..
-        //Send an Email with new code and add the new random code on a forgotPassword table with validation date
-        //..
-        //..
-        //..
+    private void sendForgotEmail(ActionEvent event)  {
+        
+        //chack the Email First in database or not
+       
+        
+       
+       //Send an Email with new code and add the new random code on a forgotPassword table with validation date
+try{     
+         String reseption=forgotEmailTextField.getText();
+         Random=getAlphaNumericString(8);
+         send_email.sendemail(reseption,Random);
+         
         //the open the Email sent successfully
         Parent Parent = FXMLLoader.load(getClass().getResource("FXMLEmailSentSuccessfully.fxml"));
         Scene Scene = new Scene(Parent);
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Stage.setScene(Scene);
-        Stage.show();
+        Stage.show();}
+catch(Exception e){
+Alert alert = new Alert(Alert.AlertType.ERROR);
+alert.setTitle("Invalid email");
+alert.setHeaderText("Invalid email ");
+alert.setContentText("please enter valid email");
+alert.showAndWait();}
         
     }
 
@@ -128,6 +146,50 @@ public class FXMLForgotPasswordController implements Initializable {
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Stage.setScene(Scene);
         Stage.show();
+    }
+    
+    public static void addTextLimiter(final TextField tf, final int maxLength) {
+    tf.textProperty().addListener(new ChangeListener<String>() {
+        @Override
+        public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
+            if (tf.getText().length() > maxLength) {
+                String s = tf.getText().substring(0, maxLength);
+                tf.setText(s);
+            }
+        }
+    });
+    
+}
+     static String getAlphaNumericString(int n)
+    {
+  
+        // length is bounded by 256 Character
+        byte[] array = new byte[256];
+        new Random().nextBytes(array);
+  
+        String randomString
+            = new String(array, Charset.forName("UTF-8"));
+  
+        // Create a StringBuffer to store the result
+        StringBuffer r = new StringBuffer();
+  
+        // Append first 20 alphanumeric characters
+        // from the generated random String into the result
+        for (int k = 0; k < randomString.length(); k++) {
+  
+            char ch = randomString.charAt(k);
+  
+            if (((ch >= 'a' && ch <= 'z')  || (ch >= 'A' && ch <= 'Z')
+                 || (ch >= '0' && ch <= '9'))
+                && (n > 0)) {
+  
+                r.append(ch);
+                n--;
+            }
+        }
+  
+        // return the resultant string
+        return r.toString();
     }
     
 }
