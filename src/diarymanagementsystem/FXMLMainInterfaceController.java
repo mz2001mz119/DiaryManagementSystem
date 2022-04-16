@@ -37,7 +37,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-
+import java.sql.Connection; 
+import java.sql.DriverManager; 
+import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  * FXML Controller class
  *
@@ -52,12 +57,12 @@ public class FXMLMainInterfaceController implements Initializable {
     static int newClaendarYears;
     static int monthDays[]={31,28,31,30,31,30,31,31,30,31,30,31};
     static int monthDaysLeapYear[]={31,29,31,30,31,30,31,31,30,31,30,3};
+    Connection conn;
     
     
     
     
-    
-     @FXML
+    @FXML
     private AnchorPane profilePane;
 
     @FXML
@@ -700,6 +705,18 @@ public class FXMLMainInterfaceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        
+        try {
+            //Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+            //Statement stmt = conn.createStatement();
+            //String sqlstr="INSERT INTO `user` (`Name`, `username`, `Email`, `Gender`, `Birthdate`, `password`) VALUES ('Noor aldeen abu shehadeh', 'noorasaldeen', 'anooraldeen@gmail.com', 'Male', '2002-02-05', 'asdfg1234');";
+            //stmt.executeUpdate(sqlstr);
+            conn.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+            
         // TODO
         //set the main button pressed for the main pane
         sliderMenuHomeButton.setStyle("-fx-background-color: #C30032; ");
@@ -772,6 +789,8 @@ public class FXMLMainInterfaceController implements Initializable {
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
             caledarSearchPane.setVisible(false);
+            groupPane.setVisible(false);
+            myGroupsPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuProfileButton||event.getSource() == sliderMenuProfileButton2){
             sliderMenuProfileButton.setStyle("-fx-background-color: #C30032;");
@@ -799,10 +818,12 @@ public class FXMLMainInterfaceController implements Initializable {
             sliderMenuInvitationIcon.setVisible(false);
             sliderMenuSettingsIcon.setVisible(false);
             
-            fixNotesPane.setVisible(false);
+            fixNotesPane.setVisible(true);
             profilePane.setVisible(true);
             calendarPane.setVisible(false);
             caledarSearchPane.setVisible(false);
+            groupPane.setVisible(false);
+            myGroupsPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuCalendarButton||event.getSource()==sliderMenuCalendarButton2){
             sliderMenuCalendarButton.setStyle("-fx-background-color: #C30032;");
@@ -857,6 +878,8 @@ public class FXMLMainInterfaceController implements Initializable {
             profilePane.setVisible(false);
             calendarPane.setVisible(true);
             caledarSearchPane.setVisible(true);
+            groupPane.setVisible(false);
+            myGroupsPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuGroupsButton||event.getSource()==sliderMenuGroupsButton2){
             sliderMenuGroupsButton.setStyle("-fx-background-color: #C30032;");
@@ -883,6 +906,8 @@ public class FXMLMainInterfaceController implements Initializable {
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
             caledarSearchPane.setVisible(false);
+            groupPane.setVisible(true);
+            myGroupsPane.setVisible(true);
         }
         else if(event.getSource()==sliderMenuInvitationButton||event.getSource()==sliderMenuInvitationButton2){
             sliderMenuInvitationButton.setStyle("-fx-background-color: #C30032;");
@@ -909,6 +934,8 @@ public class FXMLMainInterfaceController implements Initializable {
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
             caledarSearchPane.setVisible(false);
+            groupPane.setVisible(false);
+            myGroupsPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuSettingsButton||event.getSource() == sliderMenuSettingsButton2){
             sliderMenuSettingsButton.setStyle("-fx-background-color: #C30032;");
@@ -935,6 +962,8 @@ public class FXMLMainInterfaceController implements Initializable {
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
             caledarSearchPane.setVisible(false);
+            groupPane.setVisible(false);
+            myGroupsPane.setVisible(false);
         }
 
     }
@@ -1155,9 +1184,19 @@ public class FXMLMainInterfaceController implements Initializable {
     void addDiaryButtonAction(ActionEvent event) {
         //add diary buttons adds diary and reset fields and close the pane
         if(event.getSource()==addNewMemory){
-            //add memory
-            //--
-            //--
+            try {
+                //add memory
+                Statement stmt = conn.createStatement();
+                String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addMemoryTitle.getText()+"','"+addMemoryDescription.getText()+"','"+dayDate+"/"+monthDate+"/"+yearDate+"');";
+                stmt.executeUpdate(sqlstr);
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
+            
+            
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
             addMemoryNotification.setSelected(false);
