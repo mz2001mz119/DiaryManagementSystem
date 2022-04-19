@@ -8,6 +8,9 @@ package diarymanagementsystem;
 import static diarymanagementsystem.FXMLForgotPasswordController.addTextLimiter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +29,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
+import java.sql.ResultSet;
  
 
 /**
@@ -128,14 +132,28 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
         if(isValidPassword(newPassword)){
         //set new pasword to data base if it valid 
         //*************
-        
-        
-        
-       Parent Parent = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
+        try{
+        try{
+             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+            Statement stmt = conn.createStatement(); 
+            String sqlstr="UPDATE `user` SET `password`='"+newPassword+"' WHERE `user`.`Email`='"+FXMLForgotPasswordController.reseption+"';";
+            stmt.executeUpdate(sqlstr);
+            conn.commit();
+            conn.close();
+        }
+        catch(Exception e){}
+                   Parent Parent = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
         Scene Scene = new Scene(Parent);
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Stage.setScene(Scene);
-        Stage.show();}
+        Stage.show();
+        
+        
+        
+        }
+        catch(Exception e){}
+        
+   }
         
          else{
             //invalid passwrd
@@ -161,3 +179,4 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
     
     
 }
+    

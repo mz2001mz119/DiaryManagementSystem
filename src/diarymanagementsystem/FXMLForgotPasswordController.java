@@ -48,6 +48,8 @@ import javax.mail.MessagingException;
 public class FXMLForgotPasswordController implements Initializable {
 
     static public String Random;
+      static public String reseption;
+    
     
     
  
@@ -124,18 +126,16 @@ try{
     
     //chack the Email First in database or not
     //***************
-    Connection conn;
-    conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
-    Statement stmt = conn.createStatement();
-    String sqlstr="SELECT * FROM `user-email-confirmation` WHERE username='"+FXMLSignupController.usernamefn+"';";
-    ResultSet rs = stmt.executeQuery(sqlstr);
-}
-catch (Exception e){}
+   reseption=forgotEmailTextField.getText();
+     Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
     
-    
-    //Send an Email with new code and add the new random code on a forgotPassword table with validation date
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT * FROM `user` WHERE `user`.`Email`='"+reseption+"';";
+            ResultSet rs=stmt.executeQuery(sqlstr);
+          if(  rs.next()){
+              //Send an Email with new code and add the new random code on a forgotPassword table with validation date
     try{
-        String reseption=forgotEmailTextField.getText();
+        conn.close();
         Random=getAlphaNumericString(8);
         send_email.sendemail(reseption,Random);
         
@@ -154,6 +154,16 @@ catch (Exception e){}
     }
     
 
+       
+      
+          }
+    else { EmailErrorLabel.setVisible(true);}
+
+}
+catch (Exception e){}
+    
+    
+    
         
     }
 
