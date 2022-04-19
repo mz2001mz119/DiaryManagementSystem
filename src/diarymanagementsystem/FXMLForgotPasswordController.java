@@ -12,8 +12,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,7 +31,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -114,28 +120,40 @@ public class FXMLForgotPasswordController implements Initializable {
     @FXML
     private void sendForgotEmail(ActionEvent event)  {
         
-        //chack the Email First in database or not
-       
+try{
+    
+    //chack the Email First in database or not
+    //***************
+    Connection conn;
+    conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+    Statement stmt = conn.createStatement();
+    String sqlstr="SELECT * FROM `user-email-confirmation` WHERE username='"+FXMLSignupController.usernamefn+"';";
+    ResultSet rs = stmt.executeQuery(sqlstr);
+}
+catch (Exception e){}
+    
+    
+    //Send an Email with new code and add the new random code on a forgotPassword table with validation date
+    try{
+        String reseption=forgotEmailTextField.getText();
+        Random=getAlphaNumericString(8);
+        send_email.sendemail(reseption,Random);
         
-       
-       //Send an Email with new code and add the new random code on a forgotPassword table with validation date
-try{     
-         String reseption=forgotEmailTextField.getText();
-         Random=getAlphaNumericString(8);
-         send_email.sendemail(reseption,Random);
-         
         //the open the Email sent successfully
         Parent Parent = FXMLLoader.load(getClass().getResource("FXMLEmailSentSuccessfully.fxml"));
         Scene Scene = new Scene(Parent);
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Stage.setScene(Scene);
-        Stage.show();}
-catch(Exception e){
-Alert alert = new Alert(Alert.AlertType.ERROR);
-alert.setTitle("Invalid email");
-alert.setHeaderText("Invalid email ");
-alert.setContentText("please enter valid email");
-alert.showAndWait();}
+        Stage.show();
+
+    }
+    catch(Exception e){
+        
+        // invalid email
+        EmailErrorLabel.setVisible(true);
+    }
+    
+
         
     }
 

@@ -24,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
  
 
@@ -87,6 +88,12 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
     @FXML
     private Button confirmButton;
 
+    final Tooltip tooltip = new Tooltip("It contains at least 8 characters and at most 20 characters" +"\n" +
+"It contains at least one digit" +"\n" +
+"It contains at least one upper case alphabet" +"\n" +
+"It contains at least one lower case alphabet" +"\n" +
+"It contains at least one special character !@#$%&"+"\n" +
+"It doesn’t contain any white space");
     /**
      * Initializes the controller class.
      * 
@@ -96,6 +103,7 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
      addTextLimiter(confirmationCodeTextField, 50);
      addTextLimiter(confirmationPasswordTextField, 50);
+       confirmationPasswordTextField.setTooltip(tooltip);
     }    
 
     @FXML
@@ -116,8 +124,10 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
   
       if(code.equals(FXMLForgotPasswordController.Random)){
            //if the code correct then cheak password:
+           codeErrorLabel.setVisible(false);
         if(isValidPassword(newPassword)){
         //set new pasword to data base if it valid 
+        //*************
         
         
         
@@ -128,6 +138,7 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
         Stage.show();}
         
          else{
+            //invalid passwrd
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.setTitle("Invalid password");
       alert.setHeaderText("Invalid password ");
@@ -143,11 +154,8 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
     }
       
       else{
-      Alert alert = new Alert(Alert.AlertType.ERROR);
-      alert.setTitle("Invalid code");
-      alert.setHeaderText("Invalid code ");
-      alert.setContentText("please enter valid code");
-      alert.showAndWait();}
+          // invalid code 
+    codeErrorLabel.setVisible(true);}
     
     }
     
