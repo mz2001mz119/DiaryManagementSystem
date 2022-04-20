@@ -551,14 +551,10 @@ public class FXMLMainInterfaceController implements Initializable {
     @FXML
     private AnchorPane myGroupsPane;
 
-    @FXML
-    private TextField calendarSearchTextField1;
 
     @FXML
     private Button createNewGroup;
 
-    @FXML
-    private VBox myGroupsSearchVBox;
 
     @FXML
     private AnchorPane SliderMenu;
@@ -778,6 +774,16 @@ public class FXMLMainInterfaceController implements Initializable {
     private CheckBox createGroupAddDiary;
     @FXML
     private Button createGroup;
+    @FXML
+    private TextField userGroupsSearchTextField;
+    @FXML
+    private VBox userGroupsSearchVBox;
+    @FXML
+    private Label groupIdErrorLabel;
+    @FXML
+    private Label groupIdErrorLabelUnique;
+    @FXML
+    private Label groupNameErrorLabel;
 
 
 
@@ -1044,6 +1050,7 @@ public class FXMLMainInterfaceController implements Initializable {
             myGroupsPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuGroupsButton||event.getSource()==sliderMenuGroupsButton2){
+            SearchOnPublicGroups();
             sliderMenuGroupsButton.setStyle("-fx-background-color: #C30032;");
             sliderMenuGroupsButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
             sliderMenuHomeButton.setStyle("");
@@ -1581,7 +1588,7 @@ public class FXMLMainInterfaceController implements Initializable {
         if(event.getSource()==editMyProfileSaveButton){
             //check the info then save
         }
-        if(event.getSource()==createNewGroup){
+        else if(event.getSource()==createNewGroup){
             createGroupId.setText("");
             createGroupName.setText("");
             createGroupDescription.setText("");
@@ -1590,6 +1597,20 @@ public class FXMLMainInterfaceController implements Initializable {
             createGroupSendMessages.setSelected(false);
             createGroupAddDiary.setSelected(false);
             createGroupBlackPane.setVisible(true);
+        }
+        else if(event.getSource()==createGroup){
+            //check the valid inputs
+            //--
+            //--
+            //add to the group table with admin name = the variable loginUserName
+            createGroupId.setText("");
+            createGroupName.setText("");
+            createGroupDescription.setText("");
+            createGroupPrivicy.getItems().addAll("Public", "Private");
+            createGroupPrivicy.getSelectionModel().select(0);
+            createGroupSendMessages.setSelected(false);
+            createGroupAddDiary.setSelected(false);
+            createGroupBlackPane.setVisible(false);
         }
     }
     @FXML
@@ -1829,6 +1850,53 @@ public class FXMLMainInterfaceController implements Initializable {
                     
                 }
                     
+            }
+        });
+    }
+    public void SearchOnPublicGroups(){
+        System.out.println("in1");
+        publicGroupsSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                publicGroupVBox.getChildren().clear();
+                if(newValue == null || newValue.isEmpty()){
+                    System.out.println("in2");
+                    publicGroupVBox.getChildren().clear();
+                    return;
+                }
+                if(publicGroupsSearchTextField.getText().length()>4){
+                    System.out.println("in3");
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="SELECT `groupid`, `name`, `adminusername`, `description`, `imagegroup`, `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy` FROM `dms-group` WHERE `name` LIKE '%"+publicGroupsSearchTextField.getText()+"%' or `description` LIKE '%"+publicGroupsSearchTextField.getText()+"%' or `groupid` LIKE '%"+publicGroupsSearchTextField.getText()+"%' and `attributeprivicy`='1'";
+                    ResultSet diaryID=stmt.executeQuery(sqlstr);
+                    while(diaryID.next()){
+                            AnchorPane a=new AnchorPane();
+                            a.setStyle("-fx-pref-width:1000px; -fx-pref-height:100px; -fx-border-color:#DA0037; -fx-background-color:#BCBCBC;-fx-background-radius: 10px;-fx-border-radius: 10px;");
+                            Label groupName = new Label(diaryID.getString("name"));
+                            groupName.setStyle("-fx-font-size: 20px;-fx-cursor: hand;");
+                            a.getChildren().add(groupName);
+                            a.setTopAnchor(groupName, 10.0);
+                            a.setLeftAnchor(groupName, 50.0);
+                            Label GroupID = new Label("@"+diaryID.getString("groupid"));
+                            GroupID.setStyle("-fx-font-size: 12px; -fx-text-fill: gray");
+                            a.getChildren().add(GroupID);
+                            a.setTopAnchor(GroupID, 100.0);
+                            a.setLeftAnchor(GroupID, 130.0);
+                            groupName.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                                @Override
+                                public void handle(MouseEvent t) {
+                                    showDiaryBlackPane.setVisible(true);
+                                    
+                                }
+
+                            });
+                            publicGroupVBox.getChildren().add(a);
+
+                        
+
+                    }
+                }
+            } catch (SQLException ex) {                    
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
