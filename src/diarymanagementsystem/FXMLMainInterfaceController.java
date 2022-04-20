@@ -5,6 +5,7 @@
  */
 package diarymanagementsystem;
 
+import java.io.IOException;
 import static java.lang.String.valueOf;
 import java.net.URL;
 import java.time.LocalDate;
@@ -41,8 +42,26 @@ import java.sql.Connection;
 import java.sql.DriverManager; 
 import java.sql.PreparedStatement;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.Pane;
+import org.controlsfx.control.Notifications;
 /**
  * FXML Controller class
  *
@@ -58,9 +77,9 @@ public class FXMLMainInterfaceController implements Initializable {
     static int monthDays[]={31,28,31,30,31,30,31,31,30,31,30,31};
     static int monthDaysLeapYear[]={31,29,31,30,31,30,31,31,30,31,30,3};
     Connection conn;
-    
-    
-    
+    static String loginUserName;
+    ArrayList <Notification> diaryNotification= new ArrayList();
+    ArrayList <Notification> userNotifications= new ArrayList();
     
     @FXML
     private AnchorPane profilePane;
@@ -603,6 +622,12 @@ public class FXMLMainInterfaceController implements Initializable {
     private ImageView sliderMenuSettingsIcon;
 
     @FXML
+    private AnchorPane notificationsPane;
+
+    @FXML
+    private VBox notificationsVBox;
+
+    @FXML
     private AnchorPane diaryDayBlackPane;
 
     @FXML
@@ -642,10 +667,10 @@ public class FXMLMainInterfaceController implements Initializable {
     private TextArea addMemoryDescription;
 
     @FXML
-    private CheckBox addMemoryNotification;
+    private Button addNewMemory;
 
     @FXML
-    private Button addNewMemory;
+    private Button addMemoryNotification;
 
     @FXML
     private AnchorPane addNewEventPane;
@@ -657,10 +682,10 @@ public class FXMLMainInterfaceController implements Initializable {
     private TextArea addEventDescription;
 
     @FXML
-    private CheckBox addEventNotification;
+    private Button addNewEvent;
 
     @FXML
-    private Button addNewEvent;
+    private Button addEventNotification;
 
     @FXML
     private AnchorPane addNewNotePane;
@@ -684,6 +709,9 @@ public class FXMLMainInterfaceController implements Initializable {
     private Label closeNotificationBlackPane;
 
     @FXML
+    private VBox notificationVBox;
+
+    @FXML
     private DatePicker addNotificationDate;
 
     @FXML
@@ -695,6 +723,21 @@ public class FXMLMainInterfaceController implements Initializable {
     @FXML
     private Button addNotification;
 
+    @FXML
+    private AnchorPane showNotifiactionsBlackPane;
+
+    @FXML
+    private Label closeShowNotifiactionsBlackPane;
+
+    @FXML
+    private TextField showNotificationTitle;
+
+    @FXML
+    private TextField showNotificationDate;
+
+    @FXML
+    private TextArea showNotificationText;
+
 
 
 
@@ -705,18 +748,84 @@ public class FXMLMainInterfaceController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+       
+        loginUserName="test";
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
             //Statement stmt = conn.createStatement();
             //String sqlstr="INSERT INTO `user` (`Name`, `username`, `Email`, `Gender`, `Birthdate`, `password`) VALUES ('Noor aldeen abu shehadeh', 'noorasaldeen', 'anooraldeen@gmail.com', 'Male', '2002-02-05', 'asdfg1234');";
             //stmt.executeUpdate(sqlstr);
-            conn.close();
+            
         } catch (SQLException ex) {
             Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
         } 
-            
+        updateUserNotifications(); 
+        //notification listener
+        Timeline timeline = new Timeline(
+            new KeyFrame(Duration.seconds(1.0), e -> {
+                if(LocalTime.now().format(DateTimeFormatter.ofPattern("ss")).toString().equals("00")){
+                    for(int i=0;i<userNotifications.size();i++){
+                        LocalDate today = LocalDate.now();
+                        String formattedDate = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                        String hour = LocalTime.now().format(DateTimeFormatter.ofPattern("HH")).toString();
+                        String minute = LocalTime.now().format(DateTimeFormatter.ofPattern("mm")).toString();
+                        if(userNotifications.get(i).notificationDate.equals(formattedDate) && userNotifications.get(i).notificationHour.equals(hour) && userNotifications.get(i).notificationMinute.equals(minute)){
+                            System.out.println(userNotifications.get(i).notificationDate+" " + userNotifications.get(i).notificationHour+" "+userNotifications.get(i).notificationMinute + "    " +i);
+                            notificationsPane.setVisible(true);
+                            AnchorPane a=new AnchorPane();
+                            a.setStyle("-fx-pref-width:280px; -fx-pref-height:70px; -fx-border-color:#DA0037; -fx-background-color:#082032;");
+                            Label notificationTitle = new Label("New Notification");
+                            Label notificationDT = new Label(userNotifications.get(i).notificationDate+"\t"+userNotifications.get(i).notificationHour+":"+userNotifications.get(i).notificationMinute+" ...click for more");
+                            notificationTitle.setStyle("-fx-font-size: 20px; -fx-text-fill:#EA0640;");
+                            notificationDT.setStyle("-fx-font-size: 12px; -fx-text-fill: #DA0037;");
+                            a.getChildren().add(notificationTitle);
+                            a.setTopAnchor(notificationTitle, 5.0);
+                            a.setLeftAnchor(notificationTitle, 5.0);
+                            
+                            a.getChildren().add(notificationDT);
+                            a.setTopAnchor(notificationDT, 35.0);
+                            a.setLeftAnchor(notificationDT, 20.0);
+                            
+                            final String id=userNotifications.get(i).diaryId;
+                            a.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                                @Override
+                                public void handle(MouseEvent t) {
+                                    try {
+                                        showNotifiactionsBlackPane.setVisible(true);
+                                        Statement stmt = conn.createStatement();
+                                        String sqlstr="SELECT `Title`, `Description`, `Date` FROM `diary` WHERE ID='"+id+"';";
+                                        ResultSet diaryID=stmt.executeQuery(sqlstr);
+                                        diaryID.next();
+                                        showNotificationTitle.setText(diaryID.getString("Title"));
+                                        showNotificationDate.setText(diaryID.getString("Date"));
+                                        showNotificationText.setText(diaryID.getString("Description"));
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+                            
+                            });
+                            notificationsVBox.getChildren().add(a);
+                            PauseTransition delay = new PauseTransition(Duration.seconds(10));
+                            delay.setOnFinished(new EventHandler<ActionEvent>() {
+                                @Override
+                                public void handle(ActionEvent event) {
+                                    notificationsVBox.getChildren().remove(a);
+                                    if(notificationsVBox.getChildren().isEmpty())
+                                        notificationsPane.setVisible(false);
+                                }
+                            });
+                            delay.play();
+                        }
+                    }
+                    
+                }
+            })
+        );
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+           
         // TODO
         //set the main button pressed for the main pane
         sliderMenuHomeButton.setStyle("-fx-background-color: #C30032; ");
@@ -1062,7 +1171,6 @@ public class FXMLMainInterfaceController implements Initializable {
             
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
-            addMemoryNotification.setSelected(false);
             
             
             addNewMemoryPane.setVisible(true);
@@ -1077,7 +1185,6 @@ public class FXMLMainInterfaceController implements Initializable {
             
             addEventTitle.setText("");
             addEventDescription.setText("");
-            addEventNotification.setSelected(false);
             
             
             addNewMemoryPane.setVisible(false);
@@ -1144,10 +1251,8 @@ public class FXMLMainInterfaceController implements Initializable {
         if(event.getSource()==closeDiaryDayBlackPane){
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
-            addMemoryNotification.setSelected(false);
             addEventTitle.setText("");
             addEventDescription.setText("");
-            addEventNotification.setSelected(false);
             addNoteTitle.setText("");
             addNoteDescription.setText("");
             addNoteFix.setSelected(false);
@@ -1160,25 +1265,55 @@ public class FXMLMainInterfaceController implements Initializable {
             addNewNotePane.setVisible(false);
             addNewDiaryPane.setVisible(false);
         }
-        if(event.getSource()==closeNotificationBlackPane){
+        else if(event.getSource()==closeNotificationBlackPane){
             addNotificationDate.setValue(null);
             addNotificationMinutes.setText("");
             addNotificationHours.setText("");
+            notificationVBox.getChildren().clear();
             dirayNotificationBlackPane.setVisible(false);
+        }
+        else if(event.getSource()==closeShowNotifiactionsBlackPane){
+            showNotifiactionsBlackPane.setVisible(false);
+            showNotificationTitle.setText("");
+            showNotificationDate.setText("");
+            showNotificationText.setText("");
         }
     }
     @FXML
     void openNotificationPane(ActionEvent event) {
-        if(event.getSource()==addEventNotification && addEventNotification.isSelected() ){
-            //pass the "event" parameter then
-            //--
+        if(event.getSource()==addEventNotification  ){
             dirayNotificationBlackPane.setVisible(true);
         }
-        if(event.getSource()==addMemoryNotification && addMemoryNotification.isSelected() ){
-            //pass the "event" parameter then
-            //--
+        if(event.getSource()==addMemoryNotification ){
             dirayNotificationBlackPane.setVisible(true);
+            limitTimeTextField(addNotificationMinutes,59);
+            limitTimeTextField(addNotificationHours,23);
+            //set min date of the notification the current date
+            LocalDate minDate = LocalDate.now();
+            addNotificationDate.setDayCellFactory(d ->
+                       new DateCell() {
+                           @Override public void updateItem(LocalDate item, boolean empty) {
+                               super.updateItem(item, empty);
+                               setDisable(item.isBefore(minDate));
+                           }});
         }
+    }
+    private void limitTimeTextField(TextField t,int endNum){
+        t.setTextFormatter(new TextFormatter<Integer>(change -> {
+            // Deletion should always be possible.
+            if (change.isDeleted()) {return change;}
+            // How would the text look like after the change?
+            String txt = change.getControlNewText();
+            // There shouldn't be leading zeros.
+            if (txt.matches("0\\d+")) {return null;}
+            // Try parsing and check if the result is in [0, 64].
+            try {
+                int n = Integer.parseInt(txt);
+                return 0 <= n && n <= endNum ? change : null;
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        }));
     }
     @FXML
     void addDiaryButtonAction(ActionEvent event) {
@@ -1187,9 +1322,31 @@ public class FXMLMainInterfaceController implements Initializable {
             try {
                 //add memory
                 Statement stmt = conn.createStatement();
-                String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addMemoryTitle.getText()+"','"+addMemoryDescription.getText()+"','"+dayDate+"/"+monthDate+"/"+yearDate+"');";
+                String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addMemoryTitle.getText()+"','"+addMemoryDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
                 stmt.executeUpdate(sqlstr);
-                conn.close();
+                //connect with user calendar
+                sqlstr="SELECT ID from diary where Title = '"+addMemoryTitle.getText()+"' AND Description='"+addMemoryDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
+                ResultSet diaryID=stmt.executeQuery(sqlstr);
+                diaryID.next();
+                int diaryId = diaryID.getInt(1);
+                diaryID.close();
+                sqlstr="INSERT INTO `user-calendar`(`username`, `diaryid`) VALUES ('"+loginUserName+"','"+diaryId+"');";
+                stmt.executeUpdate(sqlstr);
+                if(diaryNotification.isEmpty()){
+                    sqlstr="INSERT INTO `memory`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','0')";
+                    stmt.executeUpdate(sqlstr);
+                }
+                else{
+                    sqlstr="INSERT INTO `memory`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','1')";
+                    stmt.executeUpdate(sqlstr);
+                    for(int i=0;i<diaryNotification.size();i++){
+                        sqlstr="INSERT INTO `usernotification`(`username`, `diaryid`, `datetime`) VALUES ('"+loginUserName+"','"+diaryId+"','"+diaryNotification.get(i).notificationDate +" "+diaryNotification.get(i).notificationHour+":"+diaryNotification.get(i).notificationMinute+":00" +"')";
+                        stmt.executeUpdate(sqlstr);
+                    }
+                }
+                updateUserNotifications();
+                diaryNotification.clear();
+                notificationVBox.getChildren().clear();
             } catch (SQLException ex) {
                 Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1199,7 +1356,6 @@ public class FXMLMainInterfaceController implements Initializable {
             
             addMemoryTitle.setText("");
             addMemoryDescription.setText("");
-            addMemoryNotification.setSelected(false);
             
             diaryDayBlackPane.setVisible(false);
             addMemory.setStyle("-fx-text-fill:#0A283E ;");
@@ -1216,7 +1372,6 @@ public class FXMLMainInterfaceController implements Initializable {
             //--
             addEventTitle.setText("");
             addEventDescription.setText("");
-            addEventNotification.setSelected(false);
             
             diaryDayBlackPane.setVisible(false);
             addMemory.setStyle("-fx-text-fill:#0A283E ;");
@@ -1243,6 +1398,55 @@ public class FXMLMainInterfaceController implements Initializable {
             addNewEventPane.setVisible(false);
             addNewNotePane.setVisible(false);
             addNewDiaryPane.setVisible(false);
+        }
+        if(event.getSource()==addNotification){
+            //make sure theres no Repetition
+            boolean isAdded =false;
+                if(!diaryNotification.isEmpty()){
+                    for(int i=0;i<diaryNotification.size();i++){
+                        if(addNotificationDate.getValue()!=null && addNotificationDate.getValue().toString().equals(diaryNotification.get(i).notificationDate) && addNotificationHours.getText().equals(diaryNotification.get(i).notificationHour) && addNotificationMinutes.getText().equals(diaryNotification.get(i).notificationMinute)){
+                            isAdded =true;
+                        }
+                    }
+                }
+                if(diaryNotification.isEmpty() || !isAdded){
+                    if(addNotificationDate.getValue()!=null &&!addNotificationHours.getText().equals("") && !addNotificationMinutes.getText().equals(""))
+                    diaryNotification.add(new Notification(addNotificationDate.getValue().toString(),addNotificationHours.getText(),addNotificationMinutes.getText()));
+                    refreshNotificationVBox();
+                }
+                
+        }
+    }
+    //refresh the vbox to delete any notification
+    private void refreshNotificationVBox(){
+        notificationVBox.getChildren().clear();
+        for(int i=0;i<diaryNotification.size();i++){
+            final int ii = i;
+            String notiHour =valueOf(diaryNotification.get(i).notificationHour) ;
+             String notiMinute =valueOf(diaryNotification.get(i).notificationMinute) ;
+            AnchorPane a=new AnchorPane();
+            a.setStyle("-fx-pref-width:500px; -fx-pref-height:70px; -fx-border-color:#DA0037");
+            if(Integer.parseInt(diaryNotification.get(i).notificationHour)<10)
+                notiHour="0"+notiHour;
+            if(Integer.parseInt(diaryNotification.get(i).notificationMinute)<10)
+                notiMinute="0"+notiMinute;
+            Label notificationDT = new Label(diaryNotification.get(i).notificationDate+"\t"+notiHour+":"+notiMinute);
+            notificationDT.setStyle("-fx-font-size: 20px;");
+            a.getChildren().add(notificationDT);
+            a.setTopAnchor(notificationDT, 10.0);
+            a.setBottomAnchor(notificationDT, 10.0);
+            a.setLeftAnchor(notificationDT, 10.0);
+            Label deleteNotification = new Label("X");//delete date
+            deleteNotification.setOnMouseClicked((mouseEvent) -> {
+                diaryNotification.remove(ii);
+                refreshNotificationVBox();
+            });
+            deleteNotification.setStyle("-fx-text-fill:#DA0037; -fx-font-size: 20px; -fx-cursor: hand;");
+            a.getChildren().add(deleteNotification);
+            a.setTopAnchor(deleteNotification, 10.0);
+            a.setBottomAnchor(deleteNotification, 10.0);
+            a.setRightAnchor(deleteNotification, 20.0);
+            notificationVBox.getChildren().add(a);
         }
     }
     @FXML
@@ -1376,5 +1580,22 @@ public class FXMLMainInterfaceController implements Initializable {
         year16.setText(valueOf(currentYear+11));
 
         
+    }
+
+    private void updateUserNotifications() {
+        try {
+            userNotifications.clear();
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT `username`, `diaryid`, `datetime` FROM `usernotification` WHERE username ='"+loginUserName+"' ORDER BY datetime asc;";
+            ResultSet diaryID=stmt.executeQuery(sqlstr);
+            while(diaryID.next()){
+                String []t=diaryID.getTime("datetime").toString().split(":");
+                userNotifications.add(new Notification(diaryID.getDate("datetime").toString(),t[0],t[1],diaryID.getString("diaryid"),diaryID.getString("username")));
+                //System.out.println(userNotifications.get(userNotifications.size()-1).notificationDate+" "+userNotifications.get(userNotifications.size()-1).notificationHour+":"+userNotifications.get(userNotifications.size()-1).notificationMinute);
+            }
+            diaryID.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

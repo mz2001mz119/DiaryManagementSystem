@@ -25,7 +25,7 @@ public class DiaryManagementSystem extends Application {
         Scene scene = new Scene(root);
         stage.setMinWidth(1510);
         stage.setMinHeight(730);
-        stage.setTitle("Login");
+        stage.setTitle("Diary Management System");
         stage.setScene(scene);
         stage.show();
        //hello
