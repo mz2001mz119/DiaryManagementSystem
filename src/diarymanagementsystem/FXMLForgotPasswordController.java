@@ -12,8 +12,15 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.TranslateTransition;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,7 +31,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -42,6 +48,8 @@ import javax.mail.MessagingException;
 public class FXMLForgotPasswordController implements Initializable {
 
     static public String Random;
+      static public String reseption;
+    
     
     
  
@@ -71,6 +79,7 @@ public class FXMLForgotPasswordController implements Initializable {
         // TODO
         //control the "Email" labels transitions ubove the Email&Password Text Fields
         addTextLimiter(forgotEmailTextField, 50);
+        
         forgotEmailTextField.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
@@ -113,29 +122,37 @@ public class FXMLForgotPasswordController implements Initializable {
 
     @FXML
     private void sendForgotEmail(ActionEvent event)  {
+       EmailErrorLabel.setVisible(false);
+try{
+      
+    //chack the Email First in database or not
+     reseption=forgotEmailTextField.getText();
+     Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+    
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT * FROM `user` WHERE `user`.`Email`='"+reseption+"';";
+            ResultSet rs=stmt.executeQuery(sqlstr);
+          if(  rs.next()){
+                  
+           
+     //Send an Email with new code and add the new random code on a forgotPassword table with validation date
+        conn.close();
+        Random=getAlphaNumericString(8);
+        send_email.sendemail(reseption,Random);
         
-        //chack the Email First in database or not
-       
-        
-       
-       //Send an Email with new code and add the new random code on a forgotPassword table with validation date
-try{     
-         String reseption=forgotEmailTextField.getText();
-         Random=getAlphaNumericString(8);
-         send_email.sendemail(reseption,Random);
-         
         //the open the Email sent successfully
         Parent Parent = FXMLLoader.load(getClass().getResource("FXMLEmailSentSuccessfully.fxml"));
         Scene Scene = new Scene(Parent);
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Stage.setScene(Scene);
-        Stage.show();}
-catch(Exception e){
-Alert alert = new Alert(Alert.AlertType.ERROR);
-alert.setTitle("Invalid email");
-alert.setHeaderText("Invalid email ");
-alert.setContentText("please enter valid email");
-alert.showAndWait();}
+        Stage.show();      
+      
+          }
+    else { EmailErrorLabel.setVisible(true);}
+
+}
+catch (Exception e){ EmailErrorLabel.setVisible(true);}
+
         
     }
 
@@ -162,7 +179,7 @@ alert.showAndWait();}
 }
      static String getAlphaNumericString(int n)
     {
-  
+       
         // length is bounded by 256 Character
         byte[] array = new byte[256];
         new Random().nextBytes(array);
@@ -191,5 +208,7 @@ alert.showAndWait();}
         // return the resultant string
         return r.toString();
     }
+     
+
     
 }

@@ -8,6 +8,9 @@ package diarymanagementsystem;
 import static diarymanagementsystem.FXMLForgotPasswordController.addTextLimiter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,7 +27,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
+import java.sql.ResultSet;
  
 
 /**
@@ -87,6 +92,12 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
     @FXML
     private Button confirmButton;
 
+   static final Tooltip passwordtooltip = new Tooltip("It contains at least 8 characters and at most 20 characters" +"\n" +
+"It contains at least one digit" +"\n" +
+"It contains at least one upper case alphabet" +"\n" +
+"It contains at least one lower case alphabet" +"\n" +
+"It contains at least one special character !@#$%&"+"\n" +
+"It doesn’t contain any white space");
     /**
      * Initializes the controller class.
      * 
@@ -96,6 +107,7 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
      addTextLimiter(confirmationCodeTextField, 50);
      addTextLimiter(confirmationPasswordTextField, 50);
+       confirmationPasswordTextField.setTooltip(passwordtooltip);
     }    
 
     @FXML
@@ -116,18 +128,33 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
   
       if(code.equals(FXMLForgotPasswordController.Random)){
            //if the code correct then cheak password:
+           codeErrorLabel.setVisible(false);
         if(isValidPassword(newPassword)){
         //set new pasword to data base if it valid 
-        
-        
-        
-       Parent Parent = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
+        //*************
+        try{
+        try{
+             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+            Statement stmt = conn.createStatement(); 
+            String sqlstr="UPDATE `user` SET `password`='"+newPassword+"' WHERE `user`.`Email`='"+FXMLForgotPasswordController.reseption+"';";
+            stmt.executeUpdate(sqlstr);
+            conn.commit();
+            conn.close();
+        }
+        catch(Exception e){}
+                   Parent Parent = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
         Scene Scene = new Scene(Parent);
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Stage.setScene(Scene);
-        Stage.show();}
+        Stage.show();
+     
+        }
+        catch(Exception e){}
+        
+   }
         
          else{
+            //invalid passwrd
       Alert alert = new Alert(Alert.AlertType.ERROR);
       alert.setTitle("Invalid password");
       alert.setHeaderText("Invalid password ");
@@ -143,13 +170,11 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
     }
       
       else{
-      Alert alert = new Alert(Alert.AlertType.ERROR);
-      alert.setTitle("Invalid code");
-      alert.setHeaderText("Invalid code ");
-      alert.setContentText("please enter valid code");
-      alert.showAndWait();}
+          // invalid code 
+    codeErrorLabel.setVisible(true);}
     
     }
     
     
 }
+    

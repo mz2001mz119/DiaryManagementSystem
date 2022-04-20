@@ -61,7 +61,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
-import org.controlsfx.control.Notifications;
 /**
  * FXML Controller class
  *
