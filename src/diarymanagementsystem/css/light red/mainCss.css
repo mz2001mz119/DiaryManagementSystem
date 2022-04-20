@@ -180,8 +180,18 @@
     -fx-text-fill: black; 
     -fx-border-width:  2px;
 }
+#ErrorLabel{
+    -fx-text-fill:red;
+}
+
 #midScrollPane{
     -fx-border-color: -fx-primary-color;
+}
+.scroll-pane > .viewport {
+   -fx-background-color: transparent;
+}
+.scroll-pane {
+   -fx-background-color: transparent;
 }
 #button{
     -fx-background-color:  transparent;

@@ -167,6 +167,8 @@
             </VBox>
             <Label id="ErrorLabel" fx:id="EmailErrorLabel" layoutX="932.0" layoutY="75.0" text="*Error: Please Enter A Correct Email" visible="false" AnchorPane.leftAnchor="830.0" AnchorPane.topAnchor="180.0" />
             <Label id="ErrorLabel" fx:id="userNameErrorLabel" layoutX="942.0" layoutY="85.0" text="*Error: Please Enter A Correct User Name (Letters,Digits, . , - , _ ) Only" visible="false" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="280.0" />
+            <Label id="ErrorLabel" fx:id="EmailErrorLabelUnique" layoutX="942.0" layoutY="85.0" text="*Error: This Username is not available  Please Enter A unique Email" visible="false" AnchorPane.leftAnchor="830.0" AnchorPane.topAnchor="180.0" />
+            <Label id="ErrorLabel" fx:id="userNameErrorLabelUnique" layoutX="952.0" layoutY="95.0" text="*Error: This Username is not available Please Enter A unique User Name " visible="false" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="280.0" />
          </children>
       </AnchorPane>
    </children>

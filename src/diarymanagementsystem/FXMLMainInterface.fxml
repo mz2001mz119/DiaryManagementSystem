@@ -627,23 +627,18 @@
       </AnchorPane>
       <AnchorPane id="rightPane" fx:id="caledarSearchPane" layoutX="1150.0" prefHeight="700.0" prefWidth="350.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TextField id="searchTextField" fx:id="calendarSearchTextField" layoutX="13.0" layoutY="14.0" prefHeight="27.0" prefWidth="230.0" promptText="search">
+            <TextField id="searchTextField" fx:id="calendarSearchTextField" layoutX="13.0" layoutY="14.0" prefHeight="27.0" prefWidth="300.0" promptText="search" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font size="15.0" />
                </font>
             </TextField>
-            <ComboBox fx:id="calendarSearchFilter" layoutX="250.0" layoutY="14.0" prefHeight="34.0" prefWidth="100.0" />
-            <ScrollPane layoutY="69.0" prefHeight="644.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="626.0" prefWidth="348.0">
-                     <children>
-                        <VBox id="rightVBox" fx:id="caledarSearchVBox" layoutX="16.0" layoutY="52.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                     </children>
-                  </AnchorPane>
-              </content>
+            <ScrollPane layoutY="69.0" prefHeight="644.0" prefWidth="350.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+               <content>
+                  <VBox id="rightVBox" fx:id="caledarSearchVBox" minHeight="642.0" spacing="5.0" />
+               </content>
             </ScrollPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="groupPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="groupPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField id="searchTextField" fx:id="publicGroupsSearchTextField" layoutX="345.0" layoutY="30.0" prefHeight="50.0" prefWidth="400.0" promptText="search" AnchorPane.topAnchor="25.0">
                <font>
@@ -661,7 +656,7 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <AnchorPane id="rightPane" fx:id="myGroupsPane" layoutX="1200.0" layoutY="39.0" prefHeight="700.0" prefWidth="350.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="rightPane" fx:id="myGroupsPane" layoutX="1200.0" layoutY="39.0" prefHeight="700.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField id="searchTextField" fx:id="calendarSearchTextField1" layoutX="14.0" layoutY="14.0" minHeight="40.0" prefHeight="40.0" prefWidth="320.0" promptText="search" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                <font>
@@ -845,12 +840,16 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <AnchorPane fx:id="myDiaryPane" layoutX="66.0" layoutY="100.0" prefHeight="450.0" prefWidth="900.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                  <AnchorPane fx:id="myDiaryPane" layoutX="66.0" layoutY="100.0" prefHeight="450.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
                      <children>
-                        <VBox fx:id="myDiaryVBox" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <VBox fx:id="myDiaryVBox" prefWidth="896.0" spacing="5.0" />
+                           </content>
+                        </ScrollPane>
                      </children>
                   </AnchorPane>
-                  <AnchorPane id="addNewDiaryPane" fx:id="addNewDiaryPane" layoutX="66.0" layoutY="99.0" prefHeight="450.0" prefWidth="900.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+                  <AnchorPane id="addNewDiaryPane" fx:id="addNewDiaryPane" layoutX="66.0" layoutY="99.0" prefHeight="450.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
                      <children>
                         <AnchorPane layoutX="13.0" minHeight="50.0" minWidth="870.0" prefHeight="50.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;">
                            <children>
@@ -875,7 +874,7 @@
                               </HBox>
                            </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="addNewMemoryPane" layoutX="27.0" layoutY="52.0" prefHeight="430.0" prefWidth="850.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
+                        <AnchorPane fx:id="addNewMemoryPane" layoutX="27.0" layoutY="52.0" prefHeight="430.0" prefWidth="850.0" visible="false" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="51.0">
                            <children>
                               <Label id="emailLabel" layoutX="17.0" layoutY="11.0" prefHeight="36.0" prefWidth="200.0" text="Memory Title:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
                                  <font>
@@ -1011,6 +1010,48 @@
             </AnchorPane>
          </children>
       </AnchorPane>
+      <AnchorPane id="diaryDayBlackPane" fx:id="showDiaryBlackPane" prefHeight="600.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane id="diaryNotificationPane" layoutX="285.0" layoutY="14.0" prefHeight="580.0" prefWidth="700.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <Label fx:id="closeShowDiaryBlackPane" layoutX="456.0" layoutY="21.0" onMouseClicked="#closePane" text="X" textFill="#da0037" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <TextField id="textFieldBlackText" fx:id="showDiaryTitle" editable="false" layoutX="218.0" layoutY="77.0" prefWidth="400.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="80.0" layoutY="80.0" prefWidth="100.0" text="Title:" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="520.0" AnchorPane.topAnchor="100.0">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <TextField id="textFieldBlackText" fx:id="showDiaryDate" editable="false" layoutX="200.0" layoutY="171.0" prefWidth="400.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="170.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="90.0" layoutY="90.0" prefWidth="100.0" text="Date:" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="520.0" AnchorPane.topAnchor="170.0">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="100.0" layoutY="100.0" prefWidth="100.0" text="Text:" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="520.0" AnchorPane.topAnchor="240.0">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <TextArea id="textAreaBlackText" fx:id="showDiaryText" editable="false" layoutX="180.0" layoutY="240.0" prefHeight="300.0" prefWidth="450.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="49.60000000000002" AnchorPane.topAnchor="240.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
       <AnchorPane id="diaryDayBlackPane" fx:id="showNotifiactionsBlackPane" layoutX="10.0" layoutY="10.0" prefHeight="700.0" prefWidth="1500.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane id="diaryDayPane" layoutX="92.0" layoutY="100.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
@@ -1049,6 +1090,75 @@
                      </font>
                   </Label>
                   <TextArea id="textAreaBlackText" fx:id="showNotificationText" editable="false" layoutX="141.0" layoutY="220.0" prefHeight="300.0" prefWidth="700.0" AnchorPane.topAnchor="220.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="diaryDayBlackPane" fx:id="createGroupBlackPane" layoutX="20.0" layoutY="20.0" prefHeight="700.0" prefWidth="1500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane id="diaryDayPane" layoutX="92.0" layoutY="100.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <Label fx:id="closeCreateGroupBlackPane" layoutX="970.0" layoutY="14.0" onMouseClicked="#closePane" text="X" textFill="#da0037" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <TextField id="textFieldBlackText" fx:id="createGroupId" editable="false" layoutX="138.0" layoutY="114.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="80.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="80.0" layoutY="116.0" prefWidth="150.0" text="Group ID:" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="80.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="80.0" layoutY="156.0" prefWidth="150.0" text="Group Name" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="140.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField id="textFieldBlackText" fx:id="createGroupName" editable="false" layoutX="148.0" layoutY="124.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="140.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="90.0" layoutY="166.0" prefWidth="150.0" text="Description:" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="200.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField id="textFieldBlackText" fx:id="createGroupDescription" editable="false" layoutX="158.0" layoutY="134.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="200.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="100.0" layoutY="176.0" prefWidth="150.0" text="Group Privicy:" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="260.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="createGroupPrivicy" layoutX="251.0" layoutY="264.0" prefWidth="150.0" style="-fx-text-fill: Black;" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="260.0" />
+                  <CheckBox fx:id="createGroupSendMessages" layoutX="251.0" layoutY="318.0" mnemonicParsing="false" text="Members can send Messages" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="320.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="createGroupAddDiary" layoutX="251.0" layoutY="371.0" mnemonicParsing="false" text="Members can add Diary" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="380.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </CheckBox>
+                  <Button id="button" fx:id="createGroup" alignment="CENTER" contentDisplay="CENTER" layoutX="349.0" layoutY="505.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="60.0" prefWidth="300.0" text="Create Group" textAlignment="CENTER" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Label id="ErrorLabel" fx:id="groupIdErrorLabel" layoutX="251.0" layoutY="115.0" text="*Error: Please Enter A Correct Group ID (letters,digits, . , - , _ ) Only" visible="false" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="115.0" />
+                  <Label id="ErrorLabel" fx:id="groupIdErrorLabelUnique" layoutX="261.0" layoutY="125.0" text="*Error: This GroupID is not available Please Enter A unique User Name " visible="false" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="115.0" />
                </children>
             </AnchorPane>
          </children>

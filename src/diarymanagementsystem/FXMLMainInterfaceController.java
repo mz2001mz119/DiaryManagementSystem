@@ -5,6 +5,7 @@
  */
 package diarymanagementsystem;
 
+import java.io.File;
 import java.io.IOException;
 import static java.lang.String.valueOf;
 import java.net.URL;
@@ -54,6 +55,10 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
@@ -61,6 +66,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 /**
  * FXML Controller class
  *
@@ -79,6 +86,10 @@ public class FXMLMainInterfaceController implements Initializable {
     static String loginUserName;
     ArrayList <Notification> diaryNotification= new ArrayList();
     ArrayList <Notification> userNotifications= new ArrayList();
+    ArrayList <Diary> userDiary= new ArrayList();
+    private static ObservableList <Diary> allUserDiary = FXCollections.observableArrayList();
+    
+    
     
     @FXML
     private AnchorPane profilePane;
@@ -524,8 +535,6 @@ public class FXMLMainInterfaceController implements Initializable {
     @FXML
     private TextField calendarSearchTextField;
 
-    @FXML
-    private ComboBox<?> calendarSearchFilter;
 
     @FXML
     private VBox caledarSearchVBox;
@@ -723,6 +732,21 @@ public class FXMLMainInterfaceController implements Initializable {
     private Button addNotification;
 
     @FXML
+    private AnchorPane showDiaryBlackPane;
+
+    @FXML
+    private Label closeShowDiaryBlackPane;
+
+    @FXML
+    private TextField showDiaryTitle;
+
+    @FXML
+    private TextField showDiaryDate;
+
+    @FXML
+    private TextArea showDiaryText;
+
+    @FXML
     private AnchorPane showNotifiactionsBlackPane;
 
     @FXML
@@ -736,6 +760,25 @@ public class FXMLMainInterfaceController implements Initializable {
 
     @FXML
     private TextArea showNotificationText;
+    @FXML
+    private AnchorPane createGroupBlackPane;
+    @FXML
+    private Label closeCreateGroupBlackPane;
+    @FXML
+    private TextField createGroupId;
+    @FXML
+    private TextField createGroupName;
+    @FXML
+    private TextField createGroupDescription;
+    @FXML
+    private ComboBox<String> createGroupPrivicy;
+    @FXML
+    private CheckBox createGroupSendMessages;
+    @FXML
+    private CheckBox createGroupAddDiary;
+    @FXML
+    private Button createGroup;
+
 
 
 
@@ -758,7 +801,8 @@ public class FXMLMainInterfaceController implements Initializable {
             
         } catch (SQLException ex) {
             Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
+        updateUserDiary();
         updateUserNotifications(); 
         //notification listener
         Timeline timeline = new Timeline(
@@ -805,6 +849,16 @@ public class FXMLMainInterfaceController implements Initializable {
                                 }
                             
                             });
+                            try{
+                                //String uriString = new File(""C:\\Users\\Mike\\workspace\\b\\src\\hero.mp3"").toURI().toString();
+                                
+                            }catch(Exception ex){
+                                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                            String uriString = new File("src\\diarymanagementsystem\\media\\notification.mp3").toURI().toString();
+                            Media media = new Media(uriString); 
+                            MediaPlayer player = new MediaPlayer(media); 
+                            player.play();
                             notificationsVBox.getChildren().add(a);
                             PauseTransition delay = new PauseTransition(Duration.seconds(10));
                             delay.setOnFinished(new EventHandler<ActionEvent>() {
@@ -934,6 +988,7 @@ public class FXMLMainInterfaceController implements Initializable {
             myGroupsPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuCalendarButton||event.getSource()==sliderMenuCalendarButton2){
+            SearchOnDiaryData();
             sliderMenuCalendarButton.setStyle("-fx-background-color: #C30032;");
             sliderMenuCalendarButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
             sliderMenuHomeButton.setStyle("");
@@ -950,8 +1005,7 @@ public class FXMLMainInterfaceController implements Initializable {
             calendarDaysButton.setStyle("-fx-text-fill:#0A283E ;");
             calendarDaysPane.setVisible(true);
 
-            myDiaryButton.setStyle("-fx-text-fill:#0A283E ;");
-            myDiaryPane.setVisible(true);
+
 
             addMemory.setStyle("-fx-text-fill:#0A283E ;");
             addNewMemoryPane.setVisible(true);
@@ -1148,6 +1202,8 @@ public class FXMLMainInterfaceController implements Initializable {
         
         //open diary top bar
         else if(event.getSource()==myDiaryButton){
+            refreshDiaryVBox();
+            updateUserDiary();
             myDiaryButton.setStyle("-fx-text-fill:#0A283E ;");
             addNewDiaryButton.setStyle("");
             
@@ -1256,6 +1312,8 @@ public class FXMLMainInterfaceController implements Initializable {
             addNoteDescription.setText("");
             addNoteFix.setSelected(false);
             diaryDayBlackPane.setVisible(false);
+            myDiaryButton.setStyle("");
+            addNewDiaryButton.setStyle("");
             addMemory.setStyle("-fx-text-fill:#0A283E ;");
             addEvent.setStyle("");
             addNote.setStyle("");       
@@ -1263,6 +1321,7 @@ public class FXMLMainInterfaceController implements Initializable {
             addNewEventPane.setVisible(false);
             addNewNotePane.setVisible(false);
             addNewDiaryPane.setVisible(false);
+            myDiaryPane.setVisible(false);
         }
         else if(event.getSource()==closeNotificationBlackPane){
             addNotificationDate.setValue(null);
@@ -1276,6 +1335,22 @@ public class FXMLMainInterfaceController implements Initializable {
             showNotificationTitle.setText("");
             showNotificationDate.setText("");
             showNotificationText.setText("");
+        }
+        else if(event.getSource()==closeShowDiaryBlackPane){
+            showDiaryBlackPane.setVisible(false);
+            showDiaryTitle.setText("");
+            showDiaryDate.setText("");
+            showDiaryText.setText("");
+            
+        }
+        else if(event.getSource()==closeCreateGroupBlackPane){
+            createGroupId.setText("");
+            createGroupName.setText("");
+            createGroupDescription.setText("");
+            createGroupPrivicy.getSelectionModel().select(0);
+            createGroupSendMessages.setSelected(false);
+            createGroupAddDiary.setSelected(false);
+            createGroupBlackPane.setVisible(false);
         }
     }
     @FXML
@@ -1343,6 +1418,7 @@ public class FXMLMainInterfaceController implements Initializable {
                         stmt.executeUpdate(sqlstr);
                     }
                 }
+                updatAllUserDiary();
                 updateUserNotifications();
                 diaryNotification.clear();
                 notificationVBox.getChildren().clear();
@@ -1367,8 +1443,38 @@ public class FXMLMainInterfaceController implements Initializable {
         }
         if(event.getSource()==addNewEvent){
             //add event
-            //--
-            //--
+            try {
+                Statement stmt = conn.createStatement();
+                String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addEventTitle.getText()+"','"+addEventDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
+                stmt.executeUpdate(sqlstr);
+                //connect with user calendar
+                sqlstr="SELECT ID from diary where Title = '"+addEventTitle.getText()+"' AND Description='"+addEventDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
+                ResultSet diaryID=stmt.executeQuery(sqlstr);
+                diaryID.next();
+                int diaryId = diaryID.getInt(1);
+                diaryID.close();
+                sqlstr="INSERT INTO `user-calendar`(`username`, `diaryid`) VALUES ('"+loginUserName+"','"+diaryId+"');";
+                stmt.executeUpdate(sqlstr);
+                if(diaryNotification.isEmpty()){
+                    sqlstr="INSERT INTO `event`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','0')";
+                    stmt.executeUpdate(sqlstr);
+                }
+                else{
+                    sqlstr="INSERT INTO `event`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','1')";
+                    stmt.executeUpdate(sqlstr);
+                    for(int i=0;i<diaryNotification.size();i++){
+                        sqlstr="INSERT INTO `usernotification`(`username`, `diaryid`, `datetime`) VALUES ('"+loginUserName+"','"+diaryId+"','"+diaryNotification.get(i).notificationDate +" "+diaryNotification.get(i).notificationHour+":"+diaryNotification.get(i).notificationMinute+":00" +"')";
+                        stmt.executeUpdate(sqlstr);
+                    }
+                }
+                updatAllUserDiary();
+                updateUserNotifications();
+                diaryNotification.clear();
+                notificationVBox.getChildren().clear();
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
             addEventTitle.setText("");
             addEventDescription.setText("");
             
@@ -1383,8 +1489,30 @@ public class FXMLMainInterfaceController implements Initializable {
         }
         if(event.getSource()==addNewNote){
             //add note
-            //--
-            //--
+            try {
+                Statement stmt = conn.createStatement();
+                String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addNoteTitle.getText()+"','"+addNoteDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
+                stmt.executeUpdate(sqlstr);
+                //connect with user calendar
+                sqlstr="SELECT ID from diary where Title = '"+addNoteTitle.getText()+"' AND Description='"+addNoteDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
+                ResultSet diaryID=stmt.executeQuery(sqlstr);
+                diaryID.next();
+                int diaryId = diaryID.getInt(1);
+                diaryID.close();
+                sqlstr="INSERT INTO `user-calendar`(`username`, `diaryid`) VALUES ('"+loginUserName+"','"+diaryId+"');";
+                stmt.executeUpdate(sqlstr);
+                if(addNoteFix.isSelected()){
+                    sqlstr="INSERT INTO `note`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','1')";
+                    stmt.executeUpdate(sqlstr);
+                }
+                else{
+                    sqlstr="INSERT INTO `event`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','0')";
+                    stmt.executeUpdate(sqlstr);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            updatAllUserDiary();
             addNoteTitle.setText("");
             addNoteDescription.setText("");
             addNoteFix.setSelected(false);
@@ -1452,6 +1580,16 @@ public class FXMLMainInterfaceController implements Initializable {
     private void actionButtons(ActionEvent event) {
         if(event.getSource()==editMyProfileSaveButton){
             //check the info then save
+        }
+        if(event.getSource()==createNewGroup){
+            createGroupId.setText("");
+            createGroupName.setText("");
+            createGroupDescription.setText("");
+            createGroupPrivicy.getItems().addAll("Public", "Private");
+            createGroupPrivicy.getSelectionModel().select(0);
+            createGroupSendMessages.setSelected(false);
+            createGroupAddDiary.setSelected(false);
+            createGroupBlackPane.setVisible(true);
         }
     }
     @FXML
@@ -1591,6 +1729,117 @@ public class FXMLMainInterfaceController implements Initializable {
                 String []t=diaryID.getTime("datetime").toString().split(":");
                 userNotifications.add(new Notification(diaryID.getDate("datetime").toString(),t[0],t[1],diaryID.getString("diaryid"),diaryID.getString("username")));
                 //System.out.println(userNotifications.get(userNotifications.size()-1).notificationDate+" "+userNotifications.get(userNotifications.size()-1).notificationHour+":"+userNotifications.get(userNotifications.size()-1).notificationMinute);
+            }
+            diaryID.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void updateUserDiary() {
+        try {
+            userDiary.clear();
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT diary.ID, diary.Title, diary.Description, diary.Date, `user-calendar`.`username` FROM `diary`, `user-calendar` WHERE `user-calendar`.`diaryid` = diary.ID AND `USER-calendar`.`username` = '"+loginUserName+"' and diary.Date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER by diary.ID DESC;";
+            ResultSet diaryID=stmt.executeQuery(sqlstr);
+            while(diaryID.next()){
+                userDiary.add(new Diary(diaryID.getString("ID"),diaryID.getString("Title"),diaryID.getString("Description"),diaryID.getDate("Date").toString()));
+            }
+            diaryID.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void refreshDiaryVBox() {
+        updateUserDiary();
+        myDiaryVBox.getChildren().clear();
+        for(int i=0;i<userDiary.size();i++){
+            final int ii = i;
+            AnchorPane a=new AnchorPane();
+            a.setStyle("-fx-pref-width:896px; -fx-pref-height:100px; -fx-border-color:#DA0037; -fx-background-color:#d1d1d1;");
+            Label diaryTitle = new Label(userDiary.get(i).Title);
+            diaryTitle.setStyle("-fx-font-size: 20px;-fx-cursor: hand;");
+            a.getChildren().add(diaryTitle);
+            a.setTopAnchor(diaryTitle, 10.0);
+            a.setLeftAnchor(diaryTitle, 10.0);
+            Label deleteDiary = new Label("Delete");//delete date
+            deleteDiary.setOnMouseClicked((mouseEvent) -> {
+                try {
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="DELETE FROM `diary` WHERE ID='"+userDiary.get(ii).ID+"';";
+                    stmt.executeUpdate(sqlstr);
+                    userDiary.remove(ii);
+                    refreshDiaryVBox();
+                    updateUserDiary();
+                } catch (SQLException ex) {
+                    Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            });
+            deleteDiary.setStyle("-fx-text-fill:#DA0037; -fx-font-size: 20px; -fx-cursor: hand;");
+            a.getChildren().add(deleteDiary);
+            a.setTopAnchor(deleteDiary, 30.0);
+            a.setRightAnchor(deleteDiary, 20.0);
+            diaryTitle.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent t) {
+                    showDiaryBlackPane.setVisible(true);
+                    showDiaryTitle.setText(userDiary.get(ii).Title);
+                    showDiaryDate.setText(userDiary.get(ii).Date);
+                    showDiaryText.setText(userDiary.get(ii).Description);
+                }
+
+            });
+            myDiaryVBox.getChildren().add(a);
+        }
+    }
+    public void SearchOnDiaryData(){
+        calendarSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            updatAllUserDiary();
+            caledarSearchVBox.getChildren().clear();
+            if(newValue == null || newValue.isEmpty()){
+                caledarSearchVBox.getChildren().clear();
+                return;
+            }
+            for(int i =0;i<allUserDiary.size();i++){
+                if(allUserDiary.get(i).Description.toLowerCase().contains(calendarSearchTextField.getText().toLowerCase()) || allUserDiary.get(i).Title.toLowerCase().contains(calendarSearchTextField.getText().toLowerCase())){
+                    updateUserDiary();
+                        final int ii = i;
+                        AnchorPane a=new AnchorPane();
+                        a.setStyle("-fx-pref-width:896px; -fx-pref-height:100px; -fx-border-color:#DA0037; -fx-background-color:#d1d1d1;-fx-background-radius: 10px;-fx-border-radius: 10px;");
+                        Label diaryTitle = new Label(allUserDiary.get(i).Title);
+                        diaryTitle.setStyle("-fx-font-size: 20px;-fx-cursor: hand;");
+                        a.getChildren().add(diaryTitle);
+                        a.setTopAnchor(diaryTitle, 10.0);
+                        a.setLeftAnchor(diaryTitle, 10.0);
+                        Label diaryDate = new Label(allUserDiary.get(i).Date);
+                        diaryTitle.setStyle("-fx-font-size: 20px;");
+                        a.getChildren().add(diaryDate);
+                        a.setBottomAnchor(diaryDate, 10.0);
+                        a.setLeftAnchor(diaryDate, 30.0);
+                        diaryTitle.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                            @Override
+                            public void handle(MouseEvent t) {
+                                showDiaryBlackPane.setVisible(true);
+                                showDiaryTitle.setText(allUserDiary.get(ii).Title);
+                                showDiaryDate.setText(allUserDiary.get(ii).Date);
+                                showDiaryText.setText(allUserDiary.get(ii).Description);
+                            }
+
+                        });
+                        caledarSearchVBox.getChildren().add(a);
+                    
+                }
+                    
+            }
+        });
+    }
+    private void updatAllUserDiary() {
+        try {
+            allUserDiary.clear();
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT diary.ID, diary.Title, diary.Description, diary.Date, `user-calendar`.`username` FROM `diary`, `user-calendar` WHERE `user-calendar`.`diaryid` = diary.ID AND `USER-calendar`.`username` = '"+loginUserName+"' ORDER by diary.ID DESC;";
+            ResultSet diaryID=stmt.executeQuery(sqlstr);
+            while(diaryID.next()){
+                allUserDiary.add(new Diary(diaryID.getString("ID"),diaryID.getString("Title"),diaryID.getString("Description"),diaryID.getDate("Date").toString()));
             }
             diaryID.close();
         } catch (SQLException ex) {

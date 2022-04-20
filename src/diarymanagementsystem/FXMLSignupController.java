@@ -79,6 +79,10 @@ public class FXMLSignupController implements Initializable {
      */
     public static String usernamefn;
     ObservableList<String>  list =FXCollections.observableArrayList("Male","Female");
+    @FXML
+    private Label EmailErrorLabelUnique;
+    @FXML
+    private Label userNameErrorLabelUnique;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
