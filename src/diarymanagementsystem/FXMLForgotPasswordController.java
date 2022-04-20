@@ -79,6 +79,7 @@ public class FXMLForgotPasswordController implements Initializable {
         // TODO
         //control the "Email" labels transitions ubove the Email&Password Text Fields
         addTextLimiter(forgotEmailTextField, 50);
+        
         forgotEmailTextField.focusedProperty().addListener(new ChangeListener<Boolean>()
         {
             @Override
@@ -121,20 +122,20 @@ public class FXMLForgotPasswordController implements Initializable {
 
     @FXML
     private void sendForgotEmail(ActionEvent event)  {
-        
+       EmailErrorLabel.setVisible(false);
 try{
-    
+      
     //chack the Email First in database or not
-    //***************
-   reseption=forgotEmailTextField.getText();
+     reseption=forgotEmailTextField.getText();
      Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
     
             Statement stmt = conn.createStatement();
             String sqlstr="SELECT * FROM `user` WHERE `user`.`Email`='"+reseption+"';";
             ResultSet rs=stmt.executeQuery(sqlstr);
           if(  rs.next()){
-              //Send an Email with new code and add the new random code on a forgotPassword table with validation date
-    try{
+                  
+           
+     //Send an Email with new code and add the new random code on a forgotPassword table with validation date
         conn.close();
         Random=getAlphaNumericString(8);
         send_email.sendemail(reseption,Random);
@@ -144,26 +145,14 @@ try{
         Scene Scene = new Scene(Parent);
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Stage.setScene(Scene);
-        Stage.show();
-
-    }
-    catch(Exception e){
-        
-        // invalid email
-        EmailErrorLabel.setVisible(true);
-    }
-    
-
-       
+        Stage.show();      
       
           }
     else { EmailErrorLabel.setVisible(true);}
 
 }
-catch (Exception e){}
-    
-    
-    
+catch (Exception e){ EmailErrorLabel.setVisible(true);}
+
         
     }
 
@@ -190,7 +179,7 @@ catch (Exception e){}
 }
      static String getAlphaNumericString(int n)
     {
-  
+       
         // length is bounded by 256 Character
         byte[] array = new byte[256];
         new Random().nextBytes(array);
@@ -219,5 +208,7 @@ catch (Exception e){}
         // return the resultant string
         return r.toString();
     }
+     
+
     
 }

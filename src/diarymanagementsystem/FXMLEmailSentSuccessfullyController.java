@@ -92,7 +92,7 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
     @FXML
     private Button confirmButton;
 
-    final Tooltip tooltip = new Tooltip("It contains at least 8 characters and at most 20 characters" +"\n" +
+   static final Tooltip passwordtooltip = new Tooltip("It contains at least 8 characters and at most 20 characters" +"\n" +
 "It contains at least one digit" +"\n" +
 "It contains at least one upper case alphabet" +"\n" +
 "It contains at least one lower case alphabet" +"\n" +
@@ -107,7 +107,7 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
      addTextLimiter(confirmationCodeTextField, 50);
      addTextLimiter(confirmationPasswordTextField, 50);
-       confirmationPasswordTextField.setTooltip(tooltip);
+       confirmationPasswordTextField.setTooltip(passwordtooltip);
     }    
 
     @FXML
@@ -147,9 +147,7 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
         Stage.setScene(Scene);
         Stage.show();
-        
-        
-        
+     
         }
         catch(Exception e){}
         
