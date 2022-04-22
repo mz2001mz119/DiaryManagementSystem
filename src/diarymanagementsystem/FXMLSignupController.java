@@ -73,16 +73,14 @@ public class FXMLSignupController implements Initializable {
 
     @FXML
     private Label userNameErrorLabel;
+    @FXML
+    private Label passerrorErrorLabel;
 
     /**
      * Initializes the controller class.
      */
     public static String usernamefn;
     ObservableList<String>  list =FXCollections.observableArrayList("Male","Female");
-    @FXML
-    private Label EmailErrorLabelUnique;
-    @FXML
-    private Label userNameErrorLabelUnique;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -91,8 +89,8 @@ public class FXMLSignupController implements Initializable {
         addTextLimiter(this.userName,50);
         addTextLimiter(this.email,30);
         addTextLimiter(this.name,50);
-        addTextLimiter(this.password,50);
-        
+        addTextLimiter(this.password,20);
+        password.setTooltip(FXMLEmailSentSuccessfullyController.passwordtooltip);
     }
 
     @FXML
@@ -108,20 +106,55 @@ public class FXMLSignupController implements Initializable {
     private void goToConfirmEmail(ActionEvent event) throws IOException {
             //check all of the fields if entered correctly and show red label for the errors
             //..
+        try {
         String eemail=this.email.getText();
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+"[a-zA-Z0-9_+&*-]+)*@" +
                             "(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";
         Pattern pat = Pattern.compile(emailRegex);
         boolean valemail=pat.matcher(eemail).matches();
-        if(!valemail) EmailErrorLabel.setVisible(true);
+        if(!valemail){
+            EmailErrorLabel.setText("*Error: Please Enter A Correct Email");
+            EmailErrorLabel.setVisible(true);
+        }
         if(valemail)EmailErrorLabel.setVisible(false);
-        try {
               Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
               Statement stmt = conn.createStatement();
-              String sqlstr="select * from `user-email-confirmation` where username ="+"'"+this.userName.getText()+"';";
+              String sqlstr="select * from `user` where Email ="+"'"+this.email.getText()+"';";
+              ResultSet rs1 = stmt.executeQuery(sqlstr);
+              stmt = conn.createStatement();
+              String sqlr="select * from `user-email-confirmation` where Email ="+"'"+this.email.getText()+"';";
+              ResultSet rs3 = stmt.executeQuery(sqlr);
+              int spas=0;
+              if(rs1.next()||rs3.next())spas=1;
+              //                     continue check
+              if(spas==1){
+              EmailErrorLabel.setText("this email already used");
+              EmailErrorLabel.setVisible(true);
+              }
+              //
+              stmt = conn.createStatement();
+              sqlstr="select * from `user-email-confirmation` where username ="+"'"+this.userName.getText()+"';";
               ResultSet rs = stmt.executeQuery(sqlstr);
-               int fff=0; 
-        if(rs.next())userNameErrorLabel.setVisible(true);
+              stmt = conn.createStatement();
+              sqlstr="select * from `user` where username ="+"'"+this.userName.getText()+"';";
+              ResultSet rs2 = stmt.executeQuery(sqlstr);
+               int fff=0;
+         char []a=this.userName.getText().toCharArray();
+         int flag=0;
+         for(int i=0;i<a.length;i++){
+         if(Character.isLetterOrDigit(a[i])){}
+         else if(a[i]=='-'){}
+         else if(a[i]=='_'){}
+         else if(a[i]=='.'){}
+         else flag=1;
+         }
+        if(rs.next()||rs2.next()){
+            userNameErrorLabel.setText("this user name already used please enter another username");
+            userNameErrorLabel.setVisible(true);}
+        else if(flag==1){
+            userNameErrorLabel.setText("*Error: Please Enter A Correct User Name (Letters,Digits, . , - , _ ) Only");
+            userNameErrorLabel.setVisible(true);
+        }
         else {
             userNameErrorLabel.setVisible(false);
             fff=1;
@@ -129,7 +162,10 @@ public class FXMLSignupController implements Initializable {
             //..
             //..
             //if all fields are valid then send confirmation cod to the email go to confirmation interface:
-            if((valemail) && (fff==1)){
+        boolean valpassw=FXMLEmailSentSuccessfullyController.isValidPassword(password.getText());
+        if(!valpassw)passerrorErrorLabel.setVisible(true);
+        else if(valpassw)passerrorErrorLabel.setVisible(false);
+            if((valemail) && (fff==1) && (spas==0) && valpassw &&(name.getText()!="")&&(birthdate.getValue()!=null)&&(gender.getValue()!=null)){
              try {
               Statement stm = conn.createStatement();
               Random rand = new Random();

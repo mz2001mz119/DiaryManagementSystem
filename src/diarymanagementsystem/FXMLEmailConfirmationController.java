@@ -86,6 +86,9 @@ public class FXMLEmailConfirmationController implements Initializable {
             stmt = conn.createStatement();
             sqlstr="INSERT INTO `user` (`Name`, `username`, `Email`, `Gender`, `Birthdate`, `password`) VALUES ('"+rs.getString("Name")+"', '"+rs.getString("username")+"', '"+rs.getString("Email")+"', '"+rs.getString("Gender")+"', '"+rs.getString("Birthdate")+"', '"+rs.getString("password")+"');";
             stmt.executeUpdate(sqlstr);
+            stmt = conn.createStatement();
+            sqlstr="DELETE FROM `user-email-confirmation` WHERE username ='"+FXMLSignupController.usernamefn+"';";
+            stmt.executeUpdate(sqlstr);
             }catch(Exception ex){}
         Parent Parent = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
         Scene Scene = new Scene(Parent);
