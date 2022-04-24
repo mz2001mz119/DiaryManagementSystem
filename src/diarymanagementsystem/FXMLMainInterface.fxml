@@ -147,6 +147,164 @@
          </children>
       </AnchorPane>
       <AnchorPane fx:id="fixNotesPane" layoutX="1186.0" layoutY="14.0" minHeight="700.0" minWidth="350.0" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: blue;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane fx:id="userGroupPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane layoutX="7.0" prefHeight="70.0" prefWidth="1090.0" style="-fx-background-color: white; -fx-border-color: transparent transparent gray transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Button id="transparentButton" fx:id="userGroupBack" layoutX="14.0" layoutY="23.0" mnemonicParsing="false" onAction="#actionButtons" prefWidth="70.0" text="&lt;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
+                  <AnchorPane id="userGroupTopInfoPane" fx:id="userGroupTopInfoPane" layoutX="82.0" layoutY="-65.0" onMouseClicked="#openuserGroupInfoPane" prefHeight="70.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ImageView fx:id="userGroupImage" fitHeight="50.0" fitWidth="50.0" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="10.400000000000006" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+                           <image>
+                              <Image url="@images/background/150.png" />
+                           </image>
+                        </ImageView>
+                        <Label fx:id="userGroupName" layoutX="85.0" layoutY="10.0" prefWidth="500.0" text="Group Name" AnchorPane.leftAnchor="90.0" AnchorPane.topAnchor="10.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="userGroupId" layoutX="112.0" layoutY="35.0" prefWidth="400.0" text="GroupID" textFill="#4e4e4e">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                     </children></AnchorPane>
+                  <Button id="transparentImageButton" fx:id="userGroupCalender" layoutX="982.0" layoutY="10.0" mnemonicParsing="false" onAction="#actionButtons" prefWidth="70.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
+            <AnchorPane id="chatBackground" fx:id="userGroupMessagesPane" layoutY="70.0" prefHeight="630.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+               <children>
+                  <ScrollPane fx:id="groupMessagesScrollPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
+                        <VBox fx:id="groupMessagesVBox" prefWidth="1050.0">
+                           <padding>
+                              <Insets bottom="10.0" left="30.0" right="30.0" top="10.0" />
+                           </padding>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+                  <AnchorPane fx:id="groupSendMessagePane" layoutX="581.0" layoutY="489.0" prefHeight="70.0" prefWidth="1090.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <TextArea fx:id="sendGroupMessageText" layoutX="484.0" layoutY="5.0" prefHeight="60.0" prefWidth="1000.0" promptText="Message" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="5.0" />
+                        <Button id="sendButton" fx:id="sendGroupMessageButton" layoutX="1016.0" layoutY="6.0" mnemonicParsing="false" onAction="#sendGroupMessage" prefHeight="60.0" prefWidth="60.0" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="5.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children></AnchorPane>
+            <AnchorPane fx:id="userGroupInfoPane" layoutY="70.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #ECECEC;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+               <children>
+                  <TextField id="textFieldBlackText" fx:id="userGroupInfoId" disable="true" editable="false" layoutX="216.0" layoutY="99.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="100.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="94.0" layoutY="101.0" prefWidth="150.0" text="Group ID:" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="100.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="94.0" layoutY="144.0" prefWidth="150.0" text="Group Name" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="150.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField id="textFieldBlackText" fx:id="userGroupInfoName" layoutX="229.0" layoutY="142.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="150.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="94.0" layoutY="178.0" prefWidth="150.0" text="Description:" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="200.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField id="textFieldBlackText" fx:id="userGroupInfoDescription" layoutX="229.0" layoutY="176.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="200.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Label layoutX="94.0" layoutY="217.0" prefWidth="150.0" text="Group Privicy:" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="250.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="userGroupInfoPrivicy" editable="true" layoutX="262.0" layoutY="315.0" prefWidth="150.0" style="-fx-text-fill: Black;" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="250.0" />
+                  <CheckBox fx:id="userGroupInfoSendMessages" layoutX="262.0" layoutY="369.0" mnemonicParsing="false" text="Members can send Messages" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="300.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </CheckBox>
+                  <CheckBox fx:id="userGroupInfoAddDiary" layoutX="262.0" layoutY="422.0" mnemonicParsing="false" text="Members can add Diary" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="350.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </CheckBox>
+                  <Button id="button" fx:id="userGroupInfoBack" alignment="CENTER" contentDisplay="CENTER" layoutX="681.0" layoutY="556.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="60.0" prefWidth="300.0" text="Back" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="220.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="userGroupInfoAddText" layoutX="83.0" layoutY="398.0" prefWidth="150.0" text="Add Member:" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="400.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField id="textFieldBlackText" fx:id="userGroupInfoMemberTextField" layoutX="218.0" layoutY="396.0" prefWidth="400.0" promptText="userName" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="400.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button id="button" fx:id="userGroupInfoAdd" alignment="CENTER" contentDisplay="CENTER" layoutX="650.0" layoutY="395.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="30.0" prefWidth="100.0" text="Add" textAlignment="CENTER" AnchorPane.leftAnchor="660.0" AnchorPane.topAnchor="400.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="userGroupInfoImageText" layoutX="104.0" layoutY="111.0" prefWidth="150.0" text="Group Image:" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="50.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+                  <Button id="button" fx:id="userGroupInfoChoose" alignment="CENTER" contentDisplay="CENTER" layoutX="250.0" layoutY="45.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="30.0" prefWidth="100.0" text="Choose" textAlignment="CENTER">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button id="button" fx:id="userGroupInfoEdit" alignment="CENTER" contentDisplay="CENTER" layoutX="370.0" layoutY="566.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="60.0" prefWidth="300.0" text="Save Information" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="220.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button id="button" fx:id="userGroupInfoRequests" alignment="CENTER" contentDisplay="CENTER" layoutX="761.0" layoutY="397.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="30.0" prefWidth="100.0" text="Requests" textAlignment="CENTER" AnchorPane.leftAnchor="770.0" AnchorPane.topAnchor="400.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <TextField id="textFieldBlackText" fx:id="userGroupInfoImage" editable="false" layoutX="226.0" layoutY="109.0" prefWidth="500.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </TextField>
+                  <Button id="button" fx:id="userGroupInfoMembers" alignment="CENTER" contentDisplay="CENTER" layoutX="882.0" layoutY="400.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="40.0" prefWidth="117.0" text="Members" textAlignment="CENTER" AnchorPane.leftAnchor="880.0" AnchorPane.topAnchor="400.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Label id="ErrorLabel" fx:id="memberUsernameErrorLabel" layoutX="250.0" layoutY="440.0" text="*Error: Please Enter A Correct Username" visible="false" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="440.0" />
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
       <AnchorPane fx:id="calendarPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane layoutX="110.0" layoutY="14.0" minHeight="70.0" minWidth="870.0" prefHeight="70.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;">
@@ -632,13 +790,13 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <ScrollPane layoutY="69.0" prefHeight="644.0" prefWidth="350.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+            <ScrollPane fx:id="caledarSearchScrollPane" layoutY="69.0" prefHeight="644.0" prefWidth="350.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
                <content>
                   <VBox id="rightVBox" fx:id="caledarSearchVBox" minHeight="642.0" spacing="5.0" />
                </content>
             </ScrollPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="groupPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="groupPane" layoutX="60.0" prefHeight="700.0" prefWidth="1090.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField id="searchTextField" fx:id="publicGroupsSearchTextField" layoutX="345.0" layoutY="30.0" prefHeight="50.0" prefWidth="400.0" promptText="search" AnchorPane.topAnchor="25.0">
                <font>
@@ -652,7 +810,7 @@
             </ScrollPane>
          </children>
       </AnchorPane>
-      <AnchorPane id="rightPane" fx:id="myGroupsPane" layoutX="1200.0" layoutY="39.0" prefHeight="700.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="rightPane" fx:id="myGroupsPane" layoutX="1200.0" layoutY="39.0" prefHeight="700.0" prefWidth="350.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField id="searchTextField" fx:id="userGroupsSearchTextField" layoutX="14.0" layoutY="14.0" minHeight="40.0" prefHeight="40.0" prefWidth="320.0" promptText="search" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
                <font>
@@ -794,14 +952,6 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="notificationsPane" prefHeight="200.0" prefWidth="300.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <VBox fx:id="notificationsVBox" layoutX="100.0" layoutY="43.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </VBox>
-         </children></AnchorPane>
       <AnchorPane id="diaryDayBlackPane" fx:id="diaryDayBlackPane" prefHeight="700.0" prefWidth="1500.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane id="diaryDayPane" layoutX="92.0" layoutY="100.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
@@ -832,9 +982,9 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <AnchorPane fx:id="myDiaryPane" layoutX="66.0" layoutY="100.0" prefHeight="450.0" prefWidth="900.0" visible="false" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+                  <AnchorPane fx:id="myDiaryPane" layoutX="66.0" layoutY="100.0" prefHeight="450.0" prefWidth="900.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
                      <children>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <ScrollPane fx:id="myDiaryScrollPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
                               <VBox fx:id="myDiaryVBox" prefWidth="896.0" spacing="5.0" />
                            </content>
@@ -1014,12 +1164,12 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <TextField id="textFieldBlackText" fx:id="showDiaryTitle" editable="false" layoutX="218.0" layoutY="77.0" prefWidth="400.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+                  <TextField id="textFieldBlackText" fx:id="showDiaryTitle" layoutX="218.0" layoutY="77.0" prefWidth="400.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="80.0" layoutY="80.0" prefWidth="100.0" text="Title:" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="520.0" AnchorPane.topAnchor="100.0">
+                  <Label layoutX="80.0" layoutY="80.0" prefWidth="100.0" text="Title:" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="100.0">
                      <font>
                         <Font size="28.0" />
                      </font>
@@ -1029,17 +1179,95 @@
                         <Font size="20.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="90.0" layoutY="90.0" prefWidth="100.0" text="Date:" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="520.0" AnchorPane.topAnchor="170.0">
+                  <Label layoutX="90.0" layoutY="90.0" prefWidth="100.0" text="Date:" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="170.0">
                      <font>
                         <Font size="28.0" />
                      </font>
                   </Label>
-                  <Label layoutX="100.0" layoutY="100.0" prefWidth="100.0" text="Text:" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="520.0" AnchorPane.topAnchor="240.0">
+                  <Label layoutX="100.0" layoutY="100.0" prefWidth="100.0" text="Text:" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="240.0">
                      <font>
                         <Font size="28.0" />
                      </font>
                   </Label>
-                  <TextArea id="textAreaBlackText" fx:id="showDiaryText" editable="false" layoutX="180.0" layoutY="240.0" prefHeight="300.0" prefWidth="450.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="49.60000000000002" AnchorPane.topAnchor="240.0" />
+                  <TextArea id="textAreaBlackText" fx:id="showDiaryText" layoutX="180.0" layoutY="240.0" prefHeight="200.0" prefWidth="450.0" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="49.60000000000002" AnchorPane.topAnchor="240.0" />
+                  <CheckBox fx:id="editDiaryFix" layoutX="200.0" layoutY="504.0" mnemonicParsing="false" text="Fix Note" visible="false" AnchorPane.topAnchor="450.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </CheckBox>
+                  <Button id="button" fx:id="editDiary" alignment="CENTER" contentDisplay="CENTER" layoutX="425.0" layoutY="519.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="60.0" prefWidth="300.0" text="Save" textAlignment="CENTER" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="350.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <Button id="button" fx:id="editNotifications" alignment="CENTER" contentDisplay="CENTER" layoutX="200.0" layoutY="445.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="40.0" prefWidth="300.0" text="Notifications" textAlignment="CENTER" visible="false">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Button>
+                  <TextField id="textFieldBlackText" fx:id="showDiaryId" editable="false" layoutX="200.0" layoutY="33.0" prefWidth="400.0" visible="false">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </TextField>
+                  <Label id="ErrorLabel" fx:id="editDiaryErrorLabel" alignment="CENTER" layoutX="300.0" layoutY="577.0" prefWidth="400.0" text="*Error: Please make sure to fill all the fields" textAlignment="CENTER" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" />
+                  <AnchorPane id="diaryDayBlackPane" fx:id="editDirayNotificationBlackPane" prefHeight="600.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <AnchorPane id="diaryNotificationPane" layoutX="285.0" layoutY="14.0" prefHeight="200.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="0.0">
+                           <children>
+                              <Label fx:id="closeeditDirayNotificationBlackPane" layoutX="456.0" layoutY="21.0" onMouseClicked="#closePane" text="X" textFill="#da0037" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                                 <font>
+                                    <Font size="25.0" />
+                                 </font>
+                                 <cursor>
+                                    <Cursor fx:constant="HAND" />
+                                 </cursor>
+                              </Label>
+                              <Label layoutX="166.0" layoutY="10.0" text="Notifications">
+                                 <font>
+                                    <Font name="AdobeMingStd-Light" size="30.0" />
+                                 </font>
+                              </Label>
+                              <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                                 <content>
+                                    <VBox fx:id="editnotificationVBox" prefWidth="500.0" />
+                                 </content>
+                              </ScrollPane>
+                              <DatePicker fx:id="addEditNotificationDate" editable="false" layoutX="82.0" layoutY="400.0" prefHeight="31.0" prefWidth="200.0" promptText="Date" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="400.0" />
+                              <TextField id="textFieldBlackText" fx:id="addEditNotificationMinutes" focusTraversable="false" layoutX="82.0" layoutY="464.0" prefHeight="30.0" prefWidth="110.0" promptText="mm" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="480.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <TextField id="textFieldBlackText" fx:id="addEditNotificationHours" focusTraversable="false" layoutX="82.0" layoutY="430.0" prefHeight="30.0" prefWidth="110.0" promptText="hh (24)" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="440.0">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </TextField>
+                              <Button id="button" fx:id="addEditNotification" layoutX="128.0" layoutY="507.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="40.0" prefWidth="250.0" text="Add" textFill="#da0037" AnchorPane.bottomAnchor="10.0">
+                                 <font>
+                                    <Font size="28.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="14.0" layoutY="400.0" prefHeight="30.0" prefWidth="60.0" text="Date:">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="433.0" prefHeight="30.0" prefWidth="80.0" text="Minutes:" AnchorPane.topAnchor="440.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label layoutX="14.0" layoutY="466.0" prefHeight="30.0" prefWidth="80.0" text="Hours:" AnchorPane.topAnchor="480.0">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>
@@ -1098,7 +1326,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Label>
-                  <TextField id="textFieldBlackText" fx:id="createGroupId" editable="false" layoutX="138.0" layoutY="114.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="80.0">
+                  <TextField id="textFieldBlackText" fx:id="createGroupId" layoutX="138.0" layoutY="114.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="80.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -1113,7 +1341,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextField id="textFieldBlackText" fx:id="createGroupName" editable="false" layoutX="148.0" layoutY="124.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="140.0">
+                  <TextField id="textFieldBlackText" fx:id="createGroupName" layoutX="148.0" layoutY="124.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="140.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -1123,7 +1351,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <TextField id="textFieldBlackText" fx:id="createGroupDescription" editable="false" layoutX="158.0" layoutY="134.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="200.0">
+                  <TextField id="textFieldBlackText" fx:id="createGroupDescription" layoutX="158.0" layoutY="134.0" prefWidth="500.0" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="200.0">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -1133,7 +1361,7 @@
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="createGroupPrivicy" layoutX="251.0" layoutY="264.0" prefWidth="150.0" style="-fx-text-fill: Black;" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="260.0" />
+                  <ComboBox fx:id="createGroupPrivicy" editable="true" layoutX="251.0" layoutY="264.0" prefWidth="150.0" style="-fx-text-fill: Black;" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="260.0" />
                   <CheckBox fx:id="createGroupSendMessages" layoutX="251.0" layoutY="318.0" mnemonicParsing="false" text="Members can send Messages" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="320.0">
                      <font>
                         <Font size="20.0" />
@@ -1151,7 +1379,57 @@
                   </Button>
                   <Label id="ErrorLabel" fx:id="groupIdErrorLabel" layoutX="251.0" layoutY="115.0" text="*Error: Please Enter A Correct Group ID At Least 5 (letters,digits, . , - , _ ) Only " visible="false" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="115.0" />
                   <Label id="ErrorLabel" fx:id="groupIdErrorLabelUnique" layoutX="261.0" layoutY="125.0" text="*Error: This GroupID is not available Please Enter A unique User Name " visible="false" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="115.0" />
-                  <Label id="ErrorLabel" fx:id="groupNameErrorLabel" layoutX="261.0" layoutY="125.0" text="*Error: Please Enter A Correct Group ID At Least 5 Charactes" visible="false" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="180.0" />
+                  <Label id="ErrorLabel" fx:id="groupNameErrorLabel" layoutX="261.0" layoutY="125.0" text="*Error: Please Enter A Correct Group Name" visible="false" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="180.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="diaryDayBlackPane" fx:id="groupMembersBlackPane" prefHeight="600.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane id="diaryNotificationPane" layoutX="285.0" layoutY="14.0" prefHeight="200.0" prefWidth="500.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <Label fx:id="closeGroupMembersBlackPane" layoutX="456.0" layoutY="21.0" onMouseClicked="#closePane" text="X" textFill="#da0037" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                     <content>
+                        <VBox fx:id="groupMembersVBox" prefWidth="500.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="notificationsPane" prefHeight="200.0" prefWidth="300.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox fx:id="notificationsVBox" layoutX="100.0" layoutY="43.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </children></AnchorPane>
+      <AnchorPane id="diaryDayBlackPane" fx:id="groupReqBlackPane" layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="1000.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane id="diaryNotificationPane" layoutX="285.0" layoutY="14.0" prefHeight="200.0" prefWidth="500.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="500.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <Label fx:id="closeGroupReqBlackPane" layoutX="456.0" layoutY="21.0" onMouseClicked="#closePane" text="X" textFill="#da0037" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="50.0">
+                     <content>
+                        <VBox fx:id="groupReqVBox" prefWidth="500.0" />
+                     </content>
+                  </ScrollPane>
                </children>
             </AnchorPane>
          </children>

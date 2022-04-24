@@ -5,8 +5,12 @@
  */
 package diarymanagementsystem;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import static java.lang.String.valueOf;
 import java.net.URL;
 import java.time.LocalDate;
@@ -59,15 +63,20 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.control.DateCell;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
+import javax.imageio.ImageIO;
 /**
  * FXML Controller class
  *
@@ -86,8 +95,13 @@ public class FXMLMainInterfaceController implements Initializable {
     static String loginUserName;
     ArrayList <Notification> diaryNotification= new ArrayList();
     ArrayList <Notification> userNotifications= new ArrayList();
+    ArrayList <Notification> editUserNotifications= new ArrayList();
     ArrayList <Diary> userDiary= new ArrayList();
     private static ObservableList <Diary> allUserDiary = FXCollections.observableArrayList();
+    ArrayList <String> userGroupsAdminIds= new ArrayList();
+    String diaryType;
+    boolean groupEditCalendar;
+    boolean calendarFromGroupPane;
     
     
     
@@ -784,6 +798,108 @@ public class FXMLMainInterfaceController implements Initializable {
     private Label groupIdErrorLabelUnique;
     @FXML
     private Label groupNameErrorLabel;
+    @FXML
+    private AnchorPane userGroupPane;
+    @FXML
+    private Button userGroupBack;
+    @FXML
+    private AnchorPane userGroupTopInfoPane;
+    @FXML
+    private Button userGroupCalender;
+    @FXML
+    private ImageView userGroupImage;
+    @FXML
+    private Label userGroupName;
+    @FXML
+    private Label userGroupId;
+    @FXML
+    private AnchorPane userGroupInfoPane;
+    @FXML
+    private TextField userGroupInfoId;
+    @FXML
+    private TextField userGroupInfoName;
+    @FXML
+    private TextField userGroupInfoDescription;
+    @FXML
+    private ComboBox<String> userGroupInfoPrivicy;
+    @FXML
+    private CheckBox userGroupInfoSendMessages;
+    @FXML
+    private CheckBox userGroupInfoAddDiary;
+    @FXML
+    private Button userGroupInfoEdit;
+    @FXML
+    private TextField userGroupInfoMemberTextField;
+    @FXML
+    private Button userGroupInfoAdd;
+    @FXML
+    private Button userGroupInfoChoose;
+    @FXML
+    private Label userGroupInfoAddText;
+    @FXML
+    private Label userGroupInfoImageText;
+    @FXML
+    private Button userGroupInfoBack;
+    @FXML
+    private Button userGroupInfoRequests;
+    @FXML
+    private AnchorPane userGroupMessagesPane;
+    @FXML
+    private TextField userGroupInfoImage;
+    @FXML
+    private Button userGroupInfoMembers;
+    @FXML
+    private Label memberUsernameErrorLabel;
+    @FXML
+    private AnchorPane groupReqBlackPane;
+    @FXML
+    private Label closeGroupReqBlackPane;
+    @FXML
+    private VBox groupReqVBox;
+    @FXML
+    private CheckBox editDiaryFix;
+    @FXML
+    private Button editDiary;
+    @FXML
+    private Button editNotifications;
+    @FXML
+    private TextField showDiaryId;
+    @FXML
+    private Label editDiaryErrorLabel;
+    @FXML
+    private AnchorPane editDirayNotificationBlackPane;
+    @FXML
+    private VBox editnotificationVBox;
+    @FXML
+    private DatePicker addEditNotificationDate;
+    @FXML
+    private TextField addEditNotificationMinutes;
+    @FXML
+    private TextField addEditNotificationHours;
+    @FXML
+    private Button addEditNotification;
+    @FXML
+    private Label closeeditDirayNotificationBlackPane;
+    @FXML
+    private AnchorPane groupMembersBlackPane;
+    @FXML
+    private Label closeGroupMembersBlackPane;
+    @FXML
+    private VBox groupMembersVBox;
+    @FXML
+    private VBox groupMessagesVBox;
+    @FXML
+    private TextArea sendGroupMessageText;
+    @FXML
+    private Button sendGroupMessageButton;
+    @FXML
+    private ScrollPane groupMessagesScrollPane;
+    @FXML
+    private ScrollPane caledarSearchScrollPane;
+    @FXML
+    private ScrollPane myDiaryScrollPane;
+    @FXML
+    private AnchorPane groupSendMessagePane;
 
 
 
@@ -800,7 +916,7 @@ public class FXMLMainInterfaceController implements Initializable {
         loginUserName="test";
         try {
             //Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/diaryManagementSystem","root", "");
             //Statement stmt = conn.createStatement();
             //String sqlstr="INSERT INTO `user` (`Name`, `username`, `Email`, `Gender`, `Birthdate`, `password`) VALUES ('Noor aldeen abu shehadeh', 'noorasaldeen', 'anooraldeen@gmail.com', 'Male', '2002-02-05', 'asdfg1234');";
             //stmt.executeUpdate(sqlstr);
@@ -813,6 +929,7 @@ public class FXMLMainInterfaceController implements Initializable {
         //notification listener
         Timeline timeline = new Timeline(
             new KeyFrame(Duration.seconds(1.0), e -> {
+                updateUserNotifications(); 
                 if(LocalTime.now().format(DateTimeFormatter.ofPattern("ss")).toString().equals("00")){
                     for(int i=0;i<userNotifications.size();i++){
                         LocalDate today = LocalDate.now();
@@ -820,7 +937,6 @@ public class FXMLMainInterfaceController implements Initializable {
                         String hour = LocalTime.now().format(DateTimeFormatter.ofPattern("HH")).toString();
                         String minute = LocalTime.now().format(DateTimeFormatter.ofPattern("mm")).toString();
                         if(userNotifications.get(i).notificationDate.equals(formattedDate) && userNotifications.get(i).notificationHour.equals(hour) && userNotifications.get(i).notificationMinute.equals(minute)){
-                            System.out.println(userNotifications.get(i).notificationDate+" " + userNotifications.get(i).notificationHour+" "+userNotifications.get(i).notificationMinute + "    " +i);
                             notificationsPane.setVisible(true);
                             AnchorPane a=new AnchorPane();
                             a.setStyle("-fx-pref-width:280px; -fx-pref-height:70px; -fx-border-color:#DA0037; -fx-background-color:#082032;");
@@ -849,6 +965,9 @@ public class FXMLMainInterfaceController implements Initializable {
                                         showNotificationTitle.setText(diaryID.getString("Title"));
                                         showNotificationDate.setText(diaryID.getString("Date"));
                                         showNotificationText.setText(diaryID.getString("Description"));
+                                        notificationsVBox.getChildren().remove(a);
+                                        if(notificationsVBox.getChildren().isEmpty())
+                                            notificationsPane.setVisible(false);
                                     } catch (SQLException ex) {
                                         Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
                                     }
@@ -891,7 +1010,7 @@ public class FXMLMainInterfaceController implements Initializable {
         sliderMenuHomeButton2.setStyle("-fx-background-color: #C30032; -fx-text-fill:white;");
         sliderMenuHomeIcon.setVisible(true);
         fixNotesPane.setVisible(true);
-        roundImage(userImage);
+        roundImage(userImage,150,150);
         //set current date
         LocalDate today = LocalDate.now();
         String formattedDate = today.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
@@ -959,6 +1078,7 @@ public class FXMLMainInterfaceController implements Initializable {
             caledarSearchPane.setVisible(false);
             groupPane.setVisible(false);
             myGroupsPane.setVisible(false);
+            userGroupPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuProfileButton||event.getSource() == sliderMenuProfileButton2){
             sliderMenuProfileButton.setStyle("-fx-background-color: #C30032;");
@@ -992,9 +1112,12 @@ public class FXMLMainInterfaceController implements Initializable {
             caledarSearchPane.setVisible(false);
             groupPane.setVisible(false);
             myGroupsPane.setVisible(false);
+            userGroupPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuCalendarButton||event.getSource()==sliderMenuCalendarButton2){
             SearchOnDiaryData();
+            caledarSearchVBox.getChildren().clear();
+            calendarSearchTextField.setText("");
             sliderMenuCalendarButton.setStyle("-fx-background-color: #C30032;");
             sliderMenuCalendarButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
             sliderMenuHomeButton.setStyle("");
@@ -1048,9 +1171,27 @@ public class FXMLMainInterfaceController implements Initializable {
             caledarSearchPane.setVisible(true);
             groupPane.setVisible(false);
             myGroupsPane.setVisible(false);
+            userGroupPane.setVisible(false);
+            //to reset the buttons when user use his calendar not group calendar
+            addMemoryNotification.setDisable(false);
+            addEventNotification.setDisable(false);
+            addNoteFix.setDisable(false);
+            editNotifications.setDisable(false);
+            editDiaryFix.setDisable(false);
+            editDiary.setDisable(false);
+            addNewDiaryButton.setDisable(false);
+            calendarFromGroupPane=false;
+            caledarSearchScrollPane.setFitToWidth(true);
+            myDiaryScrollPane.setFitToWidth(true);
         }
         else if(event.getSource()==sliderMenuGroupsButton||event.getSource()==sliderMenuGroupsButton2){
+            FillGroupAdminList();
             SearchOnPublicGroups();
+            SearchOnUserGroups();
+            caledarSearchVBox.getChildren().clear();
+            calendarSearchTextField.setText("");
+            SearchOnDiaryData();
+            
             sliderMenuGroupsButton.setStyle("-fx-background-color: #C30032;");
             sliderMenuGroupsButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
             sliderMenuHomeButton.setStyle("");
@@ -1077,6 +1218,7 @@ public class FXMLMainInterfaceController implements Initializable {
             caledarSearchPane.setVisible(false);
             groupPane.setVisible(true);
             myGroupsPane.setVisible(true);
+            userGroupPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuInvitationButton||event.getSource()==sliderMenuInvitationButton2){
             sliderMenuInvitationButton.setStyle("-fx-background-color: #C30032;");
@@ -1105,6 +1247,7 @@ public class FXMLMainInterfaceController implements Initializable {
             caledarSearchPane.setVisible(false);
             groupPane.setVisible(false);
             myGroupsPane.setVisible(false);
+            userGroupPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuSettingsButton||event.getSource() == sliderMenuSettingsButton2){
             sliderMenuSettingsButton.setStyle("-fx-background-color: #C30032;");
@@ -1133,17 +1276,18 @@ public class FXMLMainInterfaceController implements Initializable {
             caledarSearchPane.setVisible(false);
             groupPane.setVisible(false);
             myGroupsPane.setVisible(false);
+            userGroupPane.setVisible(false);
         }
 
     }
     // make profile image round
-    private void roundImage(ImageView img) {
+    private void roundImage(ImageView img,int width,int height) {
          // set a clip to apply rounded border to the original image.
             Rectangle clip = new Rectangle(
                 img.getFitWidth(), img.getFitHeight()
             );
-            clip.setArcWidth(150);
-            clip.setArcHeight(150);
+            clip.setArcWidth(width);
+            clip.setArcHeight(height);
             img.setClip(clip);
 
             // snapshot the rounded image.
@@ -1348,7 +1492,8 @@ public class FXMLMainInterfaceController implements Initializable {
             showDiaryTitle.setText("");
             showDiaryDate.setText("");
             showDiaryText.setText("");
-            
+            editNotifications.setVisible(false);
+            editDiaryFix.setVisible(false);
         }
         else if(event.getSource()==closeCreateGroupBlackPane){
             createGroupId.setText("");
@@ -1358,6 +1503,25 @@ public class FXMLMainInterfaceController implements Initializable {
             createGroupSendMessages.setSelected(false);
             createGroupAddDiary.setSelected(false);
             createGroupBlackPane.setVisible(false);
+            groupIdErrorLabel.setVisible(false);
+            groupNameErrorLabel.setVisible(false);
+            groupIdErrorLabelUnique.setVisible(false);
+        }
+        else if(event.getSource()==closeGroupReqBlackPane){
+            groupReqVBox.getChildren().clear();
+            groupReqBlackPane.setVisible(false);
+        }
+        else if(event.getSource()==closeeditDirayNotificationBlackPane){
+            editnotificationVBox.getChildren().clear();
+            addEditNotificationDate.setValue(null);
+            addEditNotificationHours.setText("");
+            addEditNotificationMinutes.setText("");
+            editDirayNotificationBlackPane.setVisible(false);
+            
+        }
+        else if (event.getSource()==closeGroupMembersBlackPane){
+            groupMembersBlackPane.setVisible(false);
+            groupMembersVBox.getChildren().clear();
         }
     }
     @FXML
@@ -1401,34 +1565,55 @@ public class FXMLMainInterfaceController implements Initializable {
         //add diary buttons adds diary and reset fields and close the pane
         if(event.getSource()==addNewMemory){
             try {
-                //add memory
-                Statement stmt = conn.createStatement();
-                String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addMemoryTitle.getText()+"','"+addMemoryDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
-                stmt.executeUpdate(sqlstr);
-                //connect with user calendar
-                sqlstr="SELECT ID from diary where Title = '"+addMemoryTitle.getText()+"' AND Description='"+addMemoryDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
-                ResultSet diaryID=stmt.executeQuery(sqlstr);
-                diaryID.next();
-                int diaryId = diaryID.getInt(1);
-                diaryID.close();
-                sqlstr="INSERT INTO `user-calendar`(`username`, `diaryid`) VALUES ('"+loginUserName+"','"+diaryId+"');";
-                stmt.executeUpdate(sqlstr);
-                if(diaryNotification.isEmpty()){
-                    sqlstr="INSERT INTO `memory`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','0')";
+                if(!calendarFromGroupPane){
+                    //add memory
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addMemoryTitle.getText()+"','"+addMemoryDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
                     stmt.executeUpdate(sqlstr);
-                }
-                else{
-                    sqlstr="INSERT INTO `memory`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','1')";
+                    //connect with user calendar
+                    sqlstr="SELECT ID from diary where Title = '"+addMemoryTitle.getText()+"' AND Description='"+addMemoryDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
+                    ResultSet diaryID=stmt.executeQuery(sqlstr);
+                    diaryID.next();
+                    int diaryId = diaryID.getInt(1);
+                    diaryID.close();
+                    sqlstr="INSERT INTO `user-calendar`(`username`, `diaryid`) VALUES ('"+loginUserName+"','"+diaryId+"');";
                     stmt.executeUpdate(sqlstr);
-                    for(int i=0;i<diaryNotification.size();i++){
-                        sqlstr="INSERT INTO `usernotification`(`username`, `diaryid`, `datetime`) VALUES ('"+loginUserName+"','"+diaryId+"','"+diaryNotification.get(i).notificationDate +" "+diaryNotification.get(i).notificationHour+":"+diaryNotification.get(i).notificationMinute+":00" +"')";
+                    if(diaryNotification.isEmpty()){
+                        sqlstr="INSERT INTO `memory`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','0')";
                         stmt.executeUpdate(sqlstr);
                     }
+                    else{
+                        sqlstr="INSERT INTO `memory`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','1')";
+                        stmt.executeUpdate(sqlstr);
+                        for(int i=0;i<diaryNotification.size();i++){
+                            sqlstr="INSERT INTO `usernotification`(`username`, `diaryid`, `datetime`) VALUES ('"+loginUserName+"','"+diaryId+"','"+diaryNotification.get(i).notificationDate +" "+diaryNotification.get(i).notificationHour+":"+diaryNotification.get(i).notificationMinute+":00" +"')";
+                            stmt.executeUpdate(sqlstr);
+                        }
+                    }
+                    updatAllUserDiary();
+                    updateUserNotifications();
+                    diaryNotification.clear();
+                    notificationVBox.getChildren().clear();
                 }
-                updatAllUserDiary();
-                updateUserNotifications();
-                diaryNotification.clear();
-                notificationVBox.getChildren().clear();
+                else{
+                    //add memory
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addMemoryTitle.getText()+"','"+addMemoryDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
+                    stmt.executeUpdate(sqlstr);
+                    //connect with user calendar
+                    sqlstr="SELECT ID from diary where Title = '"+addMemoryTitle.getText()+"' AND Description='"+addMemoryDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
+                    ResultSet diaryID=stmt.executeQuery(sqlstr);
+                    diaryID.next();
+                    int diaryId = diaryID.getInt(1);
+                    diaryID.close();
+                    sqlstr="INSERT INTO `group-calender`(`groupid`, `Diaryid`) VALUES ('"+userGroupId.getText()+"','"+diaryId+"');";
+                    stmt.executeUpdate(sqlstr);
+                    sqlstr="INSERT INTO `memory`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','0')";
+                    stmt.executeUpdate(sqlstr);
+                    updatAllUserDiary();
+                    diaryNotification.clear();
+                    notificationVBox.getChildren().clear();
+                }
             } catch (SQLException ex) {
                 Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -1451,34 +1636,54 @@ public class FXMLMainInterfaceController implements Initializable {
         if(event.getSource()==addNewEvent){
             //add event
             try {
-                Statement stmt = conn.createStatement();
-                String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addEventTitle.getText()+"','"+addEventDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
-                stmt.executeUpdate(sqlstr);
-                //connect with user calendar
-                sqlstr="SELECT ID from diary where Title = '"+addEventTitle.getText()+"' AND Description='"+addEventDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
-                ResultSet diaryID=stmt.executeQuery(sqlstr);
-                diaryID.next();
-                int diaryId = diaryID.getInt(1);
-                diaryID.close();
-                sqlstr="INSERT INTO `user-calendar`(`username`, `diaryid`) VALUES ('"+loginUserName+"','"+diaryId+"');";
-                stmt.executeUpdate(sqlstr);
-                if(diaryNotification.isEmpty()){
-                    sqlstr="INSERT INTO `event`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','0')";
+                if(!calendarFromGroupPane){
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addEventTitle.getText()+"','"+addEventDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
                     stmt.executeUpdate(sqlstr);
-                }
-                else{
-                    sqlstr="INSERT INTO `event`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','1')";
+                    //connect with user calendar
+                    sqlstr="SELECT ID from diary where Title = '"+addEventTitle.getText()+"' AND Description='"+addEventDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
+                    ResultSet diaryID=stmt.executeQuery(sqlstr);
+                    diaryID.next();
+                    int diaryId = diaryID.getInt(1);
+                    diaryID.close();
+                    sqlstr="INSERT INTO `user-calendar`(`username`, `diaryid`) VALUES ('"+loginUserName+"','"+diaryId+"');";
                     stmt.executeUpdate(sqlstr);
-                    for(int i=0;i<diaryNotification.size();i++){
-                        sqlstr="INSERT INTO `usernotification`(`username`, `diaryid`, `datetime`) VALUES ('"+loginUserName+"','"+diaryId+"','"+diaryNotification.get(i).notificationDate +" "+diaryNotification.get(i).notificationHour+":"+diaryNotification.get(i).notificationMinute+":00" +"')";
+                    if(diaryNotification.isEmpty()){
+                        sqlstr="INSERT INTO `event`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','0')";
                         stmt.executeUpdate(sqlstr);
                     }
+                    else{
+                        sqlstr="INSERT INTO `event`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','1')";
+                        stmt.executeUpdate(sqlstr);
+                        for(int i=0;i<diaryNotification.size();i++){
+                            sqlstr="INSERT INTO `usernotification`(`username`, `diaryid`, `datetime`) VALUES ('"+loginUserName+"','"+diaryId+"','"+diaryNotification.get(i).notificationDate +" "+diaryNotification.get(i).notificationHour+":"+diaryNotification.get(i).notificationMinute+":00" +"')";
+                            stmt.executeUpdate(sqlstr);
+                        }
+                    }
+                    updatAllUserDiary();
+                    updateUserNotifications();
+                    diaryNotification.clear();
+                    notificationVBox.getChildren().clear();
                 }
-                updatAllUserDiary();
-                updateUserNotifications();
-                diaryNotification.clear();
-                notificationVBox.getChildren().clear();
-            } catch (SQLException ex) {
+                else{
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addEventTitle.getText()+"','"+addEventDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
+                    stmt.executeUpdate(sqlstr);
+                    //connect with user calendar
+                    sqlstr="SELECT ID from diary where Title = '"+addEventTitle.getText()+"' AND Description='"+addEventDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
+                    ResultSet diaryID=stmt.executeQuery(sqlstr);
+                    diaryID.next();
+                    int diaryId = diaryID.getInt(1);
+                    diaryID.close();
+                    sqlstr="INSERT INTO `group-calender`(`groupid`, `Diaryid`) VALUES ('"+userGroupId.getText()+"','"+diaryId+"');";
+                    stmt.executeUpdate(sqlstr);
+                    sqlstr="INSERT INTO `event`(`diaryid`, `Notification`) VALUES ('"+diaryId+"','0')";
+                    stmt.executeUpdate(sqlstr);
+                    updatAllUserDiary();
+                    diaryNotification.clear();
+                    notificationVBox.getChildren().clear();
+                }
+                } catch (SQLException ex) {
                 Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
             }
             
@@ -1497,22 +1702,39 @@ public class FXMLMainInterfaceController implements Initializable {
         if(event.getSource()==addNewNote){
             //add note
             try {
-                Statement stmt = conn.createStatement();
-                String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addNoteTitle.getText()+"','"+addNoteDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
-                stmt.executeUpdate(sqlstr);
-                //connect with user calendar
-                sqlstr="SELECT ID from diary where Title = '"+addNoteTitle.getText()+"' AND Description='"+addNoteDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
-                ResultSet diaryID=stmt.executeQuery(sqlstr);
-                diaryID.next();
-                int diaryId = diaryID.getInt(1);
-                diaryID.close();
-                sqlstr="INSERT INTO `user-calendar`(`username`, `diaryid`) VALUES ('"+loginUserName+"','"+diaryId+"');";
-                stmt.executeUpdate(sqlstr);
-                if(addNoteFix.isSelected()){
-                    sqlstr="INSERT INTO `note`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','1')";
+                if(!calendarFromGroupPane){
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addNoteTitle.getText()+"','"+addNoteDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
                     stmt.executeUpdate(sqlstr);
+                    //connect with user calendar
+                    sqlstr="SELECT ID from diary where Title = '"+addNoteTitle.getText()+"' AND Description='"+addNoteDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
+                    ResultSet diaryID=stmt.executeQuery(sqlstr);
+                    diaryID.next();
+                    int diaryId = diaryID.getInt(1);
+                    diaryID.close();
+                    sqlstr="INSERT INTO `user-calendar`(`username`, `diaryid`) VALUES ('"+loginUserName+"','"+diaryId+"');";
+                    stmt.executeUpdate(sqlstr);
+                    if(addNoteFix.isSelected()){
+                        sqlstr="INSERT INTO `note`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','1')";
+                        stmt.executeUpdate(sqlstr);
+                    }
+                    else{
+                        sqlstr="INSERT INTO `event`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','0')";
+                        stmt.executeUpdate(sqlstr);
+                    }
                 }
                 else{
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addNoteTitle.getText()+"','"+addNoteDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
+                    stmt.executeUpdate(sqlstr);
+                    //connect with user calendar
+                    sqlstr="SELECT ID from diary where Title = '"+addNoteTitle.getText()+"' AND Description='"+addNoteDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
+                    ResultSet diaryID=stmt.executeQuery(sqlstr);
+                    diaryID.next();
+                    int diaryId = diaryID.getInt(1);
+                    diaryID.close();
+                    sqlstr="INSERT INTO `group-calender`(`groupid`, `Diaryid`) VALUES ('"+userGroupId.getText()+"','"+diaryId+"');";
+                    stmt.executeUpdate(sqlstr);
                     sqlstr="INSERT INTO `event`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','0')";
                     stmt.executeUpdate(sqlstr);
                 }
@@ -1584,7 +1806,7 @@ public class FXMLMainInterfaceController implements Initializable {
         }
     }
     @FXML
-    private void actionButtons(ActionEvent event) {
+    private void actionButtons(ActionEvent event) throws FileNotFoundException {
         if(event.getSource()==editMyProfileSaveButton){
             //check the info then save
         }
@@ -1592,6 +1814,7 @@ public class FXMLMainInterfaceController implements Initializable {
             createGroupId.setText("");
             createGroupName.setText("");
             createGroupDescription.setText("");
+            createGroupPrivicy.getItems().clear();
             createGroupPrivicy.getItems().addAll("Public", "Private");
             createGroupPrivicy.getSelectionModel().select(0);
             createGroupSendMessages.setSelected(false);
@@ -1599,19 +1822,446 @@ public class FXMLMainInterfaceController implements Initializable {
             createGroupBlackPane.setVisible(true);
         }
         else if(event.getSource()==createGroup){
-            //check the valid inputs
-            //--
-            //--
-            //add to the group table with admin name = the variable loginUserName
-            createGroupId.setText("");
-            createGroupName.setText("");
-            createGroupDescription.setText("");
-            createGroupPrivicy.getItems().addAll("Public", "Private");
-            createGroupPrivicy.getSelectionModel().select(0);
-            createGroupSendMessages.setSelected(false);
-            createGroupAddDiary.setSelected(false);
-            createGroupBlackPane.setVisible(false);
+            try {
+                //check the valid inputs
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT `groupid` FROM `dms-group` WHERE 1";
+                ResultSet groupsId=stmt.executeQuery(sqlstr);
+                boolean groupIsExists =false;
+                while(groupsId.next()){
+                    if(groupsId.getString("groupid").equals(createGroupId.getText())){
+                        groupIsExists =true;
+                    }
+                }
+                if(!groupIsExists){
+                    groupIdErrorLabelUnique.setVisible(false);
+                    boolean flag=true;
+                     createGroupId.setText(createGroupId.getText().trim());
+                    if(createGroupId.getText().length()<=4)
+                        flag=false;
+                    else{
+                       
+                        for(int i=0;i<createGroupId.getText().length();i++){
+                            if((createGroupId.getText().charAt(i)>='a'||createGroupId.getText().charAt(i)<='z'||createGroupId.getText().charAt(i)>='A'||createGroupId.getText().charAt(i)<='Z'||createGroupId.getText().charAt(i)>='0'||createGroupId.getText().charAt(i)<='9'||createGroupId.getText().charAt(i)=='.'||createGroupId.getText().charAt(i)=='-'||createGroupId.getText().charAt(i)=='_')&&createGroupId.getText().charAt(i)!=' '){
+                                ;
+                            }
+                            else
+                                flag=false;
+                        }
+                    }
+                    if(flag){
+                        groupIdErrorLabel.setVisible(false);
+                        if(createGroupName.getText().trim().equals("")){
+                            groupNameErrorLabel.setVisible(true);
+                            throw new Exception();
+                        }
+                        else{
+                            groupNameErrorLabel.setVisible(false);
+                            int message=0,diary=0,privicy=0;
+                            if(createGroupSendMessages.isSelected())
+                                message=1;
+                            if(createGroupAddDiary.isSelected())
+                                diary=1;
+                            if(createGroupPrivicy.getSelectionModel().getSelectedItem().equals("Public"))
+                                privicy=1;
+                            else
+                                privicy=0;
+                            Statement stmt3 = conn.createStatement();
+                            String sqlstr3="INSERT INTO `dms-group`(`groupid`, `name`, `adminusername`, `description`,  `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy`) VALUES ('"+createGroupId.getText()+"','"+createGroupName.getText()+"','"+loginUserName+"','"+createGroupDescription.getText()+"','"+message+"','"+diary+"','"+privicy+"')";
+                            stmt3.executeUpdate(sqlstr3);
+                            Statement stmt1 = conn.createStatement();
+                            String sqlstr1="INSERT INTO `user-group`(`username`, `groupid`, `userapproverequest`, `adminapproverequest`) VALUES ('"+loginUserName+"','"+createGroupId.getText()+"','1','1')";
+                            stmt1.executeUpdate(sqlstr1);
+                            createGroupBlackPane.setVisible(false);
+                            FillUserGroupsVBox();
+                        }
+                    }
+                    else{
+                        groupIdErrorLabel.setVisible(true);
+                        throw new Exception();
+                    }
+                }
+                else{
+                    groupIdErrorLabelUnique.setVisible(true);
+                    throw new Exception();
+                }
+                
+                
+                //add to the group table with admin name = the variable loginUserName
+                //add defult image to the grpup from images/icons/group.png
+                createGroupId.setText("");
+                createGroupName.setText("");
+                createGroupDescription.setText("");
+                createGroupPrivicy.getItems().clear();
+                createGroupPrivicy.getItems().addAll("Public", "Private");
+                createGroupPrivicy.getSelectionModel().select(0);
+                createGroupSendMessages.setSelected(false);
+                createGroupAddDiary.setSelected(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+        else if(event.getSource()==userGroupBack){
+            groupPane.setVisible(true);
+            userGroupPane.setVisible(false);
+        }
+        else if(event.getSource()==userGroupInfoBack){
+            try {
+                userGroupInfoPane.setVisible(false);
+                userGroupMessagesPane.setVisible(true);
+                memberUsernameErrorLabel.setVisible(false);
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT `groupid`, `name`, `adminusername`, `description`, `imagegroup`, `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy` FROM `dms-group` where `groupid`='"+userGroupId.getText()+"'";
+                ResultSet userGroups=stmt.executeQuery(sqlstr);
+                userGroups.next();
+                userGroupInfoName.setText(userGroups.getString("name"));
+                userGroupInfoId.setText(userGroups.getString("groupid"));
+                userGroupInfoDescription.setText(userGroups.getString("description"));
+                userGroupInfoPrivicy.getItems().clear();
+                userGroupInfoPrivicy.getItems().addAll("Public", "Private");
+                if(userGroups.getInt("attributeprivicy") == 0){
+                    userGroupInfoPrivicy.getSelectionModel().select(1);
+                }
+                else
+                    userGroupInfoPrivicy.getSelectionModel().select(0);
+                if(userGroups.getInt("memberscansendmessage") == 1)
+                    userGroupInfoSendMessages.selectedProperty().setValue(true);
+                if(userGroups.getInt("memberscaneditcalendar") == 1)
+                    userGroupInfoAddDiary.selectedProperty().setValue(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if(event.getSource()==userGroupInfoEdit){
+            try {
+                int message=0,diary=0,privicy=0;
+                if(userGroupInfoSendMessages.isSelected())
+                    message=1;
+                if(userGroupInfoAddDiary.isSelected())
+                    diary=1;
+                if(userGroupInfoPrivicy.getSelectionModel().getSelectedItem().equals("Public"))
+                    privicy=1;
+                else
+                    privicy=0;
+                if(!userGroupInfoName.getText().trim().equals("") && !userGroupInfoDescription.getText().trim().equals("")){
+                Statement stmt = conn.createStatement();
+                String sqlstr="UPDATE `dms-group` SET `name`='"+userGroupInfoName.getText()+"',`description`='"+userGroupInfoDescription.getText()+"',`memberscansendmessage`='"+message+"',`memberscaneditcalendar`='"+diary+"',`attributeprivicy`='"+privicy+"' WHERE `groupid`='"+ userGroupInfoId.getText()+"'" ;//`imagegroup`='LOAD_FILE("+userGroupInfoImage.getText()+")'
+                stmt.executeUpdate(sqlstr);
+                if(!userGroupInfoImage.getText().isEmpty()){
+                    FileInputStream fis = null;
+                    PreparedStatement ps = null;
+                    String INSERT_PICTURE = "UPDATE `dms-group` SET `imagegroup`=? WHERE `groupid`='"+ userGroupInfoId.getText()+"'";
+                    try {
+                      conn.setAutoCommit(false);
+                      File file = new File(userGroupInfoImage.getText());
+                      fis = new FileInputStream(file);
+                      ps = conn.prepareStatement(INSERT_PICTURE);
+                      ps.setBinaryStream(1, fis, (int) file.length());
+                      ps.executeUpdate();
+                      conn.commit();
+                    } finally {
+
+                    }
+                }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            userGroupInfoPane.setVisible(false);
+            userGroupPane.setVisible(false);
+            FillUserGroupsVBox();
+        }
+        else if(event.getSource()==userGroupInfoChoose){
+            FileChooser fileChooser = new FileChooser();
+
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+            FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+            fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+            //Show open file dialog
+            File file = fileChooser.showOpenDialog(null);
+            if(file!=null){
+                try {
+                    BufferedImage bufferedImage = ImageIO.read(file);
+                    WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
+                    if((int)image.getWidth()==(int)image.getHeight()){
+                        userGroupInfoImage.setText(file.getPath());
+                    }
+
+
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+        }
+        }
+        if(event.getSource()==userGroupInfoAdd){
+            try {
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT `username` FROM `user` WHERE `username`='"+userGroupInfoMemberTextField.getText()+"'";
+                ResultSet username=stmt.executeQuery(sqlstr);
+                if(username.next()){
+                    memberUsernameErrorLabel.setVisible(false);
+                    Statement stmt2 = conn.createStatement();
+                    String sqlstr2="SELECT `username`, `groupid` FROM `user-group` WHERE `username`='"+userGroupInfoMemberTextField.getText()+"' and `groupid`='"+userGroupId.getText()+"'";
+                    ResultSet usernameInGroup=stmt2.executeQuery(sqlstr2);
+                    if(usernameInGroup.next()){
+                        memberUsernameErrorLabel.setText("*Error: The user is already invited to this group");
+                        memberUsernameErrorLabel.setVisible(true);
+                    }
+                    else{
+                        memberUsernameErrorLabel.setVisible(false);
+                        Statement stmt3 = conn.createStatement();
+                        String sqlstr3="INSERT INTO `user-group`( `username`, `groupid`, `userapproverequest`, `adminapproverequest`) VALUES ('"+userGroupInfoMemberTextField.getText()+"','"+userGroupId.getText()+"','0','1')";
+                        stmt.executeUpdate(sqlstr3);
+                    }
+                }
+                else{
+                    memberUsernameErrorLabel.setText("*Error: Please Enter A Correct Username");
+                    memberUsernameErrorLabel.setVisible(true);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else if (event.getSource()==userGroupInfoRequests){
+            groupReqBlackPane.setVisible(true);
+             fillGroupMembersReqVBox();
+        }
+        else if (event.getSource()==editDiary){
+            if(!showDiaryTitle.getText().equals("") && !showDiaryDate.getText().equals("") && !showDiaryText.getText().equals("") ){
+                editDiaryErrorLabel.setVisible(false);
+                if(diaryType.equals("note")){
+                    int notFix=0;
+                    if(editDiaryFix.isSelected())
+                         notFix=1;
+                    try {
+                        Statement stmt = conn.createStatement();
+                        String sqlstr="UPDATE `note` SET `Fix Note`='"+notFix+"' WHERE `diaryid`='"+showDiaryId.getText()+"'";
+                        stmt.executeUpdate(sqlstr);
+                    } catch (SQLException ex) {
+                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                try{
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="UPDATE `diary` SET `Title`='"+showDiaryTitle.getText()+"',`Description`='"+showDiaryText.getText()+"' WHERE `ID`='"+showDiaryId.getText()+"'";
+                    stmt.executeUpdate(sqlstr);
+                    refreshDiaryVBox();
+                } catch (SQLException ex) {
+                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            }
+            else{
+                editDiaryErrorLabel.setVisible(true);
+            }
+        }
+        else if (event.getSource()==editNotifications){
+                editUserNotifications.clear();
+                editnotificationVBox.getChildren().clear();
+                editDirayNotificationBlackPane.setVisible(true);
+                limitTimeTextField(addEditNotificationMinutes,59);
+                limitTimeTextField(addEditNotificationHours,23);
+                //set min date of the notification the current date
+                LocalDate minDate = LocalDate.now();
+                addEditNotificationDate.setDayCellFactory(d ->
+                        new DateCell() {
+                            @Override public void updateItem(LocalDate item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setDisable(item.isBefore(minDate));
+                            }});
+                updateEditnotificationVBox();
+                for(int i=0;i<editUserNotifications.size();i++){
+                    
+                }
+            
+        }
+        else if(event.getSource()==addEditNotification){
+            boolean isAdded =false;
+                if(!editUserNotifications.isEmpty()){
+                    for(int i=0;i<editUserNotifications.size();i++){
+                        if(addEditNotificationDate.getValue()!=null && addEditNotificationDate.getValue().toString().equals(editUserNotifications.get(i).notificationDate) && addEditNotificationHours.getText().equals(editUserNotifications.get(i).notificationHour) && addEditNotificationMinutes.getText().equals(editUserNotifications.get(i).notificationMinute)){
+                            isAdded =true;
+                        }
+                    }
+                }
+                if(editUserNotifications.isEmpty() || !isAdded){
+                    if(addEditNotificationDate.getValue()!=null &&!addEditNotificationHours.getText().equals("") && !addEditNotificationMinutes.getText().equals(""))
+                    editUserNotifications.add(new Notification(addEditNotificationDate.getValue().toString(),addEditNotificationHours.getText(),addEditNotificationMinutes.getText()));
+                    if(editUserNotifications.isEmpty()){
+                        try {
+                            Statement stmt = conn.createStatement();
+                            String sqlstr="INSERT INTO `"+diaryType+"`(`diaryid`, `Notification`) VALUES ('"+showDiaryId.getText()+"','0')";
+                            stmt.executeUpdate(sqlstr);
+                        } catch (SQLException ex) {
+                            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    else{
+                        try {
+                            
+                            Statement stmt = conn.createStatement();
+                            String sqlstr="INSERT INTO `"+diaryType+"`(`diaryid`, `Notification`) VALUES ('"+showDiaryId.getText()+"','1')";
+                            stmt.executeUpdate(sqlstr);
+                            Statement stmt1 = conn.createStatement();
+                            String sqlstr1="DELETE FROM `usernotification` WHERE `username`='"+loginUserName+"' and `diaryid`='"+showDiaryId.getText()+"'";
+                            stmt1.executeUpdate(sqlstr1);
+                            for(int i=0;i<editUserNotifications.size();i++){
+                                sqlstr="INSERT INTO `usernotification`(`username`, `diaryid`, `datetime`) VALUES ('"+loginUserName+"','"+showDiaryId.getText()+"','"+editUserNotifications.get(i).notificationDate +" "+editUserNotifications.get(i).notificationHour+":"+editUserNotifications.get(i).notificationMinute+":00" +"')";
+                                stmt.executeUpdate(sqlstr);
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    refreshEditNotificationVBox();
+                }
+        }
+        else if(event.getSource()==userGroupInfoMembers){
+            groupMembersBlackPane.setVisible(true);
+            FillGroupMembersVBox();
+        }
+        else if(event.getSource()==userGroupCalender){
+            try {
+                addMemoryNotification.setDisable(true);
+                addEventNotification.setDisable(true);
+                addNoteFix.setDisable(true);
+                editNotifications.setDisable(true);
+                editDiaryFix.setDisable(true);
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT `adminusername`, `memberscaneditcalendar` FROM `dms-group` WHERE `groupid`='"+userGroupId.getText()+"'";
+                ResultSet membersCandAddDiary=stmt.executeQuery(sqlstr);
+                membersCandAddDiary.next();
+                if(membersCandAddDiary.getBoolean("memberscaneditcalendar")){
+                    groupEditCalendar=true;
+                }
+                else{
+                    if(membersCandAddDiary.getString("adminusername").equals(loginUserName))
+                        groupEditCalendar=true;
+                    else
+                        groupEditCalendar=false;
+                }
+                if(groupEditCalendar){
+                    editDiary.setDisable(false);
+                    addNewDiaryButton.setDisable(false);
+                }
+                else{
+                    editDiary.setDisable(true);
+                    addNewDiaryButton.setDisable(true);
+                } 
+                userGroupPane.setVisible(false);
+                myGroupsPane.setVisible(false);
+                calendarFromGroupPane=true;
+                calendarPane.setVisible(true);
+                caledarSearchPane.setVisible(true);
+                caledarSearchScrollPane.setFitToWidth(true);
+                myDiaryScrollPane.setFitToWidth(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    private void updateEditnotificationVBox(){
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT `username`, `diaryid`, `datetime` FROM `usernotification` WHERE `username`='"+loginUserName+"' and `diaryid`='"+showDiaryId.getText()+"';";
+            ResultSet editUserNotificationsSQL=stmt.executeQuery(sqlstr);
+            while(editUserNotificationsSQL.next()){
+                String []t=editUserNotificationsSQL.getTime("datetime").toString().split(":");
+                editUserNotifications.add(new Notification(editUserNotificationsSQL.getDate("datetime").toString(),t[0],t[1],editUserNotificationsSQL.getString("diaryid"),editUserNotificationsSQL.getString("username")));
+            }
+            refreshEditNotificationVBox();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void refreshEditNotificationVBox(){
+        
+        editnotificationVBox.getChildren().clear();
+        for(int i=0;i<editUserNotifications.size();i++){
+            final int ii = i;
+            String notiHour =valueOf(editUserNotifications.get(i).notificationHour) ;
+            String notiMinute =valueOf(editUserNotifications.get(i).notificationMinute) ;
+            AnchorPane a=new AnchorPane();
+            a.setStyle("-fx-pref-width:500px; -fx-pref-height:70px; -fx-border-color:#DA0037");
+            
+            Label notificationDT = new Label(editUserNotifications.get(i).notificationDate+"\t"+notiHour+":"+notiMinute);
+            notificationDT.setStyle("-fx-font-size: 20px;");
+            a.getChildren().add(notificationDT);
+            a.setTopAnchor(notificationDT, 10.0);
+            a.setBottomAnchor(notificationDT, 10.0);
+            a.setLeftAnchor(notificationDT, 10.0);
+            Label deleteNotification = new Label("X");//delete date
+            deleteNotification.setOnMouseClicked((mouseEvent) -> {
+                    editUserNotifications.remove(ii);
+                    refreshEditNotificationVBox();
+                
+            });
+            deleteNotification.setStyle("-fx-text-fill:#DA0037; -fx-font-size: 20px; -fx-cursor: hand;");
+            a.getChildren().add(deleteNotification);
+            a.setTopAnchor(deleteNotification, 10.0);
+            a.setBottomAnchor(deleteNotification, 10.0);
+            a.setRightAnchor(deleteNotification, 20.0);
+            editnotificationVBox.getChildren().add(a);
+        }
+    }
+    private void fillGroupMembersReqVBox(){
+         groupReqVBox.getChildren().clear();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT `username` FROM `user-group` WHERE `groupid`='"+userGroupId.getText()+"' and `adminapproverequest`='0'";
+            ResultSet usernameReqGroup=stmt.executeQuery(sqlstr);
+            while(usernameReqGroup.next()){
+                AnchorPane a=new AnchorPane();
+                a.setStyle("-fx-pref-width:500px; -fx-pref-height:50px; -fx-border-color:transparent transparent #DA0037 transparent ; -fx-background-color:#d1d1d1;");
+                Label gUserName = new Label(usernameReqGroup.getString("username"));
+                final String userName = usernameReqGroup.getString("username");
+                gUserName.setStyle("-fx-font-size: 20px;");
+                a.getChildren().add(gUserName);
+                a.setTopAnchor(gUserName, 10.0);
+                a.setLeftAnchor(gUserName, 10.0);
+                Label deleteReq = new Label("Remove");//delete date
+                deleteReq.setOnMouseClicked((mouseEvent) -> {
+                    try {
+                        Statement stmt2 = conn.createStatement();
+                        String sqlstr2="DELETE FROM `user-group` WHERE `username`='"+userName+"' and `groupid`='"+userGroupId.getText()+"';";
+                        stmt2.executeUpdate(sqlstr2);
+                        fillGroupMembersReqVBox();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+                deleteReq.setStyle("-fx-text-fill:#DA0037; -fx-font-size: 20px; -fx-cursor: hand;");
+                a.getChildren().add(deleteReq);
+                a.setTopAnchor(deleteReq, 10.0);
+                a.setRightAnchor(deleteReq, 20.0);
+                Label approveReq = new Label("approve");
+                approveReq.setStyle("-fx-text-fill:#DA0037; -fx-font-size: 20px; -fx-cursor: hand;");
+                a.getChildren().add(approveReq);
+                a.setTopAnchor(approveReq, 10.0);
+                a.setRightAnchor(approveReq, 100.0);
+                approveReq.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                    @Override
+                    public void handle(MouseEvent t) {
+                        try {
+                            Statement stmt3 = conn.createStatement();
+                            String sqlstr3="UPDATE `user-group` SET `adminapproverequest`='1' WHERE `username`='"+userName+"';";
+                            stmt3.executeUpdate(sqlstr3);
+                            fillGroupMembersReqVBox();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+
+                });
+                groupReqVBox.getChildren().add(a);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     @FXML
     private void setMonth(MouseEvent event) {
@@ -1749,7 +2399,6 @@ public class FXMLMainInterfaceController implements Initializable {
             while(diaryID.next()){
                 String []t=diaryID.getTime("datetime").toString().split(":");
                 userNotifications.add(new Notification(diaryID.getDate("datetime").toString(),t[0],t[1],diaryID.getString("diaryid"),diaryID.getString("username")));
-                //System.out.println(userNotifications.get(userNotifications.size()-1).notificationDate+" "+userNotifications.get(userNotifications.size()-1).notificationHour+":"+userNotifications.get(userNotifications.size()-1).notificationMinute);
             }
             diaryID.close();
         } catch (SQLException ex) {
@@ -1758,19 +2407,32 @@ public class FXMLMainInterfaceController implements Initializable {
     }
     private void updateUserDiary() {
         try {
-            userDiary.clear();
-            Statement stmt = conn.createStatement();
-            String sqlstr="SELECT diary.ID, diary.Title, diary.Description, diary.Date, `user-calendar`.`username` FROM `diary`, `user-calendar` WHERE `user-calendar`.`diaryid` = diary.ID AND `USER-calendar`.`username` = '"+loginUserName+"' and diary.Date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER by diary.ID DESC;";
-            ResultSet diaryID=stmt.executeQuery(sqlstr);
-            while(diaryID.next()){
-                userDiary.add(new Diary(diaryID.getString("ID"),diaryID.getString("Title"),diaryID.getString("Description"),diaryID.getDate("Date").toString()));
+            if(!calendarFromGroupPane){
+                userDiary.clear();
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT diary.ID, diary.Title, diary.Description, diary.Date, `user-calendar`.`username` FROM `diary`, `user-calendar` WHERE `user-calendar`.`diaryid` = diary.ID AND `USER-calendar`.`username` = '"+loginUserName+"' and diary.Date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER by diary.ID DESC;";
+                ResultSet diaryID=stmt.executeQuery(sqlstr);
+                while(diaryID.next()){
+                    userDiary.add(new Diary(diaryID.getString("ID"),diaryID.getString("Title"),diaryID.getString("Description"),diaryID.getDate("Date").toString()));
+                }
+                diaryID.close();
             }
-            diaryID.close();
+            else{
+                userDiary.clear();
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT diary.ID, diary.Title, diary.Description, diary.Date,  `group-calender`.`groupid` FROM `diary`, `group-calender` WHERE `group-calender`.`Diaryid` = diary.ID AND `group-calender`.`groupid` = '"+userGroupId.getText()+"' and diary.Date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER by diary.ID DESC;";
+                ResultSet diaryID=stmt.executeQuery(sqlstr);
+                while(diaryID.next()){
+                    userDiary.add(new Diary(diaryID.getString("ID"),diaryID.getString("Title"),diaryID.getString("Description"),diaryID.getDate("Date").toString()));
+                }
+                diaryID.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     private void refreshDiaryVBox() {
+        
         updateUserDiary();
         myDiaryVBox.getChildren().clear();
         for(int i=0;i<userDiary.size();i++){
@@ -1783,8 +2445,10 @@ public class FXMLMainInterfaceController implements Initializable {
             a.setTopAnchor(diaryTitle, 10.0);
             a.setLeftAnchor(diaryTitle, 10.0);
             Label deleteDiary = new Label("Delete");//delete date
+            
             deleteDiary.setOnMouseClicked((mouseEvent) -> {
                 try {
+                    
                     Statement stmt = conn.createStatement();
                     String sqlstr="DELETE FROM `diary` WHERE ID='"+userDiary.get(ii).ID+"';";
                     stmt.executeUpdate(sqlstr);
@@ -1799,6 +2463,30 @@ public class FXMLMainInterfaceController implements Initializable {
             a.getChildren().add(deleteDiary);
             a.setTopAnchor(deleteDiary, 30.0);
             a.setRightAnchor(deleteDiary, 20.0);
+            Label EditDiary = new Label("Edit");//delete date
+            EditDiary.setOnMouseClicked((mouseEvent) -> {
+                showDiaryBlackPane.setVisible(true);
+                showDiaryTitle.setText(userDiary.get(ii).Title);
+                showDiaryDate.setText(userDiary.get(ii).Date);
+                showDiaryText.setText(userDiary.get(ii).Description);
+                showDiaryId.setText(userDiary.get(ii).ID);
+                showDiaryTitle.setEditable(true);
+                    showDiaryText.setEditable(true);
+                    editDiary.setVisible(true);
+                editDiary();
+            });
+            EditDiary.setStyle("-fx-text-fill:#DA0037; -fx-font-size: 20px; -fx-cursor: hand;");
+            a.getChildren().add(EditDiary);
+            a.setTopAnchor(EditDiary, 30.0);
+            a.setRightAnchor(EditDiary, 100.0);
+            if(!groupEditCalendar&&calendarFromGroupPane){
+                deleteDiary.setDisable(true);
+                EditDiary.setDisable(true);
+            }
+            else{
+                deleteDiary.setDisable(false);
+                EditDiary.setDisable(false);
+            }
             diaryTitle.setOnMouseClicked(new EventHandler<MouseEvent>(){
                 @Override
                 public void handle(MouseEvent t) {
@@ -1806,6 +2494,10 @@ public class FXMLMainInterfaceController implements Initializable {
                     showDiaryTitle.setText(userDiary.get(ii).Title);
                     showDiaryDate.setText(userDiary.get(ii).Date);
                     showDiaryText.setText(userDiary.get(ii).Description);
+                    showDiaryId.setText(userDiary.get(ii).ID);
+                    showDiaryTitle.setEditable(false);
+                    showDiaryText.setEditable(false);
+                    editDiary.setVisible(false);
                 }
 
             });
@@ -1843,6 +2535,10 @@ public class FXMLMainInterfaceController implements Initializable {
                                 showDiaryTitle.setText(allUserDiary.get(ii).Title);
                                 showDiaryDate.setText(allUserDiary.get(ii).Date);
                                 showDiaryText.setText(allUserDiary.get(ii).Description);
+                                showDiaryId.setText(allUserDiary.get(ii).ID);
+                                showDiaryTitle.setEditable(false);
+                                showDiaryText.setEditable(false);
+                                editDiary.setVisible(false);
                             }
 
                         });
@@ -1853,65 +2549,558 @@ public class FXMLMainInterfaceController implements Initializable {
             }
         });
     }
+    private void editDiary(){//action for the button
+            try {
+                
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT  `Notification` FROM `memory` WHERE `diaryid`='"+showDiaryId.getText()+"'";
+                ResultSet editDiary=stmt.executeQuery(sqlstr);
+                if(editDiary.next()){
+                    editNotifications.setVisible(true);
+                    diaryType="memory";
+                }
+                else {
+                    Statement stmt2 = conn.createStatement();
+                    String sqlstr2="SELECT  `Notification` FROM `event` WHERE `diaryid`='"+showDiaryId.getText()+"'";
+                    ResultSet editDiary2=stmt2.executeQuery(sqlstr2);
+                    if(editDiary2.next()){
+                        editNotifications.setVisible(true);
+                        diaryType="event";
+                    }
+                    else{
+                        editDiaryFix.setVisible(true);
+                        Statement stmt3 = conn.createStatement();
+                        String sqlstr3="SELECT `Fix Note` FROM `note` WHERE `diaryid`='"+showDiaryId.getText()+"'";
+                        ResultSet editDiary3=stmt3.executeQuery(sqlstr3);
+                        editDiary3.next();
+                        if(editDiary3.getBoolean("Fix Note")==true){
+                            editDiaryFix.setSelected(true);
+                            diaryType="note";
+                        }
+                    }
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+       
+    }
+
     public void SearchOnPublicGroups(){
-        System.out.println("in1");
         publicGroupsSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
             try {
                 publicGroupVBox.getChildren().clear();
                 if(newValue == null || newValue.isEmpty()){
-                    System.out.println("in2");
                     publicGroupVBox.getChildren().clear();
                     return;
                 }
                 if(publicGroupsSearchTextField.getText().length()>4){
-                    System.out.println("in3");
                     Statement stmt = conn.createStatement();
-                    String sqlstr="SELECT `groupid`, `name`, `adminusername`, `description`, `imagegroup`, `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy` FROM `dms-group` WHERE `name` LIKE '%"+publicGroupsSearchTextField.getText()+"%' or `description` LIKE '%"+publicGroupsSearchTextField.getText()+"%' or `groupid` LIKE '%"+publicGroupsSearchTextField.getText()+"%' and `attributeprivicy`='1'";
-                    ResultSet diaryID=stmt.executeQuery(sqlstr);
-                    while(diaryID.next()){
+                    String sqlstr="SELECT `groupid`, `name`, `adminusername`, `description`, `imagegroup`, `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy` FROM `dms-group` WHERE `name` LIKE '%"+publicGroupsSearchTextField.getText()+"%' or `description` LIKE '%"+publicGroupsSearchTextField.getText()+"%' or `groupid` LIKE '%"+publicGroupsSearchTextField.getText()+"%' and `attributeprivicy`='1' and `adminusername` <> '"+loginUserName+"'";
+                    ResultSet publicGroups=stmt.executeQuery(sqlstr);
+                    Statement stmt2 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+                    String sqlstr2="SELECT `id`, `username`, `groupid`, `userapproverequest`, `adminapproverequest` FROM `user-group` WHERE `username`='"+loginUserName+"'";
+                    ResultSet userGroups=stmt2.executeQuery(sqlstr2);
+                    while(publicGroups.next()){
+                        boolean notHisGroup= true;
+                        while(userGroups.next()){
+                            if(publicGroups.getString("groupid").equals(userGroups.getString("groupid"))){
+                                notHisGroup= false;
+                            }
+                        }
+                        userGroups.beforeFirst();
+                        if(notHisGroup){
                             AnchorPane a=new AnchorPane();
-                            a.setStyle("-fx-pref-width:1000px; -fx-pref-height:100px; -fx-border-color:#DA0037; -fx-background-color:#BCBCBC;-fx-background-radius: 10px;-fx-border-radius: 10px;");
-                            Label groupName = new Label(diaryID.getString("name"));
-                            groupName.setStyle("-fx-font-size: 20px;-fx-cursor: hand;");
+                            a.setStyle("-fx-pref-width:1000px; -fx-pref-height:100px; -fx-border-color:transparent transparent #DA0037 transparent; -fx-background-color:#BCBCBC;");
+                            Label groupName = new Label(publicGroups.getString("name"));
+                            groupName.setStyle("-fx-font-size: 20px;");
                             a.getChildren().add(groupName);
                             a.setTopAnchor(groupName, 10.0);
-                            a.setLeftAnchor(groupName, 50.0);
-                            Label GroupID = new Label("@"+diaryID.getString("groupid"));
+                            a.setLeftAnchor(groupName, 100.0);
+                            Label GroupID = new Label(publicGroups.getString("groupid"));
                             GroupID.setStyle("-fx-font-size: 12px; -fx-text-fill: gray");
                             a.getChildren().add(GroupID);
-                            a.setTopAnchor(GroupID, 100.0);
-                            a.setLeftAnchor(GroupID, 130.0);
-                            groupName.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                            a.setTopAnchor(GroupID, 40.0);
+                            a.setLeftAnchor(GroupID, 120.0);
+                            Label joinGroup = new Label("Join");
+                            joinGroup.setStyle("-fx-font-size: 20px; -fx-text-fill: #DA0037;-fx-cursor: hand;");
+                            a.getChildren().add(joinGroup);
+                            a.setTopAnchor(joinGroup, 30.0);
+                            a.setRightAnchor(joinGroup, 120.0);
+                            joinGroup.setOnMouseClicked(new EventHandler<MouseEvent>(){
                                 @Override
                                 public void handle(MouseEvent t) {
-                                    showDiaryBlackPane.setVisible(true);
-                                    
+                                    try {
+                                        Statement stmt = conn.createStatement();
+                                        String sqlstr="INSERT INTO `user-group`(`username`, `groupid`, `userapproverequest`, `adminapproverequest`) VALUES ('"+loginUserName+"','"+GroupID.getText()+"','1','0');";
+                                        stmt.executeUpdate(sqlstr);
+                                        publicGroupVBox.getChildren().clear();
+                                        SearchOnPublicGroups();
+                                        FillUserGroupsVBox();
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
                                 }
 
                             });
                             publicGroupVBox.getChildren().add(a);
-
-                        
-
                     }
+                    }
+                    publicGroups.close();
+                    userGroups.close();
                 }
             } catch (SQLException ex) {                    
                 Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
-    private void updatAllUserDiary() {
+    private void FillUserGroupsVBox(){
+        userGroupsSearchVBox.getChildren().clear();
         try {
-            allUserDiary.clear();
             Statement stmt = conn.createStatement();
-            String sqlstr="SELECT diary.ID, diary.Title, diary.Description, diary.Date, `user-calendar`.`username` FROM `diary`, `user-calendar` WHERE `user-calendar`.`diaryid` = diary.ID AND `USER-calendar`.`username` = '"+loginUserName+"' ORDER by diary.ID DESC;";
-            ResultSet diaryID=stmt.executeQuery(sqlstr);
-            while(diaryID.next()){
-                allUserDiary.add(new Diary(diaryID.getString("ID"),diaryID.getString("Title"),diaryID.getString("Description"),diaryID.getDate("Date").toString()));
+            String sqlstr="SELECT `groupid`, `name`, `adminusername`, `description`, `imagegroup`, `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy` FROM `dms-group`";
+            ResultSet publicGroups=stmt.executeQuery(sqlstr);
+            Statement stmt2 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+            String sqlstr2="SELECT `id`, `username`, `groupid`, `userapproverequest`, `adminapproverequest` FROM `user-group` WHERE `username`='"+loginUserName+"' and `userapproverequest`='1' and `adminapproverequest`='1'";
+            ResultSet userGroups=stmt2.executeQuery(sqlstr2);
+            while(publicGroups.next()){
+                boolean notHisGroup= false;
+                while(userGroups.next()){
+                    if(publicGroups.getString("groupid").equals(userGroups.getString("groupid"))){
+                        notHisGroup= true;
+                    }
+                }
+                userGroups.beforeFirst();
+                if(notHisGroup){
+                    
+                    AnchorPane a=new AnchorPane();
+                    a.setStyle("-fx-pref-width:330px; -fx-pref-height:70px; -fx-border-color: transparent transparent #DA0037 transparent ; -fx-background-color:#BCBCBC;");
+                    Label groupName = new Label(publicGroups.getString("name"));
+                    groupName.setStyle("-fx-font-size: 20px;-fx-cursor: hand;");
+                    a.getChildren().add(groupName);
+                    a.setTopAnchor(groupName, 10.0);
+                    a.setLeftAnchor(groupName, 10.0);
+                    Label GroupID = new Label("@"+publicGroups.getString("groupid"));
+                    GroupID.setStyle("-fx-font-size: 12px; -fx-text-fill: gray");
+                    a.getChildren().add(GroupID);
+                    a.setTopAnchor(GroupID, 40.0);
+                    a.setLeftAnchor(GroupID, 30.0);
+                    String gName=publicGroups.getString("name");
+                    String gId=publicGroups.getString("groupid");
+                    InputStream input;
+                    input = publicGroups.getBinaryStream("imagegroup");
+
+                
+                    groupName.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                        @Override
+                        public void handle(MouseEvent t) {
+                            try {
+                                userGroupName.setText(gName);
+                                userGroupId.setText(gId);
+                                if (input != null && input.available() > 1) {
+                                    System.out.println("image available");
+                                    Image imge = new Image(input);
+                                    userGroupImage.setImage(imge);
+
+                                }
+                                OpenUserGroup();
+                                Statement stmt = conn.createStatement();
+                                String sqlstr="SELECT `adminusername`, `memberscansendmessage` FROM `dms-group` WHERE `groupid`='"+userGroupId.getText()+"'";
+                                ResultSet membersCandSendMessages=stmt.executeQuery(sqlstr);
+                                membersCandSendMessages.next();
+                                if(membersCandSendMessages.getBoolean("memberscansendmessage")){
+                                    groupSendMessagePane.setDisable(false);
+                                }
+                                else{
+                                    if(membersCandSendMessages.getString("adminusername").equals(loginUserName))
+                                        groupSendMessagePane.setDisable(false);
+                                    else{
+                                        groupSendMessagePane.setDisable(true);
+                                        System.out.println("6532");
+                                    }
+                                }
+                            } catch (IOException ex) {
+                                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (SQLException ex) {
+                                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                           
+                        }
+                        
+                    });
+                    userGroupsSearchVBox.getChildren().add(a);
+                    
+                    
+                }
             }
-            diaryID.close();
+            publicGroups.close();
+            userGroups.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+    public void SearchOnUserGroups(){
+        FillUserGroupsVBox();
+        userGroupsSearchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            try {
+                userGroupsSearchVBox.getChildren().clear();
+                if(newValue == null || newValue.isEmpty()){
+                    FillUserGroupsVBox();
+                    return;
+                }
+                if(userGroupsSearchTextField.getText().length()>4){
+                    userGroupsSearchVBox.getChildren().clear();
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="SELECT `groupid`, `name`, `adminusername`, `description`, `imagegroup`, `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy` FROM `dms-group` WHERE `name` LIKE '%"+userGroupsSearchTextField.getText()+"%' or `description` LIKE '%"+userGroupsSearchTextField.getText()+"%' or `groupid` LIKE '%"+userGroupsSearchTextField.getText()+"%' ";
+                    ResultSet publicGroups=stmt.executeQuery(sqlstr);
+                    Statement stmt2 = conn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_READ_ONLY);
+                    String sqlstr2="SELECT `id`, `username`, `groupid`, `userapproverequest`, `adminapproverequest` FROM `user-group` WHERE `username`='"+loginUserName+"' and `userapproverequest`='1' and  `adminapproverequest`='1'";
+                    ResultSet userGroups=stmt2.executeQuery(sqlstr2);
+                    while(publicGroups.next()){
+                        boolean notHisGroup= false;
+                        while(userGroups.next()){
+                            if(publicGroups.getString("groupid").equals(userGroups.getString("groupid"))){
+                                notHisGroup= true;
+                            }
+                        }
+                        userGroups.beforeFirst();
+                        if(notHisGroup){
+                            
+                            AnchorPane a=new AnchorPane();
+                            a.setStyle("-fx-pref-width:330px; -fx-pref-height:60px; -fx-border-color:transparent transparent #DA0037 transparent; -fx-background-color:#BCBCBC;");
+                            Label groupName = new Label(publicGroups.getString("name"));
+                            groupName.setStyle("-fx-font-size: 20px;-fx-cursor: hand;");
+                            a.getChildren().add(groupName);
+                            a.setTopAnchor(groupName, 10.0);
+                            a.setLeftAnchor(groupName, 10.0);
+                            Label GroupID = new Label("@"+publicGroups.getString("groupid"));
+                            GroupID.setStyle("-fx-font-size: 12px; -fx-text-fill: gray");
+                            a.getChildren().add(GroupID);
+                            a.setTopAnchor(GroupID, 40.0);
+                            a.setLeftAnchor(GroupID, 30.0);
+                            String gName=publicGroups.getString("name");
+                            String gId=publicGroups.getString("groupid");
+                            InputStream input;
+                            input = publicGroups.getBinaryStream("imagegroup");
+
+                            groupName.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                                @Override
+                                public void handle(MouseEvent t) {
+                                    try {
+                                        userGroupName.setText(gName);
+                                        userGroupId.setText(gId);
+                                        if (input != null && input.available() > 1) {
+                                            System.out.println("image available");
+                                            Image imge = new Image(input);
+                                            userGroupImage.setImage(imge);
+
+                                        }
+                                        OpenUserGroup();
+                                        Statement stmt = conn.createStatement();
+                                        String sqlstr="SELECT `adminusername`, `memberscansendmessage` FROM `dms-group` WHERE `groupid`='"+userGroupId.getText()+"'";
+                                        ResultSet membersCandSendMessages=stmt.executeQuery(sqlstr);
+                                        membersCandSendMessages.next();
+                                        if(membersCandSendMessages.getBoolean("memberscansendmessage")){
+                                            groupSendMessagePane.setDisable(false);
+                                        }
+                                        else{
+                                            if(membersCandSendMessages.getString("adminusername").equals(loginUserName))
+                                                groupSendMessagePane.setDisable(false);
+                                            else{
+                                                groupSendMessagePane.setDisable(true);
+                                                System.out.println("6532");
+                                            }
+                                        }
+                                    } catch (IOException ex) {
+                                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+
+                            });
+                            userGroupsSearchVBox.getChildren().add(a);
+
+                        
+                    }
+                    }
+                    publicGroups.close();
+                    userGroups.close();
+                    
+                }
+            } catch (SQLException ex) {                    
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        });
+    }
+    private void OpenUserGroup(){
+        groupPane.setVisible(false);
+        FillGroupMessagesVBox();
+        userGroupPane.setVisible(true);
+        userGroupMessagesPane.setVisible(true);
+        userGroupInfoPane.setVisible(false);
+        
+        roundImage(userGroupImage,50,50);
+        
+    }
+    private void updatAllUserDiary() {
+        
+        try {
+            if(!calendarFromGroupPane){
+                allUserDiary.clear();
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT diary.ID, diary.Title, diary.Description, diary.Date, `user-calendar`.`username` FROM `diary`, `user-calendar` WHERE `user-calendar`.`diaryid` = diary.ID AND `USER-calendar`.`username` = '"+loginUserName+"' ORDER by diary.ID DESC;";
+                ResultSet diaryID=stmt.executeQuery(sqlstr);
+                while(diaryID.next()){
+                    allUserDiary.add(new Diary(diaryID.getString("ID"),diaryID.getString("Title"),diaryID.getString("Description"),diaryID.getDate("Date").toString()));
+                }
+                diaryID.close();
+            }
+            else{
+                allUserDiary.clear();
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT diary.ID, diary.Title, diary.Description, diary.Date, `group-calender`.`groupid` FROM `diary`, `group-calender` WHERE `group-calender`.`Diaryid` = diary.ID AND `group-calender`.`groupid` = '"+userGroupId.getText()+"' ORDER by diary.ID DESC;";
+                ResultSet diaryID=stmt.executeQuery(sqlstr);
+                while(diaryID.next()){
+                    allUserDiary.add(new Diary(diaryID.getString("ID"),diaryID.getString("Title"),diaryID.getString("Description"),diaryID.getDate("Date").toString()));
+                }
+                diaryID.close();
+            }
         } catch (SQLException ex) {
             Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void openuserGroupInfoPane(MouseEvent event) {
+        userGroupInfoPane.setVisible(true);
+        userGroupMessagesPane.setVisible(false);
+        FillGroupAdminList();
+        boolean isAdmin=false;
+        for(int i=0;i<userGroupsAdminIds.size();i++){
+            if(userGroupsAdminIds.get(i).equals(userGroupId.getText()))
+                isAdmin=true;
+        }
+        if(!isAdmin){
+            try {
+                userGroupInfoChoose.setVisible(false);
+                userGroupInfoAdd.setVisible(false);
+                userGroupInfoMemberTextField.setVisible(false);
+                userGroupInfoAdd.setVisible(false);
+                userGroupInfoAddText.setVisible(false);
+                userGroupInfoEdit.setVisible(false);
+                userGroupInfoRequests.setVisible(false);
+                userGroupInfoImageText.setVisible(false);
+                userGroupInfoName.setEditable(false);
+                userGroupInfoId.setEditable(false);
+                userGroupInfoDescription.setEditable(false);
+                userGroupInfoPrivicy.setDisable(true);
+                userGroupInfoSendMessages.setDisable(true);
+                userGroupInfoAddDiary.setDisable(true);
+                userGroupInfoMembers.setVisible(false);
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT `groupid`, `name`, `adminusername`, `description`, `imagegroup`, `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy` FROM `dms-group` where `groupid`='"+userGroupId.getText()+"'";
+                ResultSet userGroups=stmt.executeQuery(sqlstr);
+                userGroups.next();
+                userGroupInfoName.setText(userGroups.getString("name"));
+                userGroupInfoId.setText(userGroups.getString("groupid"));
+                userGroupInfoDescription.setText(userGroups.getString("description"));
+                userGroupInfoPrivicy.getItems().clear();
+                userGroupInfoPrivicy.getItems().addAll("Public", "Private");
+                if(userGroups.getInt("attributeprivicy") == 0){
+                    userGroupInfoPrivicy.getSelectionModel().select(1);
+                }
+                else
+                    userGroupInfoPrivicy.getSelectionModel().select(0);
+                if(userGroups.getInt("memberscansendmessage") == 1)
+                    userGroupInfoSendMessages.selectedProperty().setValue(true);
+                if(userGroups.getInt("memberscaneditcalendar") == 1)
+                    userGroupInfoAddDiary.selectedProperty().setValue(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        else{
+            try {
+                
+                userGroupInfoChoose.setVisible(true);
+                userGroupInfoAdd.setVisible(true);
+                userGroupInfoMemberTextField.setVisible(true);
+                userGroupInfoAdd.setVisible(true);
+                userGroupInfoAddText.setVisible(true);
+                userGroupInfoEdit.setVisible(true);
+                userGroupInfoRequests.setVisible(true);
+                userGroupInfoImageText.setVisible(true);
+                userGroupInfoName.setEditable(true);
+                userGroupInfoId.setEditable(false);
+                userGroupInfoDescription.setEditable(true);
+                userGroupInfoPrivicy.setDisable(false);
+                userGroupInfoSendMessages.setDisable(false);
+                userGroupInfoAddDiary.setDisable(false);
+                userGroupInfoMembers.setVisible(true);
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT `groupid`, `name`, `adminusername`, `description`, `imagegroup`, `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy` FROM `dms-group` where `groupid`='"+userGroupId.getText()+"'";
+                ResultSet userGroups=stmt.executeQuery(sqlstr);
+                userGroups.next();
+                userGroupInfoName.setText(userGroups.getString("name"));
+                userGroupInfoId.setText(userGroups.getString("groupid"));
+                userGroupInfoDescription.setText(userGroups.getString("description"));
+                userGroupInfoPrivicy.getItems().clear();
+                userGroupInfoPrivicy.getItems().addAll("Public", "Private");
+                if(userGroups.getInt("attributeprivicy") == 0){
+                    userGroupInfoPrivicy.getSelectionModel().select(1);
+                }
+                else
+                    userGroupInfoPrivicy.getSelectionModel().select(0);
+                if(userGroups.getInt("memberscansendmessage") == 1)
+                    userGroupInfoSendMessages.selectedProperty().setValue(true);
+                if(userGroups.getInt("memberscaneditcalendar") == 1)
+                    userGroupInfoAddDiary.selectedProperty().setValue(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void FillGroupAdminList() {
+        try {
+            userGroupsAdminIds.clear();
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT `groupid`,`adminusername` FROM `dms-group` WHERE `adminusername`='"+loginUserName+"'";
+            ResultSet userAdminGroups=stmt.executeQuery(sqlstr);
+            while(userAdminGroups.next()){
+                userGroupsAdminIds.add(userAdminGroups.getString("groupid"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void openEditDiaryPane() {
+        
+    }
+
+    private void FillGroupMembersVBox() {
+        try {
+            groupMembersVBox.getChildren().clear();
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT  `username`, `groupid`, `userapproverequest`, `adminapproverequest` FROM `user-group` WHERE `groupid`='"+userGroupId.getText()+"' and `adminapproverequest`='1' and `username`<>'"+loginUserName+"'";
+            ResultSet groupMembers=stmt.executeQuery(sqlstr);
+            while(groupMembers.next()){
+                String memberType;
+                if(groupMembers.getBoolean("userapproverequest")){
+                    memberType="Member";
+                }
+                else{
+                    memberType="invited";
+                }
+                AnchorPane a=new AnchorPane();
+                a.setStyle("-fx-pref-width:500px; -fx-pref-height:70px; -fx-border-color:transparent transparent #DA0037 transparent ; -fx-background-color:#d1d1d1;");
+                Label gUserName = new Label(groupMembers.getString("username"));
+                final String userName = groupMembers.getString("username");
+                gUserName.setStyle("-fx-font-size: 20px;");
+                a.getChildren().add(gUserName);
+                a.setTopAnchor(gUserName, 10.0);
+                a.setLeftAnchor(gUserName, 10.0);
+                Label deleteMember = new Label("Remove");//delete date
+                deleteMember.setOnMouseClicked((mouseEvent) -> {
+                    try {
+                        Statement stmt2 = conn.createStatement();
+                        String sqlstr2="DELETE FROM `user-group` WHERE `username`='"+userName+"' and `groupid`='"+userGroupId.getText()+"';";
+                        stmt2.executeUpdate(sqlstr2);
+                        FillGroupMembersVBox();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                });
+                deleteMember.setStyle("-fx-text-fill:#DA0037; -fx-font-size: 20px; -fx-cursor: hand;");
+                a.getChildren().add(deleteMember);
+                a.setTopAnchor(deleteMember, 10.0);
+                a.setRightAnchor(deleteMember, 20.0);
+                Label memType = new Label(memberType);
+                memType.setStyle("-fx-text-fill:gray; -fx-font-size: 12px; ");
+                a.getChildren().add(memType);
+                a.setTopAnchor(memType, 40.0);
+                a.setLeftAnchor(memType, 20.0);
+                
+                groupMembersVBox.getChildren().add(a);
+
+        }
+    } catch (SQLException ex) {
+        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+    }
+
+    @FXML
+    private void sendGroupMessage(ActionEvent event) {
+        sendGroupMessageText.setText(sendGroupMessageText.getText().trim());
+        if(!sendGroupMessageText.getText().equals("")){
+            try {
+                LocalDateTime DTNow = LocalDateTime.now();
+                String formattedDate = DTNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh:mm:ss"));
+                Statement stmt = conn.createStatement();
+                String sqlstr="INSERT INTO `group-messages`( `groupid`, `senderusername`, `text`, `sendingdate`) VALUES ('"+userGroupId.getText()+"','"+loginUserName+"','"+sendGroupMessageText.getText()+"','"+formattedDate+"');";
+                stmt.executeUpdate(sqlstr);
+                sendGroupMessageText.setText("");
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        FillGroupMessagesVBox();
+    }
+
+    private void FillGroupMessagesVBox() {
+        groupMessagesVBox.getChildren().clear();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT `groupid`, `senderusername`, `text`, `sendingdate` FROM `group-messages` WHERE `groupid`='"+userGroupId.getText()+"'  ORDER BY `sendingdate` asc;";
+            ResultSet groupMessages=stmt.executeQuery(sqlstr);
+            String backGroundColor;
+            while(groupMessages.next()){
+                if(groupMessages.getString("senderusername").equals(loginUserName)){
+                    backGroundColor="-fx-background-color:#DA0037;";
+                }
+                else
+                    backGroundColor="-fx-background-color:white;";
+                AnchorPane b=new AnchorPane();
+                b.setStyle("-fx-pref-width:1090px; ");
+                AnchorPane a=new AnchorPane();
+                b.getChildren().add(a);
+                a.setStyle("-fx-pref-width:500px; -fx-min-height:50px;  -fx-background-radius:10px; -fx-border-radius:10px;"+backGroundColor);
+                Text message = new Text(groupMessages.getString("text"));
+                message.setWrappingWidth(450);
+                if(groupMessages.getString("senderusername").equals(loginUserName)){
+                    b.setTopAnchor(a, 5.0);
+                    b.setRightAnchor(a, 5.0);
+                    b.setBottomAnchor(a, 5.0);
+                    a.setTopAnchor(message, 10.0);
+                    a.setBottomAnchor(message, 10.0);
+                    a.setRightAnchor(message, 20.0);
+                    message.setStyle("-fx-font-size: 20px;");
+                    message.setFill(Color.WHITE);
+                }
+                else{
+                    message.setStyle("-fx-text-fill:black;-fx-font-size: 20px;");
+                    b.setTopAnchor(a, 5.0);
+                    b.setLeftAnchor(a, 5.0);
+                    b.setBottomAnchor(a, 5.0);
+                    Label userName = new Label(groupMessages.getString("senderusername"));
+                    userName.setStyle("-fx-font-size: 25px; -fx-text-fill: #DA0037;");
+                    a.getChildren().add(userName);
+                    a.setTopAnchor(userName, 5.0);
+                    a.setLeftAnchor(userName, 20.0);
+                    a.setTopAnchor(message, 40.0);
+                    a.setBottomAnchor(message, 5.0);
+                    a.setLeftAnchor(message, 20.0);
+                }
+                a.getChildren().add(message);
+                groupMessagesVBox.getChildren().add(b);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        groupMessagesScrollPane.vvalueProperty().bind(groupMessagesVBox.heightProperty());
+        groupMessagesScrollPane.setFitToWidth(true);
     }
 }
