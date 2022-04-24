@@ -900,6 +900,24 @@ public class FXMLMainInterfaceController implements Initializable {
     private ScrollPane myDiaryScrollPane;
     @FXML
     private AnchorPane groupSendMessagePane;
+    @FXML
+    private Button userEditImageChoose;
+    @FXML
+    private TextField userEditImageImage;
+    @FXML
+    private Label profileEmailErrorLabel;
+    @FXML
+    private Label profileImageErrorLabel;
+    @FXML
+    private AnchorPane invitationsPane;
+    @FXML
+    private Button partyButton;
+    @FXML
+    private Button birthdayButton;
+    @FXML
+    private Button weddingButton;
+    @FXML
+    private AnchorPane partyPane;
 
 
 
@@ -1081,38 +1099,57 @@ public class FXMLMainInterfaceController implements Initializable {
             userGroupPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuProfileButton||event.getSource() == sliderMenuProfileButton2){
-            sliderMenuProfileButton.setStyle("-fx-background-color: #C30032;");
-            sliderMenuProfileButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
-            sliderMenuHomeButton.setStyle("");
-            sliderMenuCalendarButton.setStyle("");
-            sliderMenuGroupsButton.setStyle("");
-            sliderMenuInvitationButton.setStyle("");
-            sliderMenuSettingsButton.setStyle("");
-            sliderMenuHomeButton2.setStyle("");
-            sliderMenuCalendarButton2.setStyle("");
-            sliderMenuGroupsButton2.setStyle("");
-            sliderMenuInvitationButton2.setStyle("");
-            sliderMenuSettingsButton2.setStyle("");
-            
-            userInfoButton.setStyle("-fx-text-fill:#0A283E ;");
-            editUserProfile.setStyle("");
-            userInfoPane.setVisible(true);
-            userEditInfoPane.setVisible(false);
-            
-            sliderMenuHomeIcon.setVisible(false);
-            sliderMenuProfileIcon.setVisible(true);
-            sliderMenuCalendarIcon.setVisible(false);
-            sliderMenuGroupsIcon.setVisible(false);
-            sliderMenuInvitationIcon.setVisible(false);
-            sliderMenuSettingsIcon.setVisible(false);
-            
-            fixNotesPane.setVisible(true);
-            profilePane.setVisible(true);
-            calendarPane.setVisible(false);
-            caledarSearchPane.setVisible(false);
-            groupPane.setVisible(false);
-            myGroupsPane.setVisible(false);
-            userGroupPane.setVisible(false);
+            try {
+                sliderMenuProfileButton.setStyle("-fx-background-color: #C30032;");
+                sliderMenuProfileButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
+                sliderMenuHomeButton.setStyle("");
+                sliderMenuCalendarButton.setStyle("");
+                sliderMenuGroupsButton.setStyle("");
+                sliderMenuInvitationButton.setStyle("");
+                sliderMenuSettingsButton.setStyle("");
+                sliderMenuHomeButton2.setStyle("");
+                sliderMenuCalendarButton2.setStyle("");
+                sliderMenuGroupsButton2.setStyle("");
+                sliderMenuInvitationButton2.setStyle("");
+                sliderMenuSettingsButton2.setStyle("");
+                
+                userInfoButton.setStyle("-fx-text-fill:#0A283E ;");
+                editUserProfile.setStyle("");
+                userInfoPane.setVisible(true);
+                userEditInfoPane.setVisible(false);
+                
+                sliderMenuHomeIcon.setVisible(false);
+                sliderMenuProfileIcon.setVisible(true);
+                sliderMenuCalendarIcon.setVisible(false);
+                sliderMenuGroupsIcon.setVisible(false);
+                sliderMenuInvitationIcon.setVisible(false);
+                sliderMenuSettingsIcon.setVisible(false);
+                
+                fixNotesPane.setVisible(true);
+                profilePane.setVisible(true);
+                calendarPane.setVisible(false);
+                caledarSearchPane.setVisible(false);
+                groupPane.setVisible(false);
+                myGroupsPane.setVisible(false);
+                userGroupPane.setVisible(false);
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT `Name`, `username`, `Email`, `Gender`, `Birthdate`, `password`, `userimage` FROM `user` WHERE `username`='"+loginUserName+"'";
+                ResultSet userInfo=stmt.executeQuery(sqlstr);
+                userInfo.next();
+                InputStream input;
+                input = userInfo.getBinaryStream("userimage");
+                if (input != null && input.available() > 1) {
+                    Image imge = new Image(input);
+                    userImage.setImage(imge);
+                    
+                }
+                userFullName.setText(userInfo.getString("Name"));
+                userName.setText(userInfo.getString("username"));
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(event.getSource()==sliderMenuCalendarButton||event.getSource()==sliderMenuCalendarButton2){
             SearchOnDiaryData();
@@ -1807,10 +1844,8 @@ public class FXMLMainInterfaceController implements Initializable {
     }
     @FXML
     private void actionButtons(ActionEvent event) throws FileNotFoundException {
-        if(event.getSource()==editMyProfileSaveButton){
-            //check the info then save
-        }
-        else if(event.getSource()==createNewGroup){
+        
+        if(event.getSource()==createNewGroup){
             createGroupId.setText("");
             createGroupName.setText("");
             createGroupDescription.setText("");
@@ -1973,6 +2008,33 @@ public class FXMLMainInterfaceController implements Initializable {
             userGroupPane.setVisible(false);
             FillUserGroupsVBox();
         }
+        else if(event.getSource()==editMyProfileSaveButton){
+            try {
+                if(!userEditImageImage.getText().isEmpty()){
+                    
+                    System.out.println(userEditImageImage.getText()+"aaaaaa");
+                    FileInputStream fis = null;
+                    PreparedStatement ps = null;
+                    String INSERT_PICTURE = "UPDATE `user` SET `userimage`=? WHERE `username`='"+ loginUserName+"'";
+                    try {
+                      conn.setAutoCommit(false);
+                      File file = new File(userEditImageImage.getText());
+                      fis = new FileInputStream(file);
+                      ps = conn.prepareStatement(INSERT_PICTURE);
+                      ps.setBinaryStream(1, fis, (int) file.length());
+                      ps.executeUpdate();
+                      conn.commit();
+                    } finally {
+
+                    }
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            userEditImageChoose.setStyle("");
+            userEditImageImage.setText("");
+        }
         else if(event.getSource()==userGroupInfoChoose){
             FileChooser fileChooser = new FileChooser();
 
@@ -1997,7 +2059,38 @@ public class FXMLMainInterfaceController implements Initializable {
                 } 
         }
         }
-        if(event.getSource()==userGroupInfoAdd){
+        else if(event.getSource()==userEditImageChoose){
+            FileChooser fileChooser = new FileChooser();
+
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("JPG files (*.jpg)", "*.JPG");
+            FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.PNG");
+            fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG);
+
+            //Show open file dialog
+            File file = fileChooser.showOpenDialog(null);
+            if(file!=null){
+                try {
+                    BufferedImage bufferedImage = ImageIO.read(file);
+                    WritableImage image = SwingFXUtils.toFXImage(bufferedImage, null);
+                    if((int)image.getWidth()==(int)image.getHeight()){
+                        userEditImageImage.setText(file.getPath());
+                        profileImageErrorLabel.setVisible(false);
+                        userEditImageChoose.setStyle("-fx-background-color: #DA0037;");
+                    }
+                    else{
+                        userEditImageImage.setText("");
+                        profileImageErrorLabel.setVisible(true);
+                        userEditImageChoose.setStyle("");
+                    }
+
+
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+        }
+        }
+        else if(event.getSource()==userGroupInfoAdd){
             try {
                 Statement stmt = conn.createStatement();
                 String sqlstr="SELECT `username` FROM `user` WHERE `username`='"+userGroupInfoMemberTextField.getText()+"'";
@@ -2698,10 +2791,8 @@ public class FXMLMainInterfaceController implements Initializable {
                                 userGroupName.setText(gName);
                                 userGroupId.setText(gId);
                                 if (input != null && input.available() > 1) {
-                                    System.out.println("image available");
                                     Image imge = new Image(input);
                                     userGroupImage.setImage(imge);
-
                                 }
                                 OpenUserGroup();
                                 Statement stmt = conn.createStatement();
