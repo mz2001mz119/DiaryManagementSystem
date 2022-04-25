@@ -931,7 +931,7 @@ public class FXMLMainInterfaceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-        loginUserName="abuaws";
+        loginUserName="nooraldeen";
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
