@@ -76,7 +76,7 @@
     -fx-border-color: -fx-secondary-color;
     -fx-background-repeat: no-repeat; 
     -fx-background-size: 30px 30px; 
-    -fx-background-position: center center center center ;
+    -fx-background-position: center center ;
     -fx-background-color:transparent;
     
 }

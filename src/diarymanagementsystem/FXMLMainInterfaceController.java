@@ -934,7 +934,7 @@ public class FXMLMainInterfaceController implements Initializable {
         loginUserName="test";
         try {
             //Class.forName("com.mysql.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
             //Statement stmt = conn.createStatement();
             //String sqlstr="INSERT INTO `user` (`Name`, `username`, `Email`, `Gender`, `Birthdate`, `password`) VALUES ('Noor aldeen abu shehadeh', 'noorasaldeen', 'anooraldeen@gmail.com', 'Male', '2002-02-05', 'asdfg1234');";
             //stmt.executeUpdate(sqlstr);
