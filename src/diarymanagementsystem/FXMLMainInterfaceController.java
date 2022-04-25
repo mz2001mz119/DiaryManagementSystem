@@ -151,7 +151,7 @@ public class FXMLMainInterfaceController implements Initializable {
     private TextField editEmail;
 
     @FXML
-    private ComboBox<?> editGender;
+    private ComboBox<String> editGender;
 
     @FXML
     private Button editMyProfileSaveButton;
@@ -931,7 +931,7 @@ public class FXMLMainInterfaceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-        loginUserName="test";
+        loginUserName="abuaws";
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
@@ -1041,6 +1041,18 @@ public class FXMLMainInterfaceController implements Initializable {
         newClaendarYears = yearDate;
         setCalendarYears(yearDate);
     }    
+void functionshowinformation(){
+        try{
+    Statement stmt = conn.createStatement();
+    String sqlstr="SELECT * FROM `User` WHERE username='"+loginUserName+"';";
+    ResultSet rs=stmt.executeQuery(sqlstr);
+    rs.next();
+    profileEmail.setText(rs.getString("Email"));
+    profileBirthdate.setText(rs.getString("Birthdate"));
+    profileGender.setText(rs.getString("Gender"));
+    }catch(Exception e){
+    }
+    }
 
     @FXML
     private void sliderMenuAction(ActionEvent event) {
@@ -1145,6 +1157,7 @@ public class FXMLMainInterfaceController implements Initializable {
                 }
                 userFullName.setText(userInfo.getString("Name"));
                 userName.setText(userInfo.getString("username"));
+                functionshowinformation();
             } catch (SQLException ex) {
                 Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
             } catch (IOException ex) {
@@ -1342,7 +1355,7 @@ public class FXMLMainInterfaceController implements Initializable {
             img.setImage(image);
         
     }
-
+    
     @FXML
     private void topBarAction(ActionEvent event) {
         //user Profile Top bar 
@@ -1351,12 +1364,28 @@ public class FXMLMainInterfaceController implements Initializable {
             editUserProfile.setStyle("");
             userInfoPane.setVisible(true);
             userEditInfoPane.setVisible(false);
+            functionshowinformation();
+            
         }
         else if(event.getSource()==editUserProfile){
             editUserProfile.setStyle("-fx-text-fill:#0A283E ;");
             userInfoButton.setStyle("");
             userInfoPane.setVisible(false);
             userEditInfoPane.setVisible(true);
+            ObservableList<String>  list =FXCollections.observableArrayList("Male","Female");
+             try{
+                Statement stmt = conn.createStatement();
+                String sqlstr="SELECT * FROM `User` WHERE username='"+loginUserName+"';";
+                ResultSet rs=stmt.executeQuery(sqlstr);
+                rs.next();
+                editEmail.setText(rs.getString("Email"));
+                editBirthdate.setValue(LocalDate.parse(rs.getString("Birthdate")));
+                editGender.setItems(list);
+                editGender.setValue(rs.getString("Gender"));
+                editUserName.setText(rs.getString("username"));
+                editName.setText(rs.getString("Name"));
+                }catch(Exception e){
+                 }
         }
         
         //calendar Top bar
@@ -2034,6 +2063,28 @@ public class FXMLMainInterfaceController implements Initializable {
             }
             userEditImageChoose.setStyle("");
             userEditImageImage.setText("");
+            try{
+                String emaleold=editEmail.getText();
+                Statement stmt = conn.createStatement();
+              String sqlstr="select * from `user` where Email ="+"'"+emaleold+"';";
+              ResultSet rs1 = stmt.executeQuery(sqlstr);
+            if(rs1.next()){
+             stmt = conn.createStatement();
+             sqlstr="select * from `user` where username ="+"'"+loginUserName+"';";
+              ResultSet rs2 = stmt.executeQuery(sqlstr);
+              if(rs2.next())
+                emaleold= rs2.getString("Email");
+            }
+            String smrt="UPDATE `user` SET `Gender` = '"+editGender.getValue()
+                    +"',`Name`='"+editName.getText()+"',`Birthdate`='"+editBirthdate.getValue()+
+                    "',`Email`='"+emaleold
+                    +"' WHERE `user`.`username` = '"+loginUserName+"';";
+            conn.setAutoCommit(false);
+            PreparedStatement preparedStmt = conn.prepareStatement(smrt);
+             preparedStmt.executeUpdate();
+             conn.commit();
+             
+            }catch(Exception e){}
         }
         else if(event.getSource()==userGroupInfoChoose){
             FileChooser fileChooser = new FileChooser();

@@ -72,7 +72,7 @@ public class FXMLEmailConfirmationController implements Initializable {
         Connection conn;
         try {
             System.out.println(FXMLSignupController.usernamefn);
-            conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
             Statement stmt = conn.createStatement();
             String sqlstr="SELECT * FROM `user-email-confirmation` WHERE username='"+FXMLSignupController.usernamefn+"';";
             ResultSet rs = stmt.executeQuery(sqlstr);

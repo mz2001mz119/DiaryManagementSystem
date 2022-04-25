@@ -117,7 +117,7 @@ public class FXMLSignupController implements Initializable {
             EmailErrorLabel.setVisible(true);
         }
         if(valemail)EmailErrorLabel.setVisible(false);
-              Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+              Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
               Statement stmt = conn.createStatement();
               String sqlstr="select * from `user` where Email ="+"'"+this.email.getText()+"';";
               ResultSet rs1 = stmt.executeQuery(sqlstr);

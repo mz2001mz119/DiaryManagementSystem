@@ -134,7 +134,7 @@ public class FXMLEmailSentSuccessfullyController  implements Initializable {
         //*************
         try{
         try{
-             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+             Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
             Statement stmt = conn.createStatement(); 
             String sqlstr="UPDATE `user` SET `password`='"+newPassword+"' WHERE `user`.`Email`='"+FXMLForgotPasswordController.reseption+"';";
             stmt.executeUpdate(sqlstr);

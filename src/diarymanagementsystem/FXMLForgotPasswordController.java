@@ -127,7 +127,7 @@ try{
       
     //chack the Email First in database or not
      reseption=forgotEmailTextField.getText();
-     Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diary management system","root", "");
+     Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
     
             Statement stmt = conn.createStatement();
             String sqlstr="SELECT * FROM `user` WHERE `user`.`Email`='"+reseption+"';";
