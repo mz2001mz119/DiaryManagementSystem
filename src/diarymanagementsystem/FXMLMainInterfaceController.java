@@ -931,7 +931,7 @@ public class FXMLMainInterfaceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-        loginUserName="nooraldeen";
+        loginUserName="test";
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
@@ -1379,13 +1379,14 @@ void functionshowinformation(){
                 ResultSet rs=stmt.executeQuery(sqlstr);
                 rs.next();
                 editEmail.setText(rs.getString("Email"));
-                editBirthdate.setValue(LocalDate.parse(rs.getString("Birthdate")));
+                editBirthdate.setValue(LocalDate.parse(rs.getDate("Birthdate").toString()));
                 editGender.setItems(list);
                 editGender.setValue(rs.getString("Gender"));
                 editUserName.setText(rs.getString("username"));
                 editName.setText(rs.getString("Name"));
-                }catch(Exception e){
-                 }
+                } catch (SQLException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         //calendar Top bar
