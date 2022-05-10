@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Birthday" pageWidth="2161" pageHeight="3121" columnWidth="2161" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4b6aca32-2963-4f6a-9186-25f72e48f932">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="age" class="java.lang.String"/>
+	<parameter name="timeDate" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="street" class="java.lang.String"/>
+	<parameter name="hotel" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band height="3121" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="0" y="0" width="2149" height="3108" uuid="82d31d5f-5320-4c92-92cb-fea52c5bc9b0"/>
+				<imageExpression><![CDATA["birth3.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="199" y="1980" width="1719" height="108" forecolor="#5D352C" backcolor="rgba(255, 255, 255, 0.0)" uuid="480a266e-0319-4d44-8a1b-4fc9e76560de"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="70" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CELEBRATE WITH US!"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="70" y="2120" width="1992" height="200" forecolor="#E66D58" backcolor="rgba(255, 255, 255, 0.0)" uuid="0941417f-7152-4692-a208-ac7431c18620"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="100" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{name}+" is turning "+$P{age}+"!"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="2360" width="1447" height="150" forecolor="#5D352C" uuid="ba28f883-6bbe-4d02-b773-9457596f8e10"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="85"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{timeDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="2580" width="1447" height="150" forecolor="#5D352C" uuid="69594e3e-cfa4-4020-9a1d-725243213839"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="85"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="2760" width="1447" height="138" forecolor="#5D352C" uuid="fbd55e68-16cc-4bc5-83c3-e1a9e01651e7"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="85"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{street}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="2920" width="1447" height="130" forecolor="#5D352C" uuid="5c8a33ee-53ce-41dd-ba00-2bc961e908e6"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="85"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hotel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="199" y="780" width="1720" height="1140" uuid="b79944da-822c-4019-ab02-fbbbf5a077b9"/>
+				<textElement textAlignment="Center">
+					<font fontName="Vivaldi" size="450"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{age}]]></textFieldExpression>
+			</textField>
+		</band>
+	</background>
+</jasperReport>

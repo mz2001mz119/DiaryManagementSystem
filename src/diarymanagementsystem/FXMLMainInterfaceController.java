@@ -9,8 +9,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import static java.lang.String.valueOf;
 import java.net.URL;
 import java.time.LocalDate;
@@ -52,6 +54,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -68,15 +71,29 @@ import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.swing.JRViewer;
 /**
  * FXML Controller class
  *
@@ -102,6 +119,8 @@ public class FXMLMainInterfaceController implements Initializable {
     String diaryType;
     boolean groupEditCalendar;
     boolean calendarFromGroupPane;
+    String invitationCardName;
+    String invitationCardNameJasper;
     
     
     
@@ -918,6 +937,108 @@ public class FXMLMainInterfaceController implements Initializable {
     private Button weddingButton;
     @FXML
     private AnchorPane partyPane;
+    @FXML
+    private AnchorPane birthPane;
+    @FXML
+    private AnchorPane weddingPane;
+    @FXML
+    private Button p1;
+    @FXML
+    private Button p2;
+    @FXML
+    private Button p3;
+    @FXML
+    private Button p4;
+    @FXML
+    private Button p5;
+    @FXML
+    private Button p6;
+    @FXML
+    private Button b1;
+    @FXML
+    private Button b2;
+    @FXML
+    private Button b3;
+    @FXML
+    private Button b4;
+    @FXML
+    private Button b5;
+    @FXML
+    private Button b6;
+    @FXML
+    private Button w1;
+    @FXML
+    private Button w2;
+    @FXML
+    private Button w3;
+    @FXML
+    private Button w4;
+    @FXML
+    private Button w5;
+    @FXML
+    private Button w6;
+    @FXML
+    private AnchorPane createInvitationCardPane;
+    @FXML
+    private Button createCardButton;
+    @FXML
+    private Button showCardsButton;
+    @FXML
+    private AnchorPane createCardsPane;
+    @FXML
+    private Label closeCreateInvitationCardPane;
+    @FXML
+    private Button createInvitationCard;
+    @FXML
+    private TextField nameInv;
+    @FXML
+    private Label textInvLabel;
+    @FXML
+    private TextField textInv;
+    @FXML
+    private TextField TDInvi;
+    @FXML
+    private TextField addressInvi;
+    @FXML
+    private TextField streetInv;
+    @FXML
+    private TextField placeInv;
+    @FXML
+    private Label CreateInvErrorLabel;
+    @FXML
+    private Button myInvitationsButton;
+    @FXML
+    private Label textInvLabel1;
+    @FXML
+    private Label invitationUsernameError;
+    @FXML
+    private TextField usernameInv;
+    @FXML
+    private TextField titleInv;
+    @FXML
+    private TextField desInv;
+    @FXML
+    private AnchorPane createInvitationCardSentPane;
+    @FXML
+    private Button closeCreateInvitationCardSentPane;
+    @FXML
+    private Text usernameInvErrorText;
+    @FXML
+    private Text invSentLabel;
+    @FXML
+    private AnchorPane showCardsPane;
+    @FXML
+    private VBox showCardsVBox;
+    @FXML
+    private VBox myInvitaionsVBox;
+    @FXML
+    private AnchorPane myInvitaionsPane;
+    @FXML
+    private AnchorPane homePane;
+    @FXML
+    private VBox fixNoteVBox;
+    @FXML
+    private VBox homePageVBox;
 
 
 
@@ -1040,6 +1161,10 @@ public class FXMLMainInterfaceController implements Initializable {
         editcalendarDaysPane(monthDate,yearDate);
         newClaendarYears = yearDate;
         setCalendarYears(yearDate);
+        fillFixNotePane();
+        fillHomeVBox() ;
+        fixNotesPane.setVisible(true);
+        homePane.setVisible(true);
     }    
 void functionshowinformation(){
         try{
@@ -1082,6 +1207,8 @@ void functionshowinformation(){
         }
         // ****** change pressed button color and its icon color ******
         if(event.getSource()==sliderMenuHomeButton || event.getSource()==sliderMenuHomeButton2){
+            fillFixNotePane();
+            fillHomeVBox();
             sliderMenuHomeButton.setStyle("-fx-background-color: #C30032;");
             sliderMenuHomeButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
             sliderMenuProfileButton.setStyle("");
@@ -1103,15 +1230,18 @@ void functionshowinformation(){
             sliderMenuSettingsIcon.setVisible(false);
             
             fixNotesPane.setVisible(true);
+            homePane.setVisible(true);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
             caledarSearchPane.setVisible(false);
             groupPane.setVisible(false);
             myGroupsPane.setVisible(false);
             userGroupPane.setVisible(false);
+            invitationsPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuProfileButton||event.getSource() == sliderMenuProfileButton2){
             try {
+                fillFixNotePane();
                 sliderMenuProfileButton.setStyle("-fx-background-color: #C30032;");
                 sliderMenuProfileButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
                 sliderMenuHomeButton.setStyle("");
@@ -1138,12 +1268,14 @@ void functionshowinformation(){
                 sliderMenuSettingsIcon.setVisible(false);
                 
                 fixNotesPane.setVisible(true);
+                homePane.setVisible(false);
                 profilePane.setVisible(true);
                 calendarPane.setVisible(false);
                 caledarSearchPane.setVisible(false);
                 groupPane.setVisible(false);
                 myGroupsPane.setVisible(false);
                 userGroupPane.setVisible(false);
+                invitationsPane.setVisible(false);
                 Statement stmt = conn.createStatement();
                 String sqlstr="SELECT `Name`, `username`, `Email`, `Gender`, `Birthdate`, `password`, `userimage` FROM `user` WHERE `username`='"+loginUserName+"'";
                 ResultSet userInfo=stmt.executeQuery(sqlstr);
@@ -1216,12 +1348,14 @@ void functionshowinformation(){
             sliderMenuSettingsIcon.setVisible(false);
             
             fixNotesPane.setVisible(false);
+            homePane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(true);
             caledarSearchPane.setVisible(true);
             groupPane.setVisible(false);
             myGroupsPane.setVisible(false);
             userGroupPane.setVisible(false);
+            invitationsPane.setVisible(false);
             //to reset the buttons when user use his calendar not group calendar
             addMemoryNotification.setDisable(false);
             addEventNotification.setDisable(false);
@@ -1233,6 +1367,7 @@ void functionshowinformation(){
             calendarFromGroupPane=false;
             caledarSearchScrollPane.setFitToWidth(true);
             myDiaryScrollPane.setFitToWidth(true);
+            
         }
         else if(event.getSource()==sliderMenuGroupsButton||event.getSource()==sliderMenuGroupsButton2){
             FillGroupAdminList();
@@ -1242,6 +1377,16 @@ void functionshowinformation(){
             calendarSearchTextField.setText("");
             SearchOnDiaryData();
             
+            LocalDate today = LocalDate.now();
+            String formattedDate = today.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            //set Calendar date lable
+            String dateNow[]= formattedDate.split("-");
+            calendarDate.setText(dateNow[1]+"/"+dateNow[2]);
+            monthDate=Integer.parseInt(dateNow[1]);
+            yearDate=Integer.parseInt(dateNow[2]);
+            editcalendarDaysPane(monthDate,yearDate);
+            newClaendarYears = yearDate;
+        
             sliderMenuGroupsButton.setStyle("-fx-background-color: #C30032;");
             sliderMenuGroupsButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
             sliderMenuHomeButton.setStyle("");
@@ -1261,14 +1406,17 @@ void functionshowinformation(){
             sliderMenuGroupsIcon.setVisible(true);
             sliderMenuInvitationIcon.setVisible(false);
             sliderMenuSettingsIcon.setVisible(false);
+            invitationsPane.setVisible(false);
             
             fixNotesPane.setVisible(false);
+            homePane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
             caledarSearchPane.setVisible(false);
             groupPane.setVisible(true);
             myGroupsPane.setVisible(true);
             userGroupPane.setVisible(false);
+            invitationsPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuInvitationButton||event.getSource()==sliderMenuInvitationButton2){
             sliderMenuInvitationButton.setStyle("-fx-background-color: #C30032;");
@@ -1292,12 +1440,28 @@ void functionshowinformation(){
             sliderMenuSettingsIcon.setVisible(false);
             
             fixNotesPane.setVisible(false);
+            homePane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
             caledarSearchPane.setVisible(false);
             groupPane.setVisible(false);
             myGroupsPane.setVisible(false);
             userGroupPane.setVisible(false);
+            invitationsPane.setVisible(true);
+            partyButton.setStyle("-fx-text-fill:#0A283E ;");
+            createCardButton.setStyle("-fx-text-fill:#0A283E ;");
+            showCardsButton.setStyle("");
+            myInvitationsButton.setStyle("");
+            
+            createCardsPane.setVisible(true);
+            showCardsPane.setVisible(false);
+            myInvitaionsPane.setVisible(false);
+            partyButton.setStyle("-fx-text-fill:#0A283E ;");
+            birthdayButton.setStyle("");
+            weddingButton.setStyle("");
+            partyPane.setVisible(true);
+            createCardsPane.setVisible(true);
+            CreateInvErrorLabel.setVisible(false);
         }
         else if(event.getSource()==sliderMenuSettingsButton||event.getSource() == sliderMenuSettingsButton2){
             sliderMenuSettingsButton.setStyle("-fx-background-color: #C30032;");
@@ -1321,12 +1485,14 @@ void functionshowinformation(){
             sliderMenuSettingsIcon.setVisible(true);
             
             fixNotesPane.setVisible(false);
+            homePane.setVisible(false);
             profilePane.setVisible(false);
             calendarPane.setVisible(false);
             caledarSearchPane.setVisible(false);
             groupPane.setVisible(false);
             myGroupsPane.setVisible(false);
             userGroupPane.setVisible(false);
+            invitationsPane.setVisible(false);
         }
 
     }
@@ -1478,6 +1644,66 @@ void functionshowinformation(){
             addNewEventPane.setVisible(false);
             addNewNotePane.setVisible(true);
         }
+        else if(event.getSource()==partyButton){
+            partyButton.setStyle("-fx-text-fill:#0A283E ;");
+            birthdayButton.setStyle("");
+            weddingButton.setStyle("");
+            
+            partyPane.setVisible(true);
+            birthPane.setVisible(false);
+            weddingPane.setVisible(false);
+        }
+        else if(event.getSource()==birthdayButton){
+            birthdayButton.setStyle("-fx-text-fill:#0A283E ;");
+            partyButton.setStyle("");
+            weddingButton.setStyle("");
+            
+            partyPane.setVisible(false);
+            birthPane.setVisible(true);
+            weddingPane.setVisible(false);
+        }
+        else if(event.getSource()==weddingButton){
+            weddingButton.setStyle("-fx-text-fill:#0A283E ;");
+            partyButton.setStyle("");
+            birthdayButton.setStyle("");
+            
+            partyPane.setVisible(false);
+            birthPane.setVisible(false);
+            weddingPane.setVisible(true);
+        }
+        else if(event.getSource()==createCardButton){
+            createCardButton.setStyle("-fx-text-fill:#0A283E ;");
+            showCardsButton.setStyle("");
+            myInvitationsButton.setStyle("");
+            
+            createCardsPane.setVisible(true);
+            showCardsPane.setVisible(false);
+            myInvitaionsPane.setVisible(false);
+        }
+        else if(event.getSource()==showCardsButton){
+            createCardButton.setStyle("");
+            showCardsButton.setStyle("-fx-text-fill:#0A283E ;");
+            myInvitationsButton.setStyle("");
+            
+            
+            createCardsPane.setVisible(false);
+            showCardsPane.setVisible(true);
+            myInvitaionsPane.setVisible(false);
+            fillShowCardsVBox();
+            
+        }
+        else if(event.getSource()==myInvitationsButton){
+            createCardButton.setStyle("");
+            showCardsButton.setStyle("");
+            myInvitationsButton.setStyle("-fx-text-fill:#0A283E ;");
+            
+            
+            createCardsPane.setVisible(false);
+            showCardsPane.setVisible(false);
+            myInvitaionsPane.setVisible(true);
+            fillMyInvitationsVBox();
+            
+        }
         
         
     }
@@ -1590,6 +1816,20 @@ void functionshowinformation(){
             groupMembersBlackPane.setVisible(false);
             groupMembersVBox.getChildren().clear();
         }
+        else if (event.getSource()==closeCreateInvitationCardPane){
+            createInvitationCardPane.setVisible(false);
+            CreateInvErrorLabel.setVisible(false);
+            nameInv.setText("");
+            textInv.setText("");
+            TDInvi.setText("");
+            addressInvi.setText("");
+            streetInv.setText("");
+            placeInv.setText("");
+            usernameInv.setText("");
+            titleInv.setText("");
+            desInv.setText("");
+        }
+        
     }
     @FXML
     void openNotificationPane(ActionEvent event) {
@@ -1786,14 +2026,16 @@ void functionshowinformation(){
                         stmt.executeUpdate(sqlstr);
                     }
                     else{
-                        sqlstr="INSERT INTO `event`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','0')";
+                        sqlstr="INSERT INTO `note`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','0')";
                         stmt.executeUpdate(sqlstr);
+                         
                     }
                 }
                 else{
                     Statement stmt = conn.createStatement();
                     String sqlstr="INSERT INTO `diary` (`Title`, `Description`, `Date`) VALUES ('"+addNoteTitle.getText()+"','"+addNoteDescription.getText()+"','"+yearDate+"-"+monthDate+"-"+dayDate+"');";
                     stmt.executeUpdate(sqlstr);
+                     
                     //connect with user calendar
                     sqlstr="SELECT ID from diary where Title = '"+addNoteTitle.getText()+"' AND Description='"+addNoteDescription.getText()+"' and date='"+yearDate+"-"+monthDate+"-"+dayDate+"' ORDER BY ID DESC;";
                     ResultSet diaryID=stmt.executeQuery(sqlstr);
@@ -1802,8 +2044,10 @@ void functionshowinformation(){
                     diaryID.close();
                     sqlstr="INSERT INTO `group-calender`(`groupid`, `Diaryid`) VALUES ('"+userGroupId.getText()+"','"+diaryId+"');";
                     stmt.executeUpdate(sqlstr);
-                    sqlstr="INSERT INTO `event`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','0')";
+                     
+                    sqlstr="INSERT INTO `note`(`diaryid`, `Fix Note`) VALUES ('"+diaryId+"','0')";
                     stmt.executeUpdate(sqlstr);
+                     
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
@@ -1934,9 +2178,11 @@ void functionshowinformation(){
                             Statement stmt3 = conn.createStatement();
                             String sqlstr3="INSERT INTO `dms-group`(`groupid`, `name`, `adminusername`, `description`,  `memberscansendmessage`, `memberscaneditcalendar`, `attributeprivicy`) VALUES ('"+createGroupId.getText()+"','"+createGroupName.getText()+"','"+loginUserName+"','"+createGroupDescription.getText()+"','"+message+"','"+diary+"','"+privicy+"')";
                             stmt3.executeUpdate(sqlstr3);
+                             
                             Statement stmt1 = conn.createStatement();
                             String sqlstr1="INSERT INTO `user-group`(`username`, `groupid`, `userapproverequest`, `adminapproverequest`) VALUES ('"+loginUserName+"','"+createGroupId.getText()+"','1','1')";
                             stmt1.executeUpdate(sqlstr1);
+                             
                             createGroupBlackPane.setVisible(false);
                             FillUserGroupsVBox();
                         }
@@ -2019,13 +2265,12 @@ void functionshowinformation(){
                     PreparedStatement ps = null;
                     String INSERT_PICTURE = "UPDATE `dms-group` SET `imagegroup`=? WHERE `groupid`='"+ userGroupInfoId.getText()+"'";
                     try {
-                      conn.setAutoCommit(false);
                       File file = new File(userGroupInfoImage.getText());
                       fis = new FileInputStream(file);
                       ps = conn.prepareStatement(INSERT_PICTURE);
                       ps.setBinaryStream(1, fis, (int) file.length());
                       ps.executeUpdate();
-                      conn.commit();
+                       
                     } finally {
 
                     }
@@ -2042,18 +2287,16 @@ void functionshowinformation(){
             try {
                 if(!userEditImageImage.getText().isEmpty()){
                     
-                    System.out.println(userEditImageImage.getText()+"aaaaaa");
                     FileInputStream fis = null;
                     PreparedStatement ps = null;
                     String INSERT_PICTURE = "UPDATE `user` SET `userimage`=? WHERE `username`='"+ loginUserName+"'";
                     try {
-                      conn.setAutoCommit(false);
                       File file = new File(userEditImageImage.getText());
                       fis = new FileInputStream(file);
                       ps = conn.prepareStatement(INSERT_PICTURE);
                       ps.setBinaryStream(1, fis, (int) file.length());
                       ps.executeUpdate();
-                      conn.commit();
+                       
                     } finally {
 
                     }
@@ -2080,10 +2323,9 @@ void functionshowinformation(){
                     +"',`Name`='"+editName.getText()+"',`Birthdate`='"+editBirthdate.getValue()+
                     "',`Email`='"+emaleold
                     +"' WHERE `user`.`username` = '"+loginUserName+"';";
-            conn.setAutoCommit(false);
             PreparedStatement preparedStmt = conn.prepareStatement(smrt);
              preparedStmt.executeUpdate();
-             conn.commit();
+              
              
             }catch(Exception e){}
         }
@@ -2161,6 +2403,7 @@ void functionshowinformation(){
                         Statement stmt3 = conn.createStatement();
                         String sqlstr3="INSERT INTO `user-group`( `username`, `groupid`, `userapproverequest`, `adminapproverequest`) VALUES ('"+userGroupInfoMemberTextField.getText()+"','"+userGroupId.getText()+"','0','1')";
                         stmt.executeUpdate(sqlstr3);
+                         
                     }
                 }
                 else{
@@ -2307,6 +2550,161 @@ void functionshowinformation(){
                 Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else if (event.getSource()==closeCreateInvitationCardSentPane){
+            createInvitationCardSentPane.setVisible(false);
+            usernameInvErrorText.setVisible(false);
+            CreateInvErrorLabel.setVisible(false);
+            usernameInvErrorText.setText("Error: receiver username is not correct:");
+        }
+        else if(event.getSource()==createInvitationCard){
+            if(!nameInv.getText().trim().equals("")&&!textInv.getText().trim().equals("")&&!TDInvi.getText().trim().equals("")&&!addressInvi.getText().trim().equals("")&&!streetInv.getText().trim().equals("")&&!placeInv.getText().trim().equals("")&&!usernameInv.getText().trim().equals("")&&!titleInv.getText().trim().equals("")&&!desInv.getText().trim().equals("")){
+                CreateInvErrorLabel.setVisible(false);
+                    InputStream input;
+                    JasperDesign jasperDesign;
+                    JasperReport jasperReport;
+                    JasperPrint jasperPrint;
+                    HashMap dd=new HashMap();
+                    try {
+                        input=new FileInputStream(new File("src\\diarymanagementsystem\\"+invitationCardName));
+                        jasperDesign=JRXmlLoader.load(input);
+                       String name=nameInv.getText();
+                       String age=textInv.getText();
+                       String timeDate=TDInvi.getText();
+                       String address=addressInvi.getText();
+                       String street=streetInv.getText();
+                       String hotel=placeInv.getText();
+
+                       dd.put("name", name);
+                       dd.put(invitationCardNameJasper, age);
+                       dd.put("timeDate", timeDate);
+                       dd.put("address", address);
+                       dd.put("street", street);
+                       dd.put("hotel", hotel);
+
+                       JRDesignQuery dds=new JRDesignQuery();
+                       dds.setText("");
+                       jasperDesign.setQuery(dds);
+                        jasperReport=JasperCompileManager.compileReport(jasperDesign);
+
+                        jasperPrint=JasperFillManager.fillReport(jasperReport, dd, new JREmptyDataSource());
+
+                        
+                        LocalDateTime DTNow = LocalDateTime.now();
+                        String formattedDate = DTNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh-mm-ss"));
+                        File file;  
+                        file = new File("src\\diarymanagementsystem\\invitations\\MyCard"+formattedDate+".png");
+                 OutputStream ouputStream= null; 
+                 ouputStream= new FileOutputStream(file);     
+                    DefaultJasperReportsContext.getInstance();   
+                    JasperPrintManager printManager = JasperPrintManager.getInstance(DefaultJasperReportsContext.getInstance());      
+
+                    BufferedImage rendered_image = null;      
+                    rendered_image = (BufferedImage)printManager.printPageToImage(jasperPrint, 0,0.2f); 
+                    ImageIO.write(rendered_image, "png", ouputStream); 
+                    if(usernameInv.getText().trim().equals("#")){
+                        
+                    }
+                    else{
+                        FileInputStream fis = null;
+                        PreparedStatement ps = null;
+                        //INSERT INTO `invitation`(`title`, `description`, `imagecard`) VALUES ('?','?','?')
+                        String INSERT_PICTURE = "INSERT INTO `invitation`(`title`, `description`, `imagecard`) VALUES (?,?,?)";
+                        try {
+                          
+                            System.out.println(file.getPath());
+                          File nfile = new File(file.getPath());
+                          fis = new FileInputStream(nfile);
+                          ps = conn.prepareStatement(INSERT_PICTURE);
+                          ps.setString(1, titleInv.getText());
+                          ps.setString(2, desInv.getText());
+                          ps.setBinaryStream(3, fis, (int) nfile.length());
+                          ps.executeUpdate();
+                           
+                        } finally {
+
+                        }
+                        Statement stmt0 = conn.createStatement();
+                        String sender=loginUserName;
+                        Statement stmt1 = conn.createStatement();
+                        String sqlstr1="SELECT `ID` FROM `invitation` WHERE `title`='"+titleInv.getText()+"' and `description`='"+ desInv.getText()+"'order by `ID` desc";
+                        ResultSet invId=stmt1.executeQuery(sqlstr1);
+                        invId.next();
+                        String invUsername[];
+                        if(usernameInv.getText().contains(",")){
+                        invUsername =usernameInv.getText().trim().split(",");
+                        }
+                        else{
+                            usernameInv.setText(usernameInv.getText().trim()+",");
+                            invUsername =usernameInv.getText().trim().split(",");
+                        }
+                        
+                        String invalidUsers="";
+                        for(int i=0;i<invUsername.length;i++){
+                            //SELECT  `username` FROM `user` WHERE 1
+                            if(!invUsername[i].trim().equals("")){
+                                Statement stmt = conn.createStatement();
+                                String sqlstr="SELECT  `username` FROM `user` WHERE `username`='"+invUsername[i].trim()+"'";
+                                ResultSet username=stmt.executeQuery(sqlstr);
+                                if(username.next()){
+                                    
+                                    Statement stmt3 = conn.createStatement();
+                                    String sqlstr3="INSERT INTO `send-invitation`( `invitationid`, `senderusername`, `receiverusername`, `date`) VALUES ('"+invId.getInt("ID")+"','"+sender+"','"+username.getString("username")+"','"+formattedDate+"')";
+                                    stmt3.executeUpdate(sqlstr3);
+                                    System.out.println(sqlstr3);
+                                }
+                                else{
+                                    invalidUsers+=invUsername[i].trim()+",";
+                                }
+                            }
+                            else{
+                                usernameInvErrorText.setText("Please dont leave any user name Blank");
+                                usernameInvErrorText.setVisible(true);
+                                createInvitationCardSentPane.setVisible(true);
+                            }
+                            
+                        }
+                        if(invalidUsers.length()!=0){
+                            usernameInvErrorText.setText("Error: receiver username is not correct:"+invalidUsers);
+                            usernameInvErrorText.setVisible(true);
+                            createInvitationCardSentPane.setVisible(true);
+                        }
+                        else{
+                            usernameInvErrorText.setText("Error: receiver username is not correct:");
+                            usernameInvErrorText.setVisible(false);
+                            createInvitationCardSentPane.setVisible(true);
+                        }
+                        
+                    }
+                    
+                    
+
+                    ////////
+                        JFrame frame = new JFrame("Chocolat Report");
+                        frame.getContentPane().add(new JRViewer(jasperPrint));
+                        frame.pack();
+                        frame.setVisible(true);
+                        frame.setSize(900, 750);
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                createInvitationCardPane.setVisible(false);
+                nameInv.setText("");
+                textInv.setText("");
+                TDInvi.setText("");
+                addressInvi.setText("");
+                streetInv.setText("");
+                placeInv.setText("");
+                usernameInv.setText("");
+                titleInv.setText("");
+                desInv.setText("");
+            }
+            else{
+                CreateInvErrorLabel.setVisible(true);
+            }
+        }
+        
+        
+        
     }
     
     private void updateEditnotificationVBox(){
@@ -2718,7 +3116,8 @@ void functionshowinformation(){
                         String sqlstr3="SELECT `Fix Note` FROM `note` WHERE `diaryid`='"+showDiaryId.getText()+"'";
                         ResultSet editDiary3=stmt3.executeQuery(sqlstr3);
                         editDiary3.next();
-                        if(editDiary3.getBoolean("Fix Note")==true){
+                        
+                        if(editDiary3.getInt("Fix Note")==1){
                             editDiaryFix.setSelected(true);
                             diaryType="note";
                         }
@@ -3246,4 +3645,253 @@ void functionshowinformation(){
         groupMessagesScrollPane.vvalueProperty().bind(groupMessagesVBox.heightProperty());
         groupMessagesScrollPane.setFitToWidth(true);
     }
+
+    @FXML
+    private void invitationButtonsAction(ActionEvent event) {
+        if(event.getSource()==p1){invitationCardName="party1.jrxml";invitationCardNameJasper="event";createInvitationCardPane.setVisible(true);textInvLabel.setText("Eevent description:");}
+        if(event.getSource()==p2){invitationCardName="party22.jrxml";invitationCardNameJasper="event";createInvitationCardPane.setVisible(true);textInvLabel.setText("Eevent description:");}
+        if(event.getSource()==p3){invitationCardName="party33.jrxml";invitationCardNameJasper="event";createInvitationCardPane.setVisible(true);textInvLabel.setText("Eevent description:");}
+        if(event.getSource()==p4){invitationCardName="party4.jrxml";invitationCardNameJasper="event";createInvitationCardPane.setVisible(true);textInvLabel.setText("Eevent description:");}
+        if(event.getSource()==p5){invitationCardName="party5.jrxml";invitationCardNameJasper="event";createInvitationCardPane.setVisible(true);textInvLabel.setText("Eevent description:");}
+        if(event.getSource()==p6){invitationCardName="party6.jrxml";invitationCardNameJasper="event";createInvitationCardPane.setVisible(true);textInvLabel.setText("Eevent description:");}
+        if(event.getSource()==b1){invitationCardName="birth1.jrxml";invitationCardNameJasper="age";createInvitationCardPane.setVisible(true);textInvLabel.setText("Age:");}
+        if(event.getSource()==b2){invitationCardName="birth2.jrxml";invitationCardNameJasper="age";createInvitationCardPane.setVisible(true);textInvLabel.setText("Age:");}
+        if(event.getSource()==b3){invitationCardName="birth3.jrxml";invitationCardNameJasper="age";createInvitationCardPane.setVisible(true);textInvLabel.setText("Age:");}
+        if(event.getSource()==b4){invitationCardName="birth4.jrxml";invitationCardNameJasper="age";createInvitationCardPane.setVisible(true);textInvLabel.setText("Age:");}
+        if(event.getSource()==b5){invitationCardName="birth5.jrxml";invitationCardNameJasper="age";createInvitationCardPane.setVisible(true);textInvLabel.setText("Age:");}
+        if(event.getSource()==b6){invitationCardName="birth6.jrxml";invitationCardNameJasper="age";createInvitationCardPane.setVisible(true);textInvLabel.setText("Age:");}
+        if(event.getSource()==w1){invitationCardName="wedding1.jrxml";invitationCardNameJasper="name2";createInvitationCardPane.setVisible(true);textInvLabel.setText("Name2:");}
+        if(event.getSource()==w2){invitationCardName="wedding2.jrxml";invitationCardNameJasper="name2";createInvitationCardPane.setVisible(true);textInvLabel.setText("Name2:");}
+        if(event.getSource()==w3){invitationCardName="wedding3.jrxml";invitationCardNameJasper="name2";createInvitationCardPane.setVisible(true);textInvLabel.setText("Name2:");}
+        if(event.getSource()==w4){invitationCardName="wedding4.jrxml";invitationCardNameJasper="name2";createInvitationCardPane.setVisible(true);textInvLabel.setText("Name2:");}
+        if(event.getSource()==w5){invitationCardName="wedding5.jrxml";invitationCardNameJasper="name2";createInvitationCardPane.setVisible(true);textInvLabel.setText("Name2:");}
+        if(event.getSource()==w6){invitationCardName="wedding6.jrxml";invitationCardNameJasper="name2";createInvitationCardPane.setVisible(true);textInvLabel.setText("Name2:");}
+    }
+
+    private void fillShowCardsVBox() {
+        showCardsVBox.getChildren().clear();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT `id`, `invitationid`, `senderusername`, `receiverusername`, `date` FROM `send-invitation` WHERE `senderusername`='"+loginUserName+"' group by `invitationid`;";
+            ResultSet userInv=stmt.executeQuery(sqlstr);
+            while(userInv.next()){
+                Statement stmt2 = conn.createStatement();
+                String sqlstr2="SELECT `ID`, `title`, `description`, `imagecard` FROM `invitation` WHERE `ID`='"+userInv.getInt("id")+"'";
+                ResultSet userInvInfo=stmt2.executeQuery(sqlstr2);
+                userInvInfo.next();
+                    AnchorPane  a=new AnchorPane ();
+                    a.setStyle("-fx-pref-width:330px; -fx-pref-height:70px; -fx-border-color: transparent transparent #DA0037 transparent ; -fx-background-color:#BCBCBC;");
+                    ImageView invImage = new ImageView();
+                    invImage.setStyle("-fx-background-repeat: no-repeat; \n" +
+"    -fx-background-position: center center;\n" +
+"    -fx-border-color: #DA0037;\n" +
+"    -fx-border-width:  2px;\n" +
+"    -fx-background-size: cover;");
+                    a.getChildren().add(invImage);
+                    Label title=new Label(userInvInfo.getString("title"));
+                    Label senderUserName=new Label(userInv.getString("receiverusername"));
+                    Text description= new Text(userInvInfo.getString("description"));
+                    description.setWrappingWidth(500);
+                    title.setStyle("-fx-font-size: 40px;-fx-text-fill:gray");
+                    senderUserName.setStyle("-fx-font-size: 30px;-fx-text-fill:#DA0037 ");
+                    description.setStyle("-fx-font-size: 20px;-fx-text-fill:gray;");
+                    description.setFill(Color.GRAY);
+                    a.getChildren().add(title);
+                    a.getChildren().add(senderUserName);
+                    a.getChildren().add(description);
+                    a.setTopAnchor(title, 100.0);
+                    a.setLeftAnchor(title, 500.0);
+                    a.setTopAnchor(senderUserName, 10.0);
+                    a.setLeftAnchor(senderUserName, 500.0);
+                    a.setTopAnchor(description, 150.0);
+                    a.setLeftAnchor(description, 500.0);
+                    
+                    a.setTopAnchor(invImage, 0.0);
+                    a.setLeftAnchor(invImage, 50.0);
+                    InputStream input;
+                    input = userInvInfo.getBinaryStream("imagecard");
+                    
+                    invImage.setImage(new Image(input));
+                    a.setCursor(Cursor.HAND);
+                    a.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                        @Override
+                        public void handle(MouseEvent t) {
+                            LocalDateTime DTNow = LocalDateTime.now();
+                            String formattedDate = DTNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh-mm-ss"));
+                            File outputFile = new File("src\\diarymanagementsystem\\downloadedInv\\MyDownloadedCard"+formattedDate+".png");
+                            BufferedImage bImage = SwingFXUtils.fromFXImage(a.getChildren().get(0).snapshot(null, null), null);
+                            try {
+                                ImageIO.write(bImage, "png", outputFile);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            
+                            
+                           
+                        }
+                        
+                    });
+                    showCardsVBox.getChildren().add(a);
+                    
+                    
+                
+            }
+            userInv.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+
+    private void fillMyInvitationsVBox() {
+        myInvitaionsVBox.getChildren().clear();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT `id`, `invitationid`, `senderusername`, `receiverusername`, `date` FROM `send-invitation` WHERE `receiverusername`='"+loginUserName+"' order by `date` desc";
+            ResultSet userInv=stmt.executeQuery(sqlstr);
+            while(userInv.next()){
+                Statement stmt2 = conn.createStatement();
+                String sqlstr2="SELECT `ID`, `title`, `description`, `imagecard` FROM `invitation` WHERE `ID`='"+userInv.getInt("id")+"'";
+                ResultSet userInvInfo=stmt2.executeQuery(sqlstr2);
+                userInvInfo.next();
+                    AnchorPane  a=new AnchorPane ();
+                    a.setStyle("-fx-pref-width:330px; -fx-pref-height:70px; -fx-border-color: transparent transparent #DA0037 transparent ; -fx-background-color:#BCBCBC;");
+                    ImageView invImage = new ImageView();
+                    invImage.setStyle("-fx-background-repeat: no-repeat; \n" +
+"    -fx-background-position: center center;\n" +
+"    -fx-border-color: -fx-primary-color;\n" +
+"    -fx-border-width:  2px;\n" +
+"    -fx-background-size: cover;");
+                    a.getChildren().add(invImage);
+                    Label title=new Label(userInvInfo.getString("title"));
+                    Label senderUserName=new Label(userInv.getString("senderusername"));
+                    Text description= new Text(userInvInfo.getString("description"));
+                    description.setWrappingWidth(500);
+                    title.setStyle("-fx-font-size: 40px;-fx-text-fill:gray");
+                    senderUserName.setStyle("-fx-font-size: 30px;-fx-text-fill:#DA0037 ");
+                    description.setStyle("-fx-font-size: 20px;-fx-text-fill:gray;");
+                    description.setFill(Color.GRAY);
+                    a.getChildren().add(title);
+                    a.getChildren().add(senderUserName);
+                    a.getChildren().add(description);
+                    a.setTopAnchor(title, 100.0);
+                    a.setLeftAnchor(title, 500.0);
+                    a.setTopAnchor(senderUserName, 10.0);
+                    a.setLeftAnchor(senderUserName, 500.0);
+                    a.setTopAnchor(description, 150.0);
+                    a.setLeftAnchor(description, 500.0);
+                    
+                    a.setTopAnchor(invImage, 0.0);
+                    a.setLeftAnchor(invImage, 50.0);
+                    InputStream input;
+                    input = userInvInfo.getBinaryStream("imagecard");
+                    
+                    invImage.setImage(new Image(input));
+                    a.setCursor(Cursor.HAND);
+                    a.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                        @Override
+                        public void handle(MouseEvent t) {
+                            LocalDateTime DTNow = LocalDateTime.now();
+                            String formattedDate = DTNow.format(DateTimeFormatter.ofPattern("yyyy-MM-dd hh-mm-ss"));
+                            File outputFile = new File("src\\diarymanagementsystem\\downloadedInv\\MyDownloadedCard"+formattedDate+".png");
+                            BufferedImage bImage = SwingFXUtils.fromFXImage(a.getChildren().get(0).snapshot(null, null), null);
+                            try {
+                                ImageIO.write(bImage, "png", outputFile);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                            
+                            
+                           
+                        }
+                        
+                    });
+                    myInvitaionsVBox.getChildren().add(a);
+                    
+                    
+                
+            }
+            userInv.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+
+    private void fillFixNotePane() {
+        fixNoteVBox.getChildren().clear();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT `Title`, `Description`, `Date`,`Fix Note` FROM `diary`,`note`,`user-calendar` WHERE `diary`.`ID`=`note`.`diaryid` and `user-calendar`.`diaryid`=`diary`.`ID`and `Fix Note`='1' and `user-calendar`.`username`='"+loginUserName+"' ORDER by `diary`.`Date` desc";
+            ResultSet fixedNotes=stmt.executeQuery(sqlstr);
+            while(fixedNotes.next()){
+                    AnchorPane  a=new AnchorPane ();//
+                    a.setStyle("-fx-pref-width:330px;-fx-pref-height:USE_COMPUTED_SIZE; -fx-border-color: transparent transparent #DA0037 transparent ; -fx-background-color:#EFEFEF;");
+                    Label title=new Label(fixedNotes.getString("Title"));
+                    Label nDate=new Label(fixedNotes.getString("Date"));
+                    Text description= new Text(fixedNotes.getString("Description"));
+                    description.setWrappingWidth(300);
+                    title.setStyle("-fx-font-size: 20px;");
+                    nDate.setStyle("-fx-font-size: 10px;-fx-text-fill:gray;");
+                    description.setStyle("-fx-font-size: 15px;-fx-text-fill:gray;");
+                    description.setFill(Color.GRAY);
+                    a.getChildren().add(title);
+                    a.getChildren().add(nDate);
+                    a.getChildren().add(description);
+                    a.setTopAnchor(title, 5.0);
+                    a.setLeftAnchor(title, 5.0);
+                    a.setTopAnchor(nDate, 40.0);
+                    a.setLeftAnchor(nDate, 5.0);
+                    a.setTopAnchor(description, 60.0);
+                    a.setLeftAnchor(description, 10.0);
+                    
+                    fixNoteVBox.getChildren().add(a);
+                    
+                    
+                
+            }
+            fixedNotes.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+
+    private void fillHomeVBox() {
+        homePageVBox.getChildren().clear();
+        try {
+            LocalDate today = LocalDate.now();
+            String formattedDate = today.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            Statement stmt = conn.createStatement();
+            String sqlstr="SELECT `Title`, `Description`, `Date` FROM `diary`,`event`,`user-calendar` WHERE `diary`.`ID`=`event`.`diaryid` and `user-calendar`.`diaryid`=`diary`.`ID`and `user-calendar`.`username`='"+loginUserName+"' and `Date`>='"+formattedDate+"'ORDER by `diary`.`Date` asc LIMIT 0,10;";
+            ResultSet nEvents=stmt.executeQuery(sqlstr);
+            while(nEvents.next()){
+                    AnchorPane  a=new AnchorPane ();//
+                    a.setStyle("-fx-pref-width:970px;-fx-pref-height:USE_COMPUTED_SIZE; -fx-border-color: transparent transparent #DA0037 transparent ; -fx-background-color:#BCBCBC;");
+                    Label title=new Label(nEvents.getString("Title"));
+                    Label nDate=new Label(nEvents.getString("Date"));
+                    Text description= new Text(nEvents.getString("Description"));
+                    description.setWrappingWidth(900);
+                    title.setStyle("-fx-font-size: 20px;");
+                    nDate.setStyle("-fx-font-size: 10px;-fx-text-fill:gray;");
+                    description.setStyle("-fx-font-size: 15px;-fx-text-fill:gray;");
+                    description.setFill(Color.GRAY);
+                    a.getChildren().add(title);
+                    a.getChildren().add(nDate);
+                    a.getChildren().add(description);
+                    a.setTopAnchor(title, 5.0);
+                    a.setLeftAnchor(title, 5.0);
+                    a.setTopAnchor(nDate, 40.0);
+                    a.setLeftAnchor(nDate, 5.0);
+                    a.setTopAnchor(description, 60.0);
+                    a.setLeftAnchor(description, 10.0);
+                    
+                    homePageVBox.getChildren().add(a);
+                    
+                    
+                
+            }
+            nEvents.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+    }
+
 }

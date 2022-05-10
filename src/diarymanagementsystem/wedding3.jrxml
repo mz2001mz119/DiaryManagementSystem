@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="wedding" pageWidth="2161" pageHeight="3121" columnWidth="2161" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="391c9f1d-c545-4e6b-ad9e-03f89dc3daf1">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="name1" class="java.lang.String"/>
+	<parameter name="name2" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="timeDate" class="java.lang.String"/>
+	<parameter name="street" class="java.lang.String"/>
+	<parameter name="hotel" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band height="3121" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="2160" height="3120" uuid="08228047-6f74-472e-8695-cc86bfd9722f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["wedding3.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="270" y="630" width="1580" height="624" forecolor="#B987C4" uuid="f576aa98-693c-48b5-84ac-2a9ed9dd17bc"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Segoe Script" size="100"/>
+				</textElement>
+				<text><![CDATA[J O I N   U S  A S   W E
+C E L E B R A T E   T H E   M A R R I A G E   O F]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="226" y="1190" width="820" height="200" forecolor="#FF0576" uuid="9ea3cacf-2438-4a22-8700-7148df07509d"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Curlz MT" size="122"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{name1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="806" y="1190" width="592" height="192" forecolor="#FF0576" uuid="05f7a9a1-fda6-4823-965b-998fc825f2a7"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Curlz MT" size="122"/>
+				</textElement>
+				<text><![CDATA[&]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1150" y="1190" width="748" height="200" forecolor="#FF0576" uuid="db3101a4-2439-4079-a52e-d6471d2b41ef"/>
+				<box>
+					<pen lineColor="rgba(0, 0, 0, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Curlz MT" size="122"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{name2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="1710" width="1479" height="170" forecolor="#FF640A" uuid="bc1f856a-04a1-4ba8-9d1a-50c3ef9edaba"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(0, 0, 0, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="85"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{timeDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="1920" width="1471" height="190" forecolor="#FF640A" uuid="b80916c7-a25d-4710-9dbc-165e74a286b3"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(0, 0, 0, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="85"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="2130" width="1471" height="206" forecolor="#FF640A" uuid="b37cdcd5-6a65-4860-8c0b-cb06f45f2743"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(0, 0, 0, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="85"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{street}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="360" y="2360" width="1471" height="178" forecolor="#FF640A" uuid="3abee38d-e18c-4f47-b8bb-9122dd18697b"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(0, 0, 0, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="85"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hotel}]]></textFieldExpression>
+			</textField>
+		</band>
+	</background>
+</jasperReport>

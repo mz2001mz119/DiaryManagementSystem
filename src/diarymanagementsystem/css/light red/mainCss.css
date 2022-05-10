@@ -77,16 +77,9 @@
     -fx-background-repeat: no-repeat; 
     -fx-background-size: 30px 30px; 
     -fx-background-position: center center ;
-    -fx-background-color:transparent;
     
 }
-#invitationCardButton{
-    -fx-background-image: url('../../images/invitationCards/54680372-37f0-499a-9ee5-051e23ed6d12.jpg');
-    -fx-background-repeat: no-repeat; 
-    -fx-background-position: center center;
-    -fx-border-color: -fx-primary-color;
-    -fx-border-width:  2px;
-}
+
 
 #sendButton{
     -fx-background-image: url('../../images/icons/send.png');
@@ -470,8 +463,34 @@
 .scroll-pane, #scrollAnchorPane{
     -fx-background-color : transparent;
 }
-
-
+/*-------------------------------------INVITIONS PANE ----------------------------------*/
+#p1,#p2,#p3,#p4,#p5,#p6,#b1,#b2,#b3,#b4,#b5,#b6,#w1,#w2,#w3,#w4,#w5,#w6{
+    -fx-background-repeat: no-repeat; 
+    -fx-background-position: center center;
+    -fx-border-color: -fx-primary-color;
+    -fx-border-width:  2px;
+    -fx-background-size: cover;
+}
+#p1{-fx-background-image: url('../../images/invitationCards/party/party1.png');}
+#p2{-fx-background-image: url('../../images/invitationCards/party/party2.png');}
+#p3{-fx-background-image: url('../../images/invitationCards/party/party3.png');}
+#p4{-fx-background-image: url('../../images/invitationCards/party/party4.png');}
+#p5{-fx-background-image: url('../../images/invitationCards/party/party5.png');}
+#p6{-fx-background-image: url('../../images/invitationCards/party/party6.png');}
+/*------------*/
+#b1{-fx-background-image: url('../../images/invitationCards/Birthday/birth1.png');}
+#b2{-fx-background-image: url('../../images/invitationCards/Birthday/birth2.png');}
+#b3{-fx-background-image: url('../../images/invitationCards/Birthday/birth3.png');}
+#b4{-fx-background-image: url('../../images/invitationCards/Birthday/birth4.png');}
+#b5{-fx-background-image: url('../../images/invitationCards/Birthday/birth5.png');}
+#b6{-fx-background-image: url('../../images/invitationCards/Birthday/birth6.png');}
+/*------------*/
+#w1{-fx-background-image: url('../../images/invitationCards/wedding/wedding1.png');}
+#w2{-fx-background-image: url('../../images/invitationCards/wedding/wedding2.png');}
+#w3{-fx-background-image: url('../../images/invitationCards/wedding/wedding3.png');}
+#w4{-fx-background-image: url('../../images/invitationCards/wedding/wedding4.png');}
+#w5{-fx-background-image: url('../../images/invitationCards/wedding/wedding5.png');}
+#w6{-fx-background-image: url('../../images/invitationCards/wedding/wedding6.png');}
 
 
 

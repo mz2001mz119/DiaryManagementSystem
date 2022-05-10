@@ -19,6 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane id="backgroundPane" minHeight="700.0" minWidth="1500.0" prefHeight="700.0" prefWidth="1500.0" stylesheets="@css/light%20red/mainCss.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="diarymanagementsystem.FXMLMainInterfaceController">
    <children>
@@ -159,24 +160,45 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="fixNotesPane" layoutX="1186.0" layoutY="14.0" minHeight="700.0" minWidth="350.0" prefHeight="700.0" prefWidth="350.0" style="-fx-background-color: blue;" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <AnchorPane id="rightPane" fx:id="fixNotesPane" layoutX="1186.0" layoutY="14.0" minHeight="700.0" minWidth="350.0" prefHeight="700.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane layoutY="20.0" prefHeight="644.0" prefWidth="350.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
+               <content>
+                  <VBox id="rightVBox" fx:id="fixNoteVBox" minHeight="642.0" spacing="5.0" />
+               </content>
+            </ScrollPane>
+         </children></AnchorPane>
+      <AnchorPane fx:id="homePane" layoutX="177.0" layoutY="58.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ScrollPane layoutX="187.0" layoutY="28.0" prefHeight="644.0" prefWidth="350.0" style="-fx-background-color: transparent; -fx-border-color: #DA0037;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+               <content>
+                  <VBox id="rightVBox" fx:id="homePageVBox" prefWidth="985.0" spacing="5.0" />
+               </content>
+            </ScrollPane>
+            <Label layoutX="50.0" layoutY="54.0" text="nearest events:">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="invitationsPane" layoutX="860.0" layoutY="99.0" prefHeight="700.0" prefWidth="1440.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane layoutX="285.0" layoutY="14.0" minHeight="70.0" minWidth="870.0" prefHeight="70.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;">
+            <AnchorPane minHeight="70.0" minWidth="870.0" prefHeight="70.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                  <HBox alignment="CENTER" layoutX="185.0" prefHeight="50.0" prefWidth="500.0" spacing="40.0" style="-fx-border-color: transparent transparent #EA0640 transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="185.0">
+                  <HBox alignment="CENTER" layoutX="185.0" prefHeight="50.0" prefWidth="800.0" spacing="100.0" style="-fx-border-color: transparent transparent #EA0640 transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="320.0">
                      <children>
-                        <Button id="topBarButtons" fx:id="partyButton" mnemonicParsing="false" onAction="#topBarAction" text="Party">
+                        <Button id="topBarButtons" fx:id="createCardButton" mnemonicParsing="false" onAction="#topBarAction" text="Create Invitation">
                            <font>
                               <Font name="AdobePiStd" size="15.0" />
                            </font>
                         </Button>
-                        <Button id="topBarButtons" fx:id="birthdayButton" mnemonicParsing="false" onAction="#topBarAction" text="BirthDay">
+                        <Button id="topBarButtons" fx:id="showCardsButton" mnemonicParsing="false" onAction="#topBarAction" text="Show My Cards">
                            <font>
                               <Font name="AdobePiStd" size="15.0" />
                            </font>
                         </Button>
-                        <Button id="topBarButtons" fx:id="weddingButton" mnemonicParsing="false" onAction="#topBarAction" text="Wedding">
+                        <Button id="topBarButtons" fx:id="myInvitationsButton" mnemonicParsing="false" onAction="#topBarAction" text="My Invitations">
                            <font>
                               <Font name="AdobePiStd" size="15.0" />
                            </font>
@@ -185,60 +207,225 @@
                   </HBox>
                </children>
             </AnchorPane>
-            <AnchorPane fx:id="partyPane" layoutX="354.0" layoutY="84.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+            <AnchorPane fx:id="createCardsPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
                <children>
-                  <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <content>
-                        <VBox prefWidth="1435.0" spacing="50.0">
+                  <AnchorPane minHeight="70.0" minWidth="870.0" prefHeight="70.0" prefWidth="870.0" style="-fx-border-color: #BCBCBC transparent transparent transparent;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <children>
+                        <HBox alignment="CENTER" layoutX="185.0" prefHeight="50.0" prefWidth="500.0" spacing="40.0" style="-fx-border-color: transparent transparent #EA0640 transparent;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="470.0" AnchorPane.rightAnchor="470.0">
                            <children>
-                              <HBox alignment="CENTER" spacing="200.0">
-                                 <children>
-                                    <Button id="invitationCardButton" mnemonicParsing="false" prefHeight="450.0" prefWidth="285.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button id="invitationCardButton" mnemonicParsing="false" prefHeight="450.0" prefWidth="285.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <Button id="invitationCardButton" mnemonicParsing="false" prefHeight="450.0" prefWidth="285.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                 </children>
-                              </HBox>
-                              <HBox alignment="CENTER" spacing="200.0">
-                                 <children>
-                                    <Button id="invitationCardButton" mnemonicParsing="false" prefHeight="450.0" prefWidth="285.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button id="invitationCardButton" mnemonicParsing="false" prefHeight="450.0" prefWidth="285.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                    <Button id="invitationCardButton" mnemonicParsing="false" prefHeight="450.0" prefWidth="285.0">
-                                       <cursor>
-                                          <Cursor fx:constant="HAND" />
-                                       </cursor>
-                                    </Button>
-                                 </children>
-                              </HBox>
+                              <Button id="topBarButtons" fx:id="partyButton" mnemonicParsing="false" onAction="#topBarAction" text="Party">
+                                 <font>
+                                    <Font name="AdobePiStd" size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button id="topBarButtons" fx:id="birthdayButton" mnemonicParsing="false" onAction="#topBarAction" text="BirthDay">
+                                 <font>
+                                    <Font name="AdobePiStd" size="15.0" />
+                                 </font>
+                              </Button>
+                              <Button id="topBarButtons" fx:id="weddingButton" mnemonicParsing="false" onAction="#topBarAction" text="Wedding">
+                                 <font>
+                                    <Font name="AdobePiStd" size="15.0" />
+                                 </font>
+                              </Button>
                            </children>
-                        </VBox>
-                     </content>
-                  </ScrollPane>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="partyPane" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+                     <children>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <VBox prefWidth="1435.0" spacing="50.0">
+                                 <children>
+                                    <HBox alignment="CENTER" spacing="200.0">
+                                       <children>
+                                          <Button id="p1" fx:id="p1" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button id="p2" fx:id="p2" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button id="p3" fx:id="p3" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="200.0">
+                                       <children>
+                                          <Button id="p4" fx:id="p4" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button id="p5" fx:id="p5" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button id="p6" fx:id="p6" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="birthPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+                     <children>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <VBox prefWidth="1435.0" spacing="50.0">
+                                 <children>
+                                    <HBox alignment="CENTER" spacing="200.0">
+                                       <children>
+                                          <Button id="b1" fx:id="b1" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button id="b2" fx:id="b2" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button id="b3" fx:id="b3" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="200.0">
+                                       <children>
+                                          <Button id="b4" fx:id="b4" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button id="b5" fx:id="b5" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button id="b6" fx:id="b6" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane fx:id="weddingPane" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+                     <children>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <VBox prefWidth="1435.0" spacing="50.0">
+                                 <children>
+                                    <HBox alignment="CENTER" spacing="200.0">
+                                       <children>
+                                          <Button id="w1" fx:id="w1" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button id="w2" fx:id="w2" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button id="w3" fx:id="w3" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER" spacing="200.0">
+                                       <children>
+                                          <Button id="w4" fx:id="w4" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button id="w5" fx:id="w5" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                          <Button id="w6" fx:id="w6" mnemonicParsing="false" onAction="#invitationButtonsAction" prefHeight="450.0" prefWidth="285.0">
+                                             <cursor>
+                                                <Cursor fx:constant="HAND" />
+                                             </cursor>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="showCardsPane" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <VBox fx:id="showCardsVBox" prefWidth="1435.0" spacing="50.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="myInvitaionsPane" layoutX="20.0" layoutY="20.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+               <children>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <content>
+                              <VBox fx:id="myInvitaionsVBox" prefWidth="1435.0" spacing="50.0" />
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children>
@@ -1526,6 +1713,165 @@
                         <VBox fx:id="groupReqVBox" prefWidth="500.0" />
                      </content>
                   </ScrollPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="diaryDayBlackPane" fx:id="createInvitationCardPane" layoutX="30.0" layoutY="30.0" prefHeight="700.0" prefWidth="1500.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane id="diaryDayPane" layoutX="92.0" layoutY="100.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="250.0" AnchorPane.rightAnchor="250.0" AnchorPane.topAnchor="50.0">
+               <children>
+                  <Label fx:id="closeCreateInvitationCardPane" layoutX="970.0" layoutY="14.0" onMouseClicked="#closePane" text="X" textFill="#da0037" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Label>
+                  <Button id="button" fx:id="createInvitationCard" alignment="CENTER" contentDisplay="CENTER" layoutX="351.0" layoutY="545.0" minHeight="30.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="60.0" prefWidth="300.0" text="Create Invitation Card" textAlignment="CENTER" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="351.0" AnchorPane.rightAnchor="351.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <AnchorPane layoutX="105.0" layoutY="99.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="280.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="50.0">
+                     <children>
+                        <Label layoutX="-9.0" layoutY="-7.0" prefWidth="200.0" text="Name:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField id="textFieldBlackText" fx:id="nameInv" layoutX="169.0" layoutY="6.0" prefWidth="500.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="textInvLabel" layoutX="1.0" layoutY="3.0" prefWidth="200.0" text="Eevent description:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField id="textFieldBlackText" fx:id="textInv" layoutX="179.0" layoutY="16.0" prefWidth="500.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="40.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="11.0" layoutY="13.0" prefWidth="200.0" text="Time &amp; Date:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="80.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField id="textFieldBlackText" fx:id="TDInvi" layoutX="189.0" layoutY="26.0" prefWidth="500.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="80.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="21.0" layoutY="23.0" prefWidth="200.0" text="Address:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="120.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField id="textFieldBlackText" fx:id="addressInvi" layoutX="199.0" layoutY="36.0" prefWidth="500.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="120.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="31.0" layoutY="33.0" prefWidth="200.0" text="Street Name:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="160.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField id="textFieldBlackText" fx:id="streetInv" layoutX="209.0" layoutY="46.0" prefWidth="500.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="160.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="41.0" layoutY="43.0" prefWidth="200.0" text="Place Name:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="200.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField id="textFieldBlackText" fx:id="placeInv" layoutX="219.0" layoutY="56.0" prefWidth="500.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="200.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                     </children>
+                  </AnchorPane>
+                  <Label id="ErrorLabel" fx:id="CreateInvErrorLabel" layoutX="382.0" layoutY="568.0" prefHeight="18.0" prefWidth="250.0" text="*Error: Please macke sure you fill all the fields" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="382.0" AnchorPane.rightAnchor="366.6" />
+                  <Label layoutX="14.0" layoutY="11.0" text="Card Info:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="10.0">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="14.0" layoutY="319.0" text="Invitation Info:" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="300.0">
+                     <font>
+                        <Font size="30.0" />
+                     </font>
+                  </Label>
+                  <AnchorPane layoutX="80.0" layoutY="347.0" prefHeight="150.0" prefWidth="200.0" AnchorPane.leftAnchor="80.0" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="350.0">
+                     <children>
+                        <Label layoutX="-9.0" layoutY="-7.0" prefWidth="200.0" text="Receivers Username:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField id="textFieldBlackText" fx:id="usernameInv" layoutX="169.0" layoutY="6.0" prefWidth="500.0" promptText="username1,username2,..." AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label fx:id="textInvLabel1" layoutX="1.0" layoutY="3.0" prefWidth="200.0" text="Title" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="40.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField id="textFieldBlackText" fx:id="titleInv" layoutX="179.0" layoutY="16.0" prefWidth="500.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="40.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="11.0" layoutY="13.0" prefWidth="200.0" text="Description:" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="80.0">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField id="textFieldBlackText" fx:id="desInv" layoutX="189.0" layoutY="26.0" prefWidth="500.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="80.0">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </TextField>
+                        <Label layoutX="201.0" layoutY="122.0" text="you can Enter # in Receiver Username to just save the card without sending" textFill="#5b5b5b">
+                           <font>
+                              <Font size="15.0" />
+                           </font>
+                        </Label>
+                        <Label id="ErrorLabel" fx:id="invitationUsernameError" layoutX="200.0" layoutY="32.0" text="*Error: This Username dose not exisits:" visible="false" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane id="diaryDayBlackPane" fx:id="createInvitationCardSentPane" layoutX="40.0" layoutY="40.0" prefHeight="700.0" prefWidth="1500.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane id="diaryDayPane" layoutX="92.0" layoutY="100.0" prefHeight="600.0" prefWidth="1000.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="300.0" AnchorPane.rightAnchor="300.0" AnchorPane.topAnchor="150.0">
+               <children>
+                  <Button id="button" fx:id="closeCreateInvitationCardSentPane" alignment="CENTER" contentDisplay="CENTER" layoutX="351.0" layoutY="545.0" minHeight="30.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="60.0" prefWidth="300.0" text="OK" textAlignment="CENTER" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="351.0" AnchorPane.rightAnchor="351.0">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Button>
+                  <Text fx:id="usernameInvErrorText" fill="RED" layoutX="50.0" layoutY="122.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Error: receiver username is not correct:" textAlignment="CENTER" wrappingWidth="800.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="invSentLabel" fill="#07690f" layoutX="50.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="✓Invitation has been sent for rest of users" textAlignment="CENTER" wrappingWidth="800.0">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
          </children>

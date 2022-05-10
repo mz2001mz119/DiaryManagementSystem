@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Birthday" pageWidth="1041" pageHeight="1501" columnWidth="1041" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4b6aca32-2963-4f6a-9186-25f72e48f932">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="age" class="java.lang.String"/>
+	<parameter name="timeDate" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="street" class="java.lang.String"/>
+	<parameter name="hotel" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band height="1500" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<image>
+				<reportElement x="0" y="0" width="1040" height="1500" uuid="e16c7fa5-b55b-4e31-ace8-a56a27da5891">
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<imageExpression><![CDATA["birthdate.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="120" y="170" width="668" height="168" forecolor="#9AE1EB" backcolor="rgba(255, 255, 255, 0.0)" uuid="f6dc564d-b304-4baa-9876-af7364be4f0c"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Dashed" lineColor="rgba(255, 255, 255, 0.019607844)"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Black" size="100" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["BIRTHDAY"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="220" y="290" width="668" height="168" forecolor="#F3B6AC" backcolor="rgba(255, 255, 255, 0.0)" uuid="b7d5c412-a5b6-448f-8553-dc97e7507742"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Black" size="100" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PARTY"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="450" width="699" height="108" forecolor="#5D352C" backcolor="rgba(255, 255, 255, 0.0)" uuid="480a266e-0319-4d44-8a1b-4fc9e76560de"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Narrow" size="70" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["CELEBRATE WITH US!"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="260" y="710" width="760" height="108" forecolor="#E66D58" backcolor="rgba(255, 255, 255, 0.0)" uuid="0941417f-7152-4692-a208-ac7431c18620"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Arial Narrow" size="40" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{name}+" is turning "+$P{age}+"!"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="878" width="571" height="70" forecolor="#5D352C" uuid="ba28f883-6bbe-4d02-b773-9457596f8e10"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{timeDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="970" width="571" height="70" forecolor="#5D352C" uuid="69594e3e-cfa4-4020-9a1d-725243213839"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="1060" width="571" height="70" forecolor="#5D352C" uuid="fbd55e68-16cc-4bc5-83c3-e1a9e01651e7"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{street}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="1150" width="571" height="70" forecolor="#5D352C" uuid="5c8a33ee-53ce-41dd-ba00-2bc961e908e6"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="40"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hotel}]]></textFieldExpression>
+			</textField>
+		</band>
+	</background>
+</jasperReport>

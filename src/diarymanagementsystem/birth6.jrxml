@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="birth2" pageWidth="2161" pageHeight="3121" columnWidth="2161" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e9d2248b-6701-4f1a-a0dc-0c2583cb2e12">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="name" class="java.lang.String"/>
+	<parameter name="age" class="java.lang.String"/>
+	<parameter name="timeDate" class="java.lang.String"/>
+	<parameter name="address" class="java.lang.String"/>
+	<parameter name="street" class="java.lang.String"/>
+	<parameter name="hotel" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band height="3121" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="2161" height="3121" uuid="a8322793-c75e-460a-9a8d-4ad100f7a5bb"/>
+				<imageExpression><![CDATA["birht6.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="450" y="1608" width="1036" height="172" forecolor="#9AE1EB" backcolor="rgba(255, 255, 255, 0.0)" uuid="6bad64a8-9226-4dc9-bd11-bf113f454a79"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Dashed" lineColor="rgba(255, 255, 255, 0.019607844)"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Black" size="111" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["BIRTHDAY"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1200" y="1608" width="856" height="172" forecolor="#F3B6AC" backcolor="rgba(255, 255, 255, 0.0)" uuid="b428f718-6487-4db2-a05b-13556c82a822"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</box>
+				<textElement>
+					<font fontName="Arial Black" size="111" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["PARTY"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="320" y="810" width="1583" height="432" forecolor="#030000" backcolor="rgba(255, 255, 255, 0.0)" uuid="4a3fc556-3dd2-476e-b05a-7d68761817f9"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Harlow Solid Italic" size="120" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Join us for "+$P{name}+"'s"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="137" y="980" width="1940" height="592" forecolor="#030000" backcolor="rgba(255, 255, 255, 0.0)" uuid="642c84c3-3133-4926-8ac8-8e8ab75b6abb"/>
+				<box>
+					<pen lineWidth="0.0" lineStyle="Double" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Vladimir Script" size="350" isBold="true" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{age}+" th"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="1780" width="1635" height="218" forecolor="#4A4A4A" uuid="6e982ad5-0a83-4d0e-bc3f-1feeda5a28ce"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="100"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{timeDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="2000" width="1635" height="270" forecolor="#4A4A4A" uuid="785afad7-b414-4e23-a8e1-ac38692a562e"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="100"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{address}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="2270" width="1635" height="218" forecolor="#4A4A4A" uuid="ac2c1189-5e42-40cb-9417-b3131fe26796"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="100"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{street}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="2500" width="1635" height="238" forecolor="#4A4A4A" uuid="48811915-8115-4bba-b224-500a6727bb7f"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(255, 255, 255, 0.0)"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Script MT Bold" size="100"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{hotel}]]></textFieldExpression>
+			</textField>
+		</band>
+	</background>
+</jasperReport>
