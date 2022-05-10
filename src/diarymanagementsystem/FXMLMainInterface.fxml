@@ -1156,9 +1156,9 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane id="slideMenuPane" fx:id="sliderMenuPane" maxWidth="60.0" minHeight="700.0" minWidth="60.0" prefHeight="700.0" prefWidth="60.0" style="-fx-background-color: red;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="slideMenuPane" fx:id="sliderMenuPane" maxWidth="60.0" minHeight="700.0" minWidth="60.0" prefHeight="700.0" prefWidth="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox id="slideMenu" alignment="TOP_CENTER" maxWidth="60.0" minHeight="700.0" minWidth="60.0" prefHeight="700.0" prefWidth="60.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <VBox id="slideMenu" alignment="TOP_CENTER" maxWidth="60.0" minHeight="700.0" minWidth="60.0" prefHeight="700.0" prefWidth="60.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <AnchorPane id="sliderMenuButtonPane" maxWidth="60.0" minHeight="60.0" minWidth="60.0" prefHeight="60.0" prefWidth="60.0">
                      <children>
@@ -1233,6 +1233,11 @@
                   </AnchorPane>
                </children>
             </VBox>
+            <Button id="button" fx:id="logoutButton" alignment="CENTER" contentDisplay="CENTER" layoutY="650.0" minHeight="40.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="30.0" prefWidth="60.0" text="out" textAlignment="CENTER" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="0.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane id="diaryDayBlackPane" fx:id="diaryDayBlackPane" prefHeight="700.0" prefWidth="1500.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

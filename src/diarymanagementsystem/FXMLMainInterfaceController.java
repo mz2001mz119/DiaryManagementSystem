@@ -72,6 +72,9 @@ import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextFormatter;
@@ -81,6 +84,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import net.sf.jasperreports.engine.DefaultJasperReportsContext;
@@ -1039,6 +1043,8 @@ public class FXMLMainInterfaceController implements Initializable {
     private VBox fixNoteVBox;
     @FXML
     private VBox homePageVBox;
+    @FXML
+    private Button logoutButton;
 
 
 
@@ -1052,7 +1058,7 @@ public class FXMLMainInterfaceController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        
-        loginUserName="test";
+        
         try {
             //Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
@@ -2129,6 +2135,18 @@ void functionshowinformation(){
             createGroupSendMessages.setSelected(false);
             createGroupAddDiary.setSelected(false);
             createGroupBlackPane.setVisible(true);
+        }
+        else if(event.getSource()==logoutButton){
+            try {
+                loginUserName="";
+                Parent Parent = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
+                Scene Scene = new Scene(Parent);
+                Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
+                Stage.setScene(Scene);
+                Stage.show();
+            } catch (IOException ex) {
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else if(event.getSource()==createGroup){
             try {
