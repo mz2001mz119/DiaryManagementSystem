@@ -1425,6 +1425,7 @@ void functionshowinformation(){
             invitationsPane.setVisible(false);
         }
         else if(event.getSource()==sliderMenuInvitationButton||event.getSource()==sliderMenuInvitationButton2){
+            fillShowCardsVBox();
             sliderMenuInvitationButton.setStyle("-fx-background-color: #C30032;");
             sliderMenuInvitationButton2.setStyle("-fx-background-color: #C30032;-fx-text-fill:white;");
             sliderMenuHomeButton.setStyle("");
@@ -2668,7 +2669,7 @@ void functionshowinformation(){
                                     Statement stmt3 = conn.createStatement();
                                     String sqlstr3="INSERT INTO `send-invitation`( `invitationid`, `senderusername`, `receiverusername`, `date`) VALUES ('"+invId.getInt("ID")+"','"+sender+"','"+username.getString("username")+"','"+formattedDate+"')";
                                     stmt3.executeUpdate(sqlstr3);
-                                    System.out.println(sqlstr3);
+                                    
                                 }
                                 else{
                                     invalidUsers+=invUsername[i].trim()+",";
@@ -3693,10 +3694,12 @@ void functionshowinformation(){
             String sqlstr="SELECT `id`, `invitationid`, `senderusername`, `receiverusername`, `date` FROM `send-invitation` WHERE `senderusername`='"+loginUserName+"' group by `invitationid`;";
             ResultSet userInv=stmt.executeQuery(sqlstr);
             while(userInv.next()){
+                
                 Statement stmt2 = conn.createStatement();
-                String sqlstr2="SELECT `ID`, `title`, `description`, `imagecard` FROM `invitation` WHERE `ID`='"+userInv.getInt("id")+"'";
+                String sqlstr2="SELECT `ID`, `title`, `description`, `imagecard` FROM `invitation` WHERE `ID`='"+userInv.getString("id")+"'";
                 ResultSet userInvInfo=stmt2.executeQuery(sqlstr2);
                 userInvInfo.next();
+                System.out.println(userInvInfo.getString("title"));
                     AnchorPane  a=new AnchorPane ();
                     a.setStyle("-fx-pref-width:330px; -fx-pref-height:70px; -fx-border-color: transparent transparent #DA0037 transparent ; -fx-background-color:#BCBCBC;");
                     ImageView invImage = new ImageView();
@@ -3752,7 +3755,7 @@ void functionshowinformation(){
                     showCardsVBox.getChildren().add(a);
                     
                     
-                
+                userInvInfo.close();
             }
             userInv.close();
         } catch (SQLException ex) {
