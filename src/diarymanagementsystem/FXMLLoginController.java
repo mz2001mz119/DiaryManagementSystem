@@ -107,6 +107,17 @@ public class FXMLLoginController implements Initializable {
     });
 }
     
+       public static boolean checkifexsist(String username) throws SQLException{
+        boolean flag=false;
+         Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/diarymanagementsystem","root", "");
+         Statement stmt = conn.createStatement();
+         String sqlstr="select * from `user` where username ="+"'"+username+"';";
+         ResultSet rs1 = stmt.executeQuery(sqlstr);
+         if(rs1.next())flag=true;
+         conn.close();
+        return flag;
+    }
+    
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -200,5 +200,25 @@ public class FXMLSignupController implements Initializable {
     });
     
 }
+        public static boolean checkemailtrue(String eemail){
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\."+"[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" + "A-Z]{2,7}$";
+        Pattern pat = Pattern.compile(emailRegex);
+        boolean valemail=pat.matcher(eemail).matches();
+        return valemail;
+    }
+        
+         public static boolean checkusername(String username){
+        boolean flag=true;
+        char []a=username.toCharArray();
+        for(int i=0;i<a.length;i++){
+        if(Character.isLetterOrDigit(a[i])){}
+        else if(a[i]=='-'){}
+        else if(a[i]=='_'){}
+        else if(a[i]=='.'){}
+        else flag=false;
+         }
+    return flag;
+    }
     
 }
