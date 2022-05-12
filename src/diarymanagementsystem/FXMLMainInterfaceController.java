@@ -1045,6 +1045,8 @@ public class FXMLMainInterfaceController implements Initializable {
     private VBox homePageVBox;
     @FXML
     private Button logoutButton;
+    @FXML
+    private Button groupsInvitationButton;
 
 
 
@@ -2721,6 +2723,9 @@ void functionshowinformation(){
                 CreateInvErrorLabel.setVisible(true);
             }
         }
+        else if(event.getSource()==groupsInvitationButton){
+            FillUserInvitedToGroupsVBox();
+        }
         
         
         
@@ -3147,6 +3152,77 @@ void functionshowinformation(){
             }
         
        
+    }
+    public void FillUserInvitedToGroupsVBox(){
+            try {
+                publicGroupVBox.getChildren().clear();
+                    Statement stmt = conn.createStatement();
+                    String sqlstr="SELECT `name`, `user-group`.`groupid` , `userapproverequest`, `adminapproverequest` FROM `user-group`,`dms-group` WHERE `user-group`.`groupid`=`dms-group`.`groupid` and `user-group`.`username`='"+loginUserName+"' and `adminapproverequest`=1 and `userapproverequest`=0;";
+                    ResultSet invGroups=stmt.executeQuery(sqlstr);
+                    while(invGroups.next()){
+                            AnchorPane a=new AnchorPane();
+                            a.setStyle("-fx-pref-width:1000px; -fx-pref-height:100px; -fx-border-color:transparent transparent #DA0037 transparent; -fx-background-color:#BCBCBC;");
+                            Label groupName = new Label(invGroups.getString("name"));
+                            groupName.setStyle("-fx-font-size: 20px;");
+                            a.getChildren().add(groupName);
+                            a.setTopAnchor(groupName, 10.0);
+                            a.setLeftAnchor(groupName, 100.0);
+                            Label GroupID = new Label(invGroups.getString("groupid"));
+                            GroupID.setStyle("-fx-font-size: 12px; -fx-text-fill: gray");
+                            a.getChildren().add(GroupID);
+                            a.setTopAnchor(GroupID, 40.0);
+                            a.setLeftAnchor(GroupID, 120.0);
+                            Label joinGroup = new Label("Accept");
+                            joinGroup.setStyle("-fx-font-size: 20px; -fx-text-fill: #DA0037;-fx-cursor: hand;");
+                            a.getChildren().add(joinGroup);
+                            a.setTopAnchor(joinGroup, 30.0);
+                            a.setRightAnchor(joinGroup, 120.0);
+                            
+                            joinGroup.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                                @Override
+                                public void handle(MouseEvent t) {
+                                    try {
+                                        Statement stmt = conn.createStatement();
+                                        String sqlstr="UPDATE `user-group` SET `userapproverequest`='1' WHERE `groupid`='"+GroupID.getText()+"' and `username`='"+loginUserName+"'";
+                                        stmt.executeUpdate(sqlstr);
+                                        publicGroupVBox.getChildren().clear();
+                                        FillUserInvitedToGroupsVBox();
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+
+                            });
+                            Label declineGroup = new Label("delete");
+                            declineGroup.setStyle("-fx-font-size: 20px; -fx-text-fill: #DA0037;-fx-cursor: hand;");
+                            a.getChildren().add(declineGroup);
+                            a.setTopAnchor(declineGroup, 30.0);
+                            a.setRightAnchor(declineGroup, 20.0);
+                            
+                            declineGroup.setOnMouseClicked(new EventHandler<MouseEvent>(){
+                                @Override
+                                public void handle(MouseEvent t) {
+                                    try {
+                                        Statement stmt = conn.createStatement();
+                                        String sqlstr="DELETE FROM `user-group` WHERE  `groupid`='"+GroupID.getText()+"' and `username`='"+loginUserName+"'";
+                                        stmt.executeUpdate(sqlstr);
+                                        publicGroupVBox.getChildren().clear();
+                                        FillUserInvitedToGroupsVBox();
+                                    } catch (SQLException ex) {
+                                        Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                }
+
+                            });
+                            publicGroupVBox.getChildren().add(a);
+                    
+                    }
+                    invGroups.close();
+                
+            } catch (SQLException ex) {                    
+                Logger.getLogger(FXMLMainInterfaceController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
     }
 
     public void SearchOnPublicGroups(){

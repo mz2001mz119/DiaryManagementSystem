@@ -160,7 +160,7 @@
             </AnchorPane>
          </children>
       </AnchorPane>
-      <AnchorPane id="rightPane" fx:id="fixNotesPane" layoutX="1186.0" layoutY="14.0" minHeight="700.0" minWidth="350.0" prefHeight="700.0" prefWidth="350.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane id="rightPane" fx:id="fixNotesPane" layoutX="1186.0" layoutY="14.0" minHeight="700.0" minWidth="350.0" prefHeight="700.0" prefWidth="350.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ScrollPane layoutY="20.0" prefHeight="644.0" prefWidth="350.0" style="-fx-background-color: transparent;" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
                <content>
@@ -168,7 +168,7 @@
                </content>
             </ScrollPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="homePane" layoutX="177.0" layoutY="58.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane fx:id="homePane" layoutX="177.0" layoutY="58.0" prefHeight="200.0" prefWidth="200.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="350.0" AnchorPane.topAnchor="0.0">
          <children>
             <ScrollPane layoutX="187.0" layoutY="28.0" prefHeight="644.0" prefWidth="350.0" style="-fx-background-color: transparent; -fx-border-color: #DA0037;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
                <content>
@@ -1091,7 +1091,15 @@
                   <VBox fx:id="publicGroupVBox" prefWidth="995.0" />
                </content>
             </ScrollPane>
+            <Button id="groupsInvitationButton" fx:id="groupsInvitationButton" layoutX="1015.0" layoutY="20.0" minHeight="60.0" minWidth="60.0" mnemonicParsing="false" onAction="#actionButtons" prefHeight="60.0" prefWidth="60.0">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
          </children>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
       </AnchorPane>
       <AnchorPane id="rightPane" fx:id="myGroupsPane" layoutX="1200.0" layoutY="39.0" prefHeight="700.0" prefWidth="350.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
