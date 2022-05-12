@@ -1550,12 +1550,12 @@
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="14.0" layoutY="433.0" prefHeight="30.0" prefWidth="80.0" text="Minutes:" AnchorPane.topAnchor="440.0">
+                              <Label layoutX="14.0" layoutY="433.0" prefHeight="30.0" prefWidth="80.0" text="Hours:" AnchorPane.topAnchor="440.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="14.0" layoutY="466.0" prefHeight="30.0" prefWidth="80.0" text="Hours:" AnchorPane.topAnchor="480.0">
+                              <Label layoutX="14.0" layoutY="466.0" prefHeight="30.0" prefWidth="80.0" text="Minutes:" AnchorPane.topAnchor="480.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>
