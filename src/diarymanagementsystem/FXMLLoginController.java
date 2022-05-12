@@ -292,6 +292,7 @@ public class FXMLLoginController implements Initializable {
         
         if(rs2.next()){       
         // the Email and password are correct (open the Email confirmation page and send new code)
+        FXMLSignupController.usernamefn=rs2.getString("username");
         Parent Parent2 = FXMLLoader.load(getClass().getResource("FXMLEmailConfirmation.fxml"));
         Scene Scene2 = new Scene(Parent2);
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
@@ -340,6 +341,7 @@ public class FXMLLoginController implements Initializable {
         
         if(rs2.next()){       
         // the Email and password are correct (open the Email confirmation page and send new code)
+        FXMLSignupController.usernamefn=rs2.getString("username");
         Parent Parent2 = FXMLLoader.load(getClass().getResource("FXMLEmailConfirmation.fxml"));
         Scene Scene2 = new Scene(Parent2);
         Stage Stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
